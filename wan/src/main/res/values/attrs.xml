@@ -1,0 +1,13 @@
+<resources>
+
+    <declare-styleable name="StatusLayout">
+        <attr name="loading_view" format="reference" />
+        <attr name="error_view" format="reference" />
+        <attr name="empty_view" format="reference" />
+        <attr name="content_view" format="reference" />
+        <attr name="empty_click" format="reference" />
+        <attr name="error_click" format="reference" />
+    </declare-styleable>
+
+
+</resources>

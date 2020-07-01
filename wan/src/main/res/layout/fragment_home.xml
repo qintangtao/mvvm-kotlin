@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ta.wan.view.StatusLayout
-        android:id="@+id/status"
+    <com.ta.wan.view.StateLayout
+        android:id="@+id/stateLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:error_view="@layout/default_error_view"
-        app:content_view="@id/text_home">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/text_home"
@@ -24,5 +22,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.ta.wan.view.StatusLayout>
+    </com.ta.wan.view.StateLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

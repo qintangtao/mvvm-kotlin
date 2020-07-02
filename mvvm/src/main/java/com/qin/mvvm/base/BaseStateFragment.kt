@@ -1,5 +1,6 @@
 package com.qin.mvvm.base
 
+import android.os.Bundle
 import android.util.Log
 import androidx.databinding.ViewDataBinding
 import com.qin.mvvm.view.StateLayout
@@ -12,6 +13,18 @@ abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding> : Bas
     protected var isEmpty = false
 
     abstract fun stateLayout(): StateLayout?
+
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+        stateLayout()?.run {
+            setEmptyClickListener{
+                lazyLoadData()
+            }
+            setErrorClickListener{
+                lazyLoadData()
+            }
+        }
+    }
 
     override fun handleStart() {
         isError = false

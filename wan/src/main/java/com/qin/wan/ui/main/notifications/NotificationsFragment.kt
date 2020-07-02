@@ -1,31 +1,31 @@
 package com.qin.wan.ui.main.notifications
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.text.TextUtils
+import android.util.Log
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import com.qin.mvvm.base.BaseStateFragment
 import com.qin.wan.R
+import kotlinx.android.synthetic.main.fragment_notifications.*
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : BaseStateFragment<NotificationsViewModel, ViewDataBinding>() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private val TAG = "StatusLayout"
+    override fun layoutId() = R.layout.fragment_notifications
+    override fun stateLayout() = stateLayout
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
+    override fun lazyLoadData() {
+        Log.d(TAG, "lazyLoadData")
+        viewModel.run {
+            testStatus().observe(this@NotificationsFragment, Observer {
+                if (TextUtils.isEmpty(it)) {
+                    isEmpty = true
+                } else {
+                    text_notifications.text = it
+                }
+                Log.d(TAG, it)
+            })
+        }
     }
+
 }

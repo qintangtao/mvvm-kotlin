@@ -26,7 +26,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
 
     private var dialog: MaterialDialog? = null
 
-    private var isFirst: Boolean = true
+    private var isFirstLoad: Boolean = true
 
     abstract fun layoutId(): Int
     open fun initView(savedInstanceState: Bundle?) {}
@@ -34,7 +34,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     open fun handleStart() { showLoading() }
     open fun handleComplete() { dismissLoading()}
     open fun handleEvent(msg: Message) { ToastUtils.showLong("${msg.code}:${msg.msg}")}
-	// statusLayout()?.showLoading() ?: showLoading()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,15 +61,20 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         onVisible()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isFirstLoad = true
+    }
+
     override fun onResume() {
         super.onResume()
         onVisible()
     }
 
     private fun onVisible() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
+        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirstLoad) {
             lazyLoadData()
-            isFirst = false
+            isFirstLoad = false
         }
     }
 

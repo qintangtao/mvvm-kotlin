@@ -1,13 +1,23 @@
 package com.qin.wan.ui.main.dashboard
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.qin.mvvm.base.BaseViewModel
+import com.qin.mvvm.network.ResponseThrowable
+import kotlinx.coroutines.delay
 
-class DashboardViewModel : ViewModel() {
+class DashboardViewModel : BaseViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    private val text = MutableLiveData<String>()
+
+    fun testStatus(isNotify: Boolean = true): MutableLiveData<String> {
+        launchGo({
+            delay(2000)
+            throw ResponseThrowable(3000, "error ")
+            text.value = "This is dashboard Fragment"
+
+            //This is dashboard Fragment
+        }, isNotify = isNotify)
+        return text
     }
-    val text: LiveData<String> = _text
+
 }

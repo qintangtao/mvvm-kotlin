@@ -1,31 +1,31 @@
 package com.qin.wan.ui.main.dashboard
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.text.TextUtils
+import android.util.Log
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import com.qin.mvvm.base.BaseStateFragment
 import com.qin.wan.R
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : BaseStateFragment<DashboardViewModel, ViewDataBinding>() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private val TAG = "StatusLayout"
+    override fun layoutId() = R.layout.fragment_dashboard
+    override fun stateLayout() = stateLayout
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
+    override fun lazyLoadData() {
+        Log.d(TAG, "lazyLoadData")
+        viewModel.run {
+            testStatus().observe(this@DashboardFragment, Observer {
+                if (TextUtils.isEmpty(it)) {
+                    isEmpty = true
+                } else {
+                    text_dashboard.text = it
+                }
+                Log.d(TAG, it)
+            })
+        }
     }
+
 }

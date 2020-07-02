@@ -74,7 +74,7 @@ class StateLayout : FrameLayout {
     }
 
     fun setErrorClickListener(onClick: (View?) -> Unit) {
-        mEmptyRetry?.setOnClickListener(OnClickListener {
+        mErrorRetry?.setOnClickListener(OnClickListener {
             onClick(it)
         })
     }

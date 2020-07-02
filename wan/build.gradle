@@ -39,6 +39,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     api project(path: ':mvvm')
+
     //androidx
     api rootProject.ext.androidxs
     //navigations

@@ -8,14 +8,15 @@ import android.view.View
 import android.widget.FrameLayout
 import com.qin.mvvm.R
 
+//https://github.com/LZKDreamer/StateLayout
 class StateLayout : FrameLayout {
 
     private lateinit var mLoadingView: View
     private lateinit var mErrorView: View
     private lateinit var mEmptyView: View
     private lateinit var mContentView: View
-    private lateinit var mEmptyRetry: View
-    private lateinit var mErrorRetry: View
+    //private lateinit var mEmptyRetry: View
+    //private lateinit var mErrorRetry: View
 
     constructor(context: Context): this(context, null)
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
@@ -31,8 +32,8 @@ class StateLayout : FrameLayout {
         addView(mErrorView)
         mEmptyView = View.inflate(context, typedArray.getResourceId(R.styleable.StateLayout_empty_view, R.layout.default_empty_view), null)
         addView(mEmptyView)
-        mEmptyRetry = findViewById(typedArray.getResourceId(R.styleable.StateLayout_empty_retry, R.id.text_empty))
-        mErrorRetry = findViewById(typedArray.getResourceId(R.styleable.StateLayout_error_retry, R.id.text_error))
+        //mEmptyRetry = findViewById(typedArray.getResourceId(R.styleable.StateLayout_empty_retry, R.id.text_empty))
+        //mErrorRetry = findViewById(typedArray.getResourceId(R.styleable.StateLayout_error_retry, R.id.text_error))
         typedArray.recycle()
     }
 
@@ -48,7 +49,6 @@ class StateLayout : FrameLayout {
                 break
             }
         }
-        //showLoadingView()
     }
 
     fun showLoadingView() {
@@ -68,13 +68,13 @@ class StateLayout : FrameLayout {
     }
 
     fun setEmptyClickListener(onClick: (View?) -> Unit) {
-        mEmptyRetry?.setOnClickListener(OnClickListener {
+        mEmptyView?.setOnClickListener(OnClickListener {
             onClick(it)
         })
     }
 
     fun setErrorClickListener(onClick: (View?) -> Unit) {
-        mErrorRetry?.setOnClickListener(OnClickListener {
+        mErrorView?.setOnClickListener(OnClickListener {
             onClick(it)
         })
     }
@@ -88,13 +88,13 @@ class StateLayout : FrameLayout {
 
     fun setEmptyClickListener(listener: OnClickListener) {
         listener?.let {
-            mEmptyRetry?.setOnClickListener(listener)
+            mEmptyView?.setOnClickListener(listener)
         }
     }
 
     fun setErrorClickListener(listener: OnClickListener) {
         listener?.let {
-            mErrorRetry?.setOnClickListener(listener)
+            mErrorView?.setOnClickListener(listener)
         }
     }
 

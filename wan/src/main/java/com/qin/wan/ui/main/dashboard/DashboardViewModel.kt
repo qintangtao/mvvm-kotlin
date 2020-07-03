@@ -12,9 +12,9 @@ class DashboardViewModel : BaseViewModel() {
     fun testStatus(isNotify: Boolean = true): MutableLiveData<String> {
         launchGo({
             delay(1000)
-            throw ResponseThrowable(3000, "error ")
-            text.value = "This is dashboard Fragment"
-
+            //throw ResponseThrowable(3000, "error ")
+            //text.value = "This is dashboard Fragment"
+            text.value = ""
             //This is dashboard Fragment
         }, isNotify = isNotify)
         return text

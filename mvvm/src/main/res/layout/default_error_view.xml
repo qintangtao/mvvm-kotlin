@@ -6,11 +6,11 @@
 
     <ImageView
         android:id="@+id/image_error"
-        android:layout_width="211dp"
-        android:layout_height="151dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/state_error"
+        android:src="@drawable/ic_state_net_error"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@id/text_error"
         app:layout_constraintLeft_toLeftOf="parent"

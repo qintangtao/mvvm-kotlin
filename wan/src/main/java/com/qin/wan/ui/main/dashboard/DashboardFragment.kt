@@ -11,6 +11,11 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 class DashboardFragment : BaseStateFragment<DashboardViewModel, ViewDataBinding>() {
 
     private val TAG = "StatusLayout"
+
+    companion object {
+        fun newInstance() = DashboardFragment()
+    }
+
     override fun layoutId() = R.layout.fragment_dashboard
     override fun stateLayout() = stateLayout
 

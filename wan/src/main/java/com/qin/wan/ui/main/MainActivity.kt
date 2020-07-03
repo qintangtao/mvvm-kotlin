@@ -1,21 +1,21 @@
 package com.qin.wan.ui.main
 
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.qin.wan.R
+import kotlinx.android.synthetic.main.activity_main.*
+
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.os.Bundle
 import android.view.ViewPropertyAnimator
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.animation.AnimationUtils
-import com.qin.wan.R
-import com.qin.wan.ui.main.dashboard.DashboardFragment
-import com.qin.wan.ui.main.home.HomeFragment
-import com.qin.wan.ui.main.notifications.NotificationsFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var fragments: Map<Int, Fragment>
     private var bottomNavigationViewAnimtor: ViewPropertyAnimator? = null
     private var currentBottomNavagtionState = true
 
@@ -23,33 +23,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragments = mapOf(
-            R.id.navigation_home to HomeFragment.newInstance(),
-            R.id.navigation_dashboard to DashboardFragment.newInstance(),
-            R.id.navigation_notifications to NotificationsFragment.newInstance()
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        /*
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+            )
         )
 
-        showFragment(nav_view.selectedItemId)
-
-        nav_view.run {
-            setOnNavigationItemSelectedListener{
-                showFragment(it.itemId)
-                true
-            }
-        }
-    }
-
-    fun showFragment(menuItemId: Int) {
-        val currentFragment = supportFragmentManager.fragments.find {
-            it.isVisible && it in fragments.values
-        }
-        val targetFragment = fragments.entries.find { it.key == menuItemId }?.value
-        supportFragmentManager.beginTransaction().apply {
-            currentFragment?.let { if (it.isVisible) hide(it) }
-            targetFragment?.let {
-                if (it.isAdded) show(it) else add(R.id.container, it)
-            }
-        }.commit()
+        setupActionBarWithNavController(navController, appBarConfiguration)
+         */
+        nav_view.setupWithNavController(navController)
     }
 
     fun animateBottomNavigationView(show: Boolean) {

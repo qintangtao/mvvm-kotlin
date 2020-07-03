@@ -5,19 +5,19 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
-    <fragment
+    <tab_fragment
         android:id="@+id/navigation_home"
         android:name="com.qin.wan.ui.main.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
+    <tab_fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.qin.wan.ui.main.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
-    <fragment
+    <tab_fragment
         android:id="@+id/navigation_notifications"
         android:name="com.qin.wan.ui.main.notifications.NotificationsFragment"
         android:label="@string/title_notifications"

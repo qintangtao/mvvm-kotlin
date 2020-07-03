@@ -10,7 +10,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun testStatus(isNotify: Boolean = true): MutableLiveData<String> {
         launchGo({
-            delay(2000)
+            delay(1000)
             //throw ResponseThrowable(3000, "error ")
             text.value = ""
 

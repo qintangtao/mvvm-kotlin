@@ -7,8 +7,8 @@ object TabLayoutAdapter {
 
     @BindingAdapter(value = ["items"], requireAll = false)
     @JvmStatic
-    fun setTabText(tabLayout: TabLayout, items: List<String>) {
-        items.forEach {
+    fun setTabText(tabLayout: TabLayout, items: List<String>?) {
+        items?.forEach {
             tabLayout.addTab(tabLayout.newTab().setText(it))
         }
     }

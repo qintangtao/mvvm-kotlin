@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment<NoViewModel, ViewDataBinding>() {
 
         appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
             if (activity is MainActivity && this.currentOffset != offset) {
-                //(activity as MainActivity).animateBottomNavigationView(offset > currentOffset)
+                (activity as MainActivity).animateBottomNavigationView(offset > currentOffset)
                 currentOffset = offset
             }
         })

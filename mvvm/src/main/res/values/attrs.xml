@@ -1,12 +1,19 @@
 <resources>
 
     <declare-styleable name="StateLayout">
-        <attr name="loading_view" format="reference" />
-        <attr name="error_view" format="reference" />
-        <attr name="empty_view" format="reference" />
-        <attr name="content_view" format="reference" />
-        <attr name="empty_retry" format="reference" />
-        <attr name="error_retry" format="reference" />
+        <attr name="state_loading_layout" format="reference" />
+        <attr name="state_error_layout" format="reference" />
+        <attr name="state_empty_layout" format="reference" />
+
+        <attr name="state_error_src" format="reference" />
+        <attr name="state_empty_src" format="reference" />
+
+        <attr name="state_loading_text" format="string" />
+        <attr name="state_error_text" format="string" />
+        <attr name="state_empty_text" format="string" />
+
+        <attr name="state_textColor" format="color" />
+        <attr name="state_textSize" format="dimension" />
     </declare-styleable>
 
 

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.databinding.ViewDataBinding
 import com.qin.mvvm.view.StateLayout
 import com.qin.mvvm.event.Message
+import com.qin.mvvm.network.ERROR
 
 abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseFragment<VM, DB>() {
 
@@ -47,7 +48,10 @@ abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding> : Bas
 
     override fun handleEvent(msg: Message) {
         isError = true
-        stateLayout()?.showErrorView()
+        if (msg.code == ERROR.UNKNOWN.getCode())
+            stateLayout()?.showErrorView()
+        else
+            stateLayout()?.showNetErrorView()
         Log.d(TAG, "showErrorView")
     }
 

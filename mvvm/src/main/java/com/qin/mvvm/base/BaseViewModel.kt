@@ -159,7 +159,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     ) {
         coroutineScope {
             if (response.isSuccess()) success(response.data())
-            else throw ResponseThrowable(response.code(), response.msg())
+            else throw ResponseThrowable(response)
         }
     }
 
@@ -172,7 +172,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     ): Flow<R> {
         return coroutineScope {
             if (response.isSuccess()) success(response.data())
-            else throw ResponseThrowable(response.code(), response.msg())
+            else throw ResponseThrowable(response)
         }
     }
 

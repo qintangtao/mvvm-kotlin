@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import com.qin.mvvm.base.BaseViewModel
 import com.qin.mvvm.network.ResponseThrowable
 import kotlinx.coroutines.delay
+import org.json.JSONException
+import retrofit2.HttpException
 
 class DashboardViewModel : BaseViewModel() {
 
@@ -12,7 +14,8 @@ class DashboardViewModel : BaseViewModel() {
     fun testStatus(isNotify: Boolean = true): MutableLiveData<String> {
         launchGo({
             delay(1000)
-            //throw ResponseThrowable(3000, "error ")
+            //throw JSONException("TAG error")
+            throw ResponseThrowable(3000, "error ")
             //text.value = "This is dashboard Fragment"
             text.value = ""
             //This is dashboard Fragment

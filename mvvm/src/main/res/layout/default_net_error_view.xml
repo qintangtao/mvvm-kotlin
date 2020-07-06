@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.pnikosis.materialishprogress.ProgressWheel
-        android:id="@+id/progress_wheel"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <ImageView
+        android:id="@+id/image_net_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:src="@drawable/ic_state_net_error"
         android:layout_marginBottom="5dp"
-        wheel:matProg_barColor="#bdbdbd"
-        wheel:matProg_progressIndeterminate="true"
-        app:layout_constraintBottom_toTopOf="@id/text_loading"
+        app:layout_constraintBottom_toTopOf="@id/text_net_error"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
-        android:id="@+id/text_loading"
+        android:id="@+id/text_net_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/state_text_color"
         android:textSize="@dimen/state_text_size"
-        android:text="@string/state_loading"
+        android:text="@string/state_net_error"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

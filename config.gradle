@@ -1,7 +1,8 @@
 ext {
 
     versions = [
-            lifecycle           : "2.2.0-alpha01"
+            lifecycle           : "2.2.0-alpha01",
+            room                : '2.2.4'
     ]
 
     androidx = [
@@ -18,6 +19,13 @@ ext {
     retrofit = [
             retrofit            : 'com.squareup.retrofit2:retrofit:2.9.0',
             'converter-gson'    : 'com.squareup.retrofit2:converter-gson:2.6.0'
+    ]
+
+    room = [
+            'room-runtime' : "androidx.room:room-runtime:${versions["room"]}",
+            'room-compiler': "androidx.room:room-compiler:${versions["room"]}",
+            'room-ktx'     : "androidx.room:room-ktx:${versions["room"]}",
+            'room-testing' : "androidx.room:room-testing:${versions["room"]}",
     ]
 
     md = [

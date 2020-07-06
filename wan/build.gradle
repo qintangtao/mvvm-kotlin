@@ -46,6 +46,11 @@ dependencies {
     api rootProject.ext.navigations
     //materialish-progress
     api rootProject.ext.dependencies.mprogress
+    //room
+    api rootProject.ext.room["room-runtime"]
+    api rootProject.ext.room["room-ktx"]
+    kapt rootProject.ext.room["room-compiler"]
+    testApi rootProject.ext.room["room-testing"]
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

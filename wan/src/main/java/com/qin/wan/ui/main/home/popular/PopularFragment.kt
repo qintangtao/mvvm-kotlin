@@ -1,23 +1,20 @@
-package com.qin.wan.ui.main.dashboard
+package com.qin.wan.ui.main.home.popular
 
 import android.os.Bundle
-import android.util.Log
 import com.qin.mvvm.base.BaseStateFragment
 import com.qin.mvvm.event.Message
 import com.qin.wan.R
-import com.qin.wan.databinding.FragmentDashboardBinding
+import com.qin.wan.databinding.FragmentPopularBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.stateLayout
-import kotlinx.android.synthetic.main.fragment_dashboard.swipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_popular.*
 
-class DashboardFragment : BaseStateFragment<DashboardViewModel, FragmentDashboardBinding>() {
-
-    private val TAG = "StatusLayout"
+class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBinding>() {
 
     companion object {
-        fun newInstance() = DashboardFragment()
+        fun newInstance() = PopularFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_dashboard
+    override fun layoutId() = R.layout.fragment_popular
     override fun stateLayout() = stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -26,20 +23,12 @@ class DashboardFragment : BaseStateFragment<DashboardViewModel, FragmentDashboar
         swipeRefreshLayout.run {
             setColorSchemeResources(R.color.textColorPrimary)
             setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
-            setOnRefreshListener { viewModel.testStatus() }
+            setOnRefreshListener { viewModel.refreshArticleList() }
         }
     }
 
     override fun lazyLoadData() {
-        Log.d(TAG, "lazyLoadData")
-        viewModel.testStatus(true)
-    }
-
-    override fun handleEvent(msg: Message) {
-        super.handleEvent(msg)
-        stateLayout.setNetErrorClickListener {
-            viewModel.testStatus()
-        }
+        viewModel.refreshArticleList(true)
     }
 
     override fun handleComplete() {

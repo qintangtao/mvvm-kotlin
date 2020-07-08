@@ -32,8 +32,9 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     open fun initView(savedInstanceState: Bundle?) {}
     open fun lazyLoadData() {}
     open fun handleStart() { showLoading() }
-    open fun handleComplete() { dismissLoading()}
     open fun handleEvent(msg: Message) { ToastUtils.showLong("${msg.code}:${msg.msg}")}
+    open fun handleEmpty() { }
+    open fun handleComplete() { dismissLoading()}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,11 +83,14 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         viewModel?.defUI.start.observe(this, Observer {
             handleStart()
         })
-        viewModel?.defUI.complete.observe(this, Observer {
-            handleComplete()
-        })
         viewModel?.defUI.error.observe(this, Observer {
             handleEvent(it)
+        })
+        viewModel?.defUI.empty.observe(this, Observer {
+            handleEmpty()
+        })
+        viewModel?.defUI.complete.observe(this, Observer {
+            handleComplete()
         })
     }
 

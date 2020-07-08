@@ -4,13 +4,16 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.InflateException
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.qin.mvvm.R
 
 //https://github.com/LZKDreamer/StateLayout
@@ -190,22 +193,28 @@ class StateLayout : FrameLayout {
     }
 
     fun setEmptyClickListener(onClick: (View?) -> Unit) {
-        mEmptyView.setOnClickListener(OnClickListener {
+        mEmptyView.setOnClickListener {
             onClick(it)
-        })
+        }
     }
 
     fun setErrorClickListener(onClick: (View?) -> Unit) {
-        mErrorView.setOnClickListener(OnClickListener {
+        mErrorView.setOnClickListener {
             onClick(it)
-        })
+        }
+    }
+
+    fun setNetErrorClickListener(onClick: (View?) -> Unit) {
+        mNetErrorView.setOnClickListener {
+            onClick(it)
+        }
     }
 
     fun setOnClickListener(id: Int, onClick: (View?) -> Unit) {
         var view: View? = findViewById(id)
-        view?.setOnClickListener(OnClickListener{
+        view?.setOnClickListener {
             onClick(it)
-        })
+        }
     }
 
     fun setEmptyClickListener(listener: OnClickListener?) {

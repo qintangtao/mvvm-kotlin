@@ -1,6 +1,7 @@
 package com.qin.mvvm.network
 
 import android.net.ParseException
+import android.util.Log
 import com.google.gson.JsonParseException
 import com.google.gson.stream.MalformedJsonException
 import org.json.JSONException
@@ -30,7 +31,16 @@ object ExceptionHandle {
             ex = if (!e.message.isNullOrEmpty()) ResponseThrowable(ERROR.UNKNOWN.getCode(), e.message!!, e)
             else ResponseThrowable(ERROR.UNKNOWN, e)
         }
+        Log.d("ExceptionHandle", stackTrackString(e))
         return ex
     }
 
+    fun stackTrackString(e: Throwable): String? {
+        var msg: String? = e.message
+        e.stackTrace.forEach {
+            msg += "\n"
+            msg += it.toString()
+        }
+        return msg
+    }
 }

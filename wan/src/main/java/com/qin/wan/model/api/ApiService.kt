@@ -1,7 +1,7 @@
-package com.xiaojianjun.wanandroid.model.api
+package com.qin.wan.model.api
 
 import com.qin.mvvm.base.BaseResult
-import com.xiaojianjun.wanandroid.model.bean.*
+import com.qin.wan.model.bean.*
 import retrofit2.http.*
 
 

@@ -10,6 +10,7 @@ import com.qin.mvvm.base.BaseFragment
 import com.qin.mvvm.base.NoViewModel
 import com.qin.wan.ui.main.MainActivity
 import com.qin.wan.ui.main.dashboard.DashboardFragment
+import com.qin.wan.ui.main.home.popular.PopularFragment
 import com.qin.wan.ui.main.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -28,13 +29,15 @@ class HomeFragment : BaseFragment<NoViewModel, ViewDataBinding>() {
         super.initView(savedInstanceState)
 
         fragments = listOf(
+            PopularFragment.newInstance(),
             DashboardFragment.newInstance(),
             NotificationsFragment.newInstance()
         )
 
         val titles = listOf<CharSequence>(
             getString(R.string.popular_articles),
-            getString(R.string.latest_project)
+            getString(R.string.latest_project),
+            getString(R.string.plaza)
         )
 
         viewPager.adapter = SimpleFragmentPagerAdapter(childFragmentManager, fragments, titles)

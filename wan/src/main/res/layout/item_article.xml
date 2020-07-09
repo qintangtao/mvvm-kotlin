@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="android.view.View"/>
+        <import type="androidx.core.text.HtmlCompat" />
         <variable
             name="itemBean"
             type="com.qin.wan.model.bean.Article" />
@@ -30,16 +32,16 @@
                 app:layout_constraintStart_toEndOf="@id/tv_top"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="16dp"
-                tools:text="@{itemBean.author}" />
+                tools:text="@{itemBean.author==null || itemBean.author.empty ? itemBean.shareUser==null || itemBean.shareUser.empty ? @string/anonymous : itemBean.shareUser : itemBean.author}" />
 
         <TextView
                 android:id="@+id/tv_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{itemBean.author}"
+                android:text="@string/top"
                 android:textColor="@color/colorBadge"
                 android:textSize="12sp"
-                android:visibility="gone"
+                android:visibility="@{itemBean.top ? View.VISIBLE : View.GONE}"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_author"
                 app:layout_constraintEnd_toStartOf="@+id/tv_author"
@@ -56,11 +58,11 @@
                 android:background="@drawable/shape_bg_tag"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="10sp"
-                android:visibility="gone"
+                android:visibility="@{!itemBean.tags.empty ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_author"
                 app:layout_constraintStart_toEndOf="@+id/tv_author"
                 app:layout_constraintTop_toTopOf="@+id/tv_author"
-                tools:text="问答"
+                tools:text="@{!itemBean.tags.empty ? itemBean.tags[0].name : null}"
                 tools:visibility="visible" />
 
         <TextView
@@ -73,6 +75,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_author"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_author"
+                app:superChapterName="@{itemBean.superChapterName}"
+                app:chapterName="@{itemBean.chapterName}"
                 tools:text="项目基础功能" />
 
         <TextView
@@ -90,7 +94,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/iv_pic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_author"
-                tools:text="@{itemBean.title}" />
+                app:html="@{itemBean.title}"/>
 
         <TextView
                 android:id="@+id/tv_desc"
@@ -103,10 +107,11 @@
                 android:maxLines="3"
                 android:textColor="@color/textColorSecondary"
                 android:textSize="13sp"
+                android:visibility="@{itemBean.desc!=null &amp;&amp; !itemBean.desc.empty ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                tools:text="@{itemBean.desc}" />
+                app:html="@{itemBean.desc}" />
 
         <ImageView
                 android:id="@+id/iv_pic"
@@ -129,7 +134,7 @@
                 android:text="@string/fresh"
                 android:textColor="@color/colorBadge"
                 android:textSize="12sp"
-                android:visibility="gone"
+                android:visibility="@{itemBean.fresh &amp;&amp; !itemBean.top ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_time"
                 app:layout_constraintBottom_toBottomOf="@id/tv_time"
@@ -157,6 +162,7 @@
                 android:padding="6dp"
                 android:tint="@color/textColorThird"
                 android:src="@drawable/selector_collect"
+                app:state_selected="@{itemBean.collect}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_desc"

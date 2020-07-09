@@ -22,20 +22,20 @@ ext {
     ]
 
     room = [
-            'room-runtime' : "androidx.room:room-runtime:${versions["room"]}",
-            'room-compiler': "androidx.room:room-compiler:${versions["room"]}",
-            'room-ktx'     : "androidx.room:room-ktx:${versions["room"]}",
-            'room-testing' : "androidx.room:room-testing:${versions["room"]}",
+            'room-runtime'      : "androidx.room:room-runtime:${versions["room"]}",
+            'room-compiler'     : "androidx.room:room-compiler:${versions["room"]}",
+            'room-ktx'          : "androidx.room:room-ktx:${versions["room"]}",
+            'room-testing'      : "androidx.room:room-testing:${versions["room"]}",
     ]
 
     md = [
-            core              : 'com.afollestad.material-dialogs:core:3.3.0',
-            lifecycle         : 'com.afollestad.material-dialogs:lifecycle:3.3.0'
+            core                : 'com.afollestad.material-dialogs:core:3.3.0',
+            lifecycle           : 'com.afollestad.material-dialogs:lifecycle:3.3.0'
     ]
 
     bdclta = [
-            bdclta                      : 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:3.1.1',
-            'bdclta-rv'                 : 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:3.1.1'
+            bdclta              : 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:3.1.1',
+            'bdclta-rv'         : 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:3.1.1'
     ]
 
     navigation = [

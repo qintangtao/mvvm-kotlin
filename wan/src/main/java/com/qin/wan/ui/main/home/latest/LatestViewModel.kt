@@ -1,19 +1,19 @@
-package com.qin.wan.ui.main.home.popular
+package com.qin.wan.ui.main.home.latest
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ToastUtils
+import com.qin.mvvm.BR
 import com.qin.mvvm.base.BaseViewModel
 import com.qin.wan.R
-import com.qin.mvvm.BR
 import com.qin.wan.model.api.ApiRetrofit
 import com.qin.wan.model.bean.Article
 import com.qin.wan.ui.main.home.OnItemClickListener
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
-class PopularViewModel : BaseViewModel() {
-    // TODO: Implement the ViewModel
-    private val repository by lazy { PopularRepository.getInstance(ApiRetrofit.getInstance()) }
+class LatestViewModel : BaseViewModel() {
+
+    private val repository by lazy { LatestRepository.getInstance(ApiRetrofit.getInstance()) }
 
     private val itemOnClickListener = object : OnItemClickListener {
         override fun onItemClick(item: Article) {
@@ -33,34 +33,25 @@ class PopularViewModel : BaseViewModel() {
         }
     }
 
-    var page = 0
     val items = MutableLiveData<MutableList<Article>>()
     var itemBinding = ItemBinding.of<Article>(BR.itemBean, R.layout.item_article)
         .bindExtra(BR.listenner, itemOnClickListener)
 
-    fun refreshArticleList(isNotify: Boolean = false) {
-        launchFlowzipResult({
-            repository.getTopArticleList()
+    var page = 0
+
+    fun refreshProjectList(isNotify: Boolean = false) {
+        launchOnlyResult({
+            repository.getProjectList(0)
         }, {
-            repository.getArticleList(0)
-        }, { l, r ->
-            page = r.curPage
-            mutableListOf<Article>().apply {
-                addAll(l.apply { forEach{it.top = true} })
-                addAll(r.datas)
-            }
-        }, {
-            items.value = mutableListOf<Article>().apply {
-                addAll(it)
-            }
-            Log.d("ExceptionHandle", items.value?.count().toString())
-            !(items.value?.isEmpty() ?: true)
-        }, isNotify = isNotify)
+            page = it.curPage
+            items.value = it.datas.toMutableList()
+            true
+        }, isNotify = false)
     }
 
-    fun loadMoreArticleList() {
+    fun loadMoreProjectList() {
         launchOnlyResult({
-            repository.getArticleList(page)
+            repository.getProjectList(page)
         }, {
             page = it.curPage
             val articleList = items.value ?: mutableListOf()

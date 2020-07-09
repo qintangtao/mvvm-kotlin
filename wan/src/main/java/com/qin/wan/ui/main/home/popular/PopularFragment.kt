@@ -1,14 +1,11 @@
 package com.qin.wan.ui.main.home.popular
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener
 import com.qin.mvvm.base.BaseStateFragment
-import com.qin.mvvm.event.Message
 import com.qin.wan.R
 import com.qin.wan.databinding.FragmentPopularBinding
-import kotlinx.android.synthetic.main.fragment_dashboard.stateLayout
 import kotlinx.android.synthetic.main.fragment_popular.*
 
 class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBinding>() {

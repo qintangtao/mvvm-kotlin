@@ -10,6 +10,7 @@ import com.qin.mvvm.base.BaseFragment
 import com.qin.mvvm.base.NoViewModel
 import com.qin.wan.ui.main.MainActivity
 import com.qin.wan.ui.main.dashboard.DashboardFragment
+import com.qin.wan.ui.main.home.latest.LatestFragment
 import com.qin.wan.ui.main.home.popular.PopularFragment
 import com.qin.wan.ui.main.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -30,7 +31,7 @@ class HomeFragment : BaseFragment<NoViewModel, ViewDataBinding>() {
 
         fragments = listOf(
             PopularFragment.newInstance(),
-            DashboardFragment.newInstance(),
+            LatestFragment.newInstance(),
             NotificationsFragment.newInstance()
         )
 

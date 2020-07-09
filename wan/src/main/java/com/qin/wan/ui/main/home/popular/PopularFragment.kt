@@ -1,6 +1,9 @@
 package com.qin.wan.ui.main.home.popular
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.jcodecraeer.xrecyclerview.ProgressStyle
+import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener
 import com.qin.mvvm.base.BaseStateFragment
 import com.qin.mvvm.event.Message
 import com.qin.wan.R
@@ -25,6 +28,19 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
             setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
             setOnRefreshListener { viewModel.refreshArticleList() }
         }
+
+        recyclerView.run {
+            setPullRefreshEnabled(false)
+            setLoadingMoreEnabled(true)
+            setLoadingMoreProgressStyle(ProgressStyle.Pacman)
+            setLoadingListener(object : LoadingListener {
+                override fun onRefresh() {
+                }
+                override fun onLoadMore() {
+                    viewModel.loadMoreArticleList()
+                }
+            })
+        }
     }
 
     override fun lazyLoadData() {
@@ -35,5 +51,6 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
         super.onLoadCompleted()
         if (swipeRefreshLayout.isRefreshing)
             swipeRefreshLayout.isRefreshing = false
+        recyclerView.loadMoreComplete()
     }
 }

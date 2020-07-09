@@ -46,12 +46,13 @@ dependencies {
     api rootProject.ext.navigations
     //materialish-progress
     api rootProject.ext.dependencies.mprogress
+    //BRVAH
+    api rootProject.ext.dependencies.BRVAH
+    //xrecyclerview
+    api rootProject.ext.dependencies.xrecyclerview
     //room
     api rootProject.ext.room["room-runtime"]
     api rootProject.ext.room["room-ktx"]
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt rootProject.ext.room["room-compiler"]
     testApi rootProject.ext.room["room-testing"]
 

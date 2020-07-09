@@ -19,6 +19,18 @@ class PopularViewModel : BaseViewModel() {
         override fun onItemClick(item: Article) {
             ToastUtils.showLong(item.author)
         }
+
+        override fun onItemCollectClick(item: Article) {
+            Log.d("ImageAdapter", "id:${item.id} ,collect:${item.collect}")
+            val list = items.value
+            val item2 = list?.find { it.id == item.id } ?: return
+            item2.collect = !item2.collect
+            //items.value = list
+            items.value = mutableListOf<Article>().apply {
+                addAll(list)
+            }
+            Log.d("ImageAdapter", "id:${item.id} ,collect:${item.collect}")
+        }
     }
 
     var page = 0
@@ -33,7 +45,7 @@ class PopularViewModel : BaseViewModel() {
             repository.getArticleList(0)
         }, { l, r ->
             page = r.curPage
-            arrayListOf<Article>().apply {
+            mutableListOf<Article>().apply {
                 addAll(l.apply { forEach{it.top = true} })
                 addAll(r.datas)
             }
@@ -46,7 +58,19 @@ class PopularViewModel : BaseViewModel() {
         }, isNotify = isNotify)
     }
 
+    fun loadMoreArticleList() {
+        launchOnlyResult({
+            repository.getArticleList(page)
+        }, {
+            page = it.curPage
+            val articleList = items.value ?: mutableListOf()
+            articleList.addAll(it.datas)
+            true
+        }, isNotify = false)
+    }
+
     interface OnItemClickListener {
         fun onItemClick(item: Article)
+        fun onItemCollectClick(item: Article)
     }
 }

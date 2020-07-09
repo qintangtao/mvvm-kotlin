@@ -162,6 +162,7 @@
                 android:padding="6dp"
                 android:tint="@color/textColorThird"
                 android:src="@drawable/selector_collect"
+                android:onClick="@{()->listenner.onItemCollectClick(itemBean)}"
                 app:state_selected="@{itemBean.collect}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_time"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -35,15 +35,8 @@ class DashboardFragment : BaseStateFragment<DashboardViewModel, FragmentDashboar
         viewModel.testStatus(true)
     }
 
-    override fun handleEvent(msg: Message) {
-        super.handleEvent(msg)
-        stateLayout.setNetErrorClickListener {
-            viewModel.testStatus()
-        }
-    }
-
-    override fun handleComplete() {
-        super.handleComplete()
+    override fun onLoadCompleted() {
+        super.onLoadCompleted()
         if (swipeRefreshLayout.isRefreshing)
             swipeRefreshLayout.isRefreshing = false
     }

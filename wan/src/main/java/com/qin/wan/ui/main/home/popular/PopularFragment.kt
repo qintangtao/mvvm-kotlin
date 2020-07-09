@@ -31,8 +31,8 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
         viewModel.refreshArticleList(true)
     }
 
-    override fun handleComplete() {
-        super.handleComplete()
+    override fun onLoadCompleted() {
+        super.onLoadCompleted()
         if (swipeRefreshLayout.isRefreshing)
             swipeRefreshLayout.isRefreshing = false
     }

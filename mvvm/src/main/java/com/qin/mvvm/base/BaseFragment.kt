@@ -31,10 +31,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     abstract fun layoutId(): Int
     open fun initView(savedInstanceState: Bundle?) {}
     open fun lazyLoadData() {}
-    open fun handleStart() { showLoading() }
-    open fun handleEvent(msg: Message) { ToastUtils.showLong("${msg.code}:${msg.msg}")}
-    open fun handleEmpty() { }
-    open fun handleComplete() { dismissLoading()}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,20 +77,20 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
 
     private fun registorDefUIChange() {
         viewModel?.defUI.start.observe(this, Observer {
-            handleStart()
+            onLoadStart()
         })
         viewModel?.defUI.error.observe(this, Observer {
-            handleEvent(it)
+            onLoadEvent(it)
         })
         viewModel?.defUI.empty.observe(this, Observer {
-            handleEmpty()
+            onLoadEmpty()
         })
         viewModel?.defUI.complete.observe(this, Observer {
-            handleComplete()
+            onLoadCompleted()
         })
     }
 
-    private fun showLoading() {
+    open fun onLoadStart() {
         if (dialog == null) {
             dialog = context?.let {
                 MaterialDialog(it)
@@ -106,10 +102,17 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
             }
         }
         dialog?.show()
-
     }
 
-    private fun dismissLoading() {
+    open fun onLoadEvent(msg: Message) {
+        ToastUtils.showLong("${msg.code}:${msg.msg}")
+    }
+
+    open fun onLoadEmpty() {
+        ToastUtils.showLong(R.string.state_empty)
+    }
+
+    open fun onLoadCompleted() {
         dialog?.run { if (isShowing) dismiss() }
     }
 

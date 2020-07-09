@@ -212,9 +212,12 @@ class StateLayout : FrameLayout {
 
     fun setOnClickListener(id: Int, onClick: (View?) -> Unit) {
         var view: View? = findViewById(id)
+        Log.d("MyConstraintLayout", "setOnClickListener.button_net_error " + view)
         view?.setOnClickListener {
+            Log.d("MyConstraintLayout", "setOnClickListener.button_net_error")
             onClick(it)
         }
+        Log.d("MyConstraintLayout", "setOnClickListener.button_net_error " + view?.isClickable)
     }
 
     fun setEmptyClickListener(listener: OnClickListener?) {
@@ -242,4 +245,35 @@ class StateLayout : FrameLayout {
             child!!.visibility = if (child == view) View.VISIBLE else View.GONE
         }
     }
+
+    /*
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        var result = super.dispatchTouchEvent(ev)
+        Log.d("StateLayout", "dispatchTouchEvent: " + result + ", action: "+ev?.action)
+        if (mNetErrorView.isVisible && (
+                    ev?.action == MotionEvent.ACTION_DOWN ||
+                            ev?.action == MotionEvent.ACTION_MOVE ||
+                            ev?.action == MotionEvent.ACTION_UP
+                    ))
+            return false
+        else return result
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        var result = super.dispatchTouchEvent(ev)
+        Log.d("StateLayout", "dispatchTouchEvent: " + result + ", action: "+ev?.action)
+        return result
+    }
+
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        var result = super.onInterceptTouchEvent(ev)
+        Log.d("StateLayout", "onInterceptTouchEvent: " + result + ", action: "+ev?.action)
+        return result
+    }
+
+    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+        var result = super.onTouchEvent(ev)
+        Log.d("StateLayout", "onTouchEvent: " + result + ", action: "+ev?.action)
+        return result
+    }*/
 }

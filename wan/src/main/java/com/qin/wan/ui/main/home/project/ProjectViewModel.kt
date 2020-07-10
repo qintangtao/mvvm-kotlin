@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ToastUtils
 import com.qin.mvvm.BR
 import com.qin.mvvm.base.BaseViewModel
+import com.qin.mvvm.event.Message
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
@@ -20,7 +21,7 @@ class ProjectViewModel : BaseViewModel() {
 
     private val itemCategoryOnClickListener = object : OnItemClickListener<Category> {
         override fun onItemClick(item: Category) {
-            checkedCid = item.id
+            checkedCat.code = item.id
             val list = itemsCategory.value
             list?.let {
                 itemsCategory.value = mutableListOf<Category>().apply {
@@ -51,11 +52,12 @@ class ProjectViewModel : BaseViewModel() {
     }
 
 
-    var checkedCid = 0
+    //var checkedCid = 0
+    var checkedCat = Message()
     val itemsCategory = MutableLiveData<MutableList<Category>>()
     val itemBindingCategory = ItemBinding.of<Category>(BR.itemBean, R.layout.item_category_sub)
         .bindExtra(BR.listenner, itemCategoryOnClickListener)
-        .bindExtra(BR.checkedCid, checkedCid)
+        .bindExtra(BR.checkedCat, checkedCat)
 
     val items = MutableLiveData<MutableList<Article>>()
     val itemBinding = ItemBinding.of<Article>(BR.itemBean, R.layout.item_article)
@@ -69,12 +71,12 @@ class ProjectViewModel : BaseViewModel() {
         },{
             if (it.isEmpty()) RESULT.EMPTY.code
             else {
-                checkedCid = it[0].id
+                checkedCat.code = it[0].id
                 itemsCategory.postValue(it)
                 RESULT.SUCCESS.code
             }
         }, {
-            repository.getProjectListByCid(0, checkedCid)
+            repository.getProjectListByCid(0, checkedCat.code)
         }, {
             if (it.datas.isEmpty()) RESULT.EMPTY.code
             else {
@@ -101,7 +103,7 @@ class ProjectViewModel : BaseViewModel() {
 
     fun refreshProjectList(isNotify: Boolean = false) {
         launchOnlyResult({
-            repository.getProjectListByCid(0, checkedCid)
+            repository.getProjectListByCid(0, checkedCat.code)
         }, {
             if (it.datas.isEmpty()) RESULT.EMPTY.code
             else {
@@ -114,7 +116,7 @@ class ProjectViewModel : BaseViewModel() {
 
     fun loadMoreProjectList() {
         launchOnlyResult({
-            repository.getProjectListByCid(page, checkedCid)
+            repository.getProjectListByCid(page, checkedCat.code)
         }, {
             page = it.curPage
             val list = items.value ?: mutableListOf<Article>()

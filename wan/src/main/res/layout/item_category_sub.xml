@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="checkedCid"
-            type="int" />
+            name="checkedCat"
+            type="com.qin.mvvm.event.Message" />
         <variable
             name="itemBean"
             type="com.qin.wan.model.bean.Category" />
@@ -24,6 +24,6 @@
             android:textSize="13sp"
             android:onClick="@{()->listenner.onItemClick(itemBean)}"
             app:html="@{itemBean.name}"
-            app:state_checked="@{itemBean.id == checkedCid}"
+            app:state_checked="@{itemBean.id == checkedCat.code}"
             tools:text="iOS"/>
 </layout>

@@ -14,6 +14,8 @@ class HomeRepository private constructor(
     suspend fun getUserArticleList(page: Int) = remote.service.getUserArticleList(page)
     suspend fun getProjectCategories() = remote.service.getProjectCategories()
     suspend fun getProjectListByCid(page: Int, cid: Int) = remote.service.getProjectListByCid(page, cid)
+    suspend fun getWechatCategories() = remote.service.getWechatCategories()
+    suspend fun getWechatArticleList(page: Int, id: Int) = remote.service.getWechatArticleList(page, id)
 
     companion object {
 

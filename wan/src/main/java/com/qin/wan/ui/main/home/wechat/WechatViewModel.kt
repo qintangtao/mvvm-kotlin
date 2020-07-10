@@ -1,4 +1,4 @@
-package com.qin.wan.ui.main.home.project
+package com.qin.wan.ui.main.home.wechat
 
 import android.util.Log
 import android.view.View
@@ -11,11 +11,11 @@ import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
 import com.qin.wan.model.bean.Article
 import com.qin.wan.model.bean.Category
-import com.qin.wan.ui.main.home.HomeRepository
 import com.qin.wan.ui.common.OnItemClickListener
+import com.qin.wan.ui.main.home.HomeRepository
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
-class ProjectViewModel : BaseViewModel() {
+class WechatViewModel : BaseViewModel() {
     private val repository by lazy { HomeRepository.getInstance(ApiRetrofit.getInstance()) }
 
     private val itemCategoryOnClickListener = object : OnItemClickListener<Category> {
@@ -27,7 +27,7 @@ class ProjectViewModel : BaseViewModel() {
                     addAll(it)
                 }
             }
-            refreshProjectList()
+            refreshWechatList()
         }
         override fun onItemChildClick(view: View, item: Category) {}
     }
@@ -63,9 +63,9 @@ class ProjectViewModel : BaseViewModel() {
 
     var page = 0
 
-    fun getProjectCategories() {
+    fun getWechatCategories() {
         launchFlowResult({
-            repository.getProjectCategories()
+            repository.getWechatCategories()
         },{
             if (it.isEmpty()) RESULT.EMPTY.code
             else {
@@ -74,7 +74,7 @@ class ProjectViewModel : BaseViewModel() {
                 RESULT.SUCCESS.code
             }
         }, {
-            repository.getProjectListByCid(0, checkedCid)
+            repository.getWechatArticleList(0, checkedCid)
         }, {
             if (it.datas.isEmpty()) RESULT.EMPTY.code
             else {
@@ -99,9 +99,9 @@ class ProjectViewModel : BaseViewModel() {
         })*/
     }
 
-    fun refreshProjectList(isNotify: Boolean = false) {
+    fun refreshWechatList(isNotify: Boolean = false) {
         launchOnlyResult({
-            repository.getProjectListByCid(0, checkedCid)
+            repository.getWechatArticleList(0, checkedCid)
         }, {
             if (it.datas.isEmpty()) RESULT.EMPTY.code
             else {
@@ -112,9 +112,9 @@ class ProjectViewModel : BaseViewModel() {
         }, isNotify = isNotify)
     }
 
-    fun loadMoreProjectList() {
+    fun loadMoreWechatList() {
         launchOnlyResult({
-            repository.getProjectListByCid(page, checkedCid)
+            repository.getWechatArticleList(page, checkedCid)
         }, {
             page = it.curPage
             val list = items.value ?: mutableListOf<Article>()

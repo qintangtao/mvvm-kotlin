@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="vm"
-            type="com.qin.wan.ui.main.home.project.ProjectViewModel" />
+            name="checkedCid"
+            type="int" />
         <variable
             name="itemBean"
             type="com.qin.wan.model.bean.Category" />
@@ -24,6 +24,6 @@
             android:textSize="13sp"
             android:onClick="@{()->listenner.onItemClick(itemBean)}"
             app:html="@{itemBean.name}"
-            app:state_checked="@{itemBean.id == vm.checkedCid}"
+            app:state_checked="@{itemBean.id == checkedCid}"
             tools:text="iOS"/>
 </layout>

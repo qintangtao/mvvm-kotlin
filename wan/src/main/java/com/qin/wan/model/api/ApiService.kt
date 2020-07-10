@@ -15,7 +15,7 @@ interface ApiService {
     suspend fun getProjectList(@Path("page") page: Int): BaseResult<Pagination<Article>>
 
     @GET("/article/top/json")
-    suspend fun getTopArticleList(): BaseResult<List<Article>>
+    suspend fun getTopArticleList(): BaseResult<MutableList<Article>>
 
     @GET("/article/list/{page}/json")
     suspend fun getArticleList(@Path("page") page: Int): BaseResult<Pagination<Article>>
@@ -51,16 +51,16 @@ interface ApiService {
     ): BaseResult<Pagination<Article>>
 
     @GET("navi/json")
-    suspend fun getNavigations(): BaseResult<List<Navigation>>
+    suspend fun getNavigations(): BaseResult<MutableList<Navigation>>
 
     @GET("banner/json")
-    suspend fun getBanners(): BaseResult<List<Banner>>
+    suspend fun getBanners(): BaseResult<MutableList<Banner>>
 
     @GET("hotkey/json")
-    suspend fun getHotWords(): BaseResult<List<HotWord>>
+    suspend fun getHotWords(): BaseResult<MutableList<HotWord>>
 
     @GET("friend/json")
-    suspend fun getFrequentlyWebsites(): BaseResult<List<Frequently>>
+    suspend fun getFrequentlyWebsites(): BaseResult<MutableList<Frequently>>
 
     @FormUrlEncoded
     @POST("user/login")

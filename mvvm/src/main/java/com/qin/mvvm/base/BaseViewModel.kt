@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.Utils
 import com.qin.mvvm.event.Message
 import com.qin.mvvm.event.SingleLiveEvent
 import com.qin.mvvm.network.ExceptionHandle
+import com.qin.mvvm.network.RESULT
 import com.qin.mvvm.network.ResponseThrowable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -59,7 +60,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
      */
     fun <T> launchOnlyResult(
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
-        success: suspend CoroutineScope.(T) -> Boolean,
+        success: suspend CoroutineScope.(T) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
             defUI.error.postValue(Message(it.code, it.msg))
         },
@@ -72,9 +73,43 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         launchUI {
             handleException(
                 { withContext(Dispatchers.IO) { block() } },
-                { res ->
-                    executeResponse(res) { if (!success(it)) defUI.empty.call() }
+                {
+                    executeResponse(it) {
+                        val code = success(it)
+                        if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
+                    }
                 },
+                { error(it) },
+                { complete() }
+            )
+        }
+    }
+
+    fun <T, R> launchOnlyResult3(
+        block: suspend CoroutineScope.() -> IBaseResponse<T>,
+        success: suspend CoroutineScope.(T) -> Int,
+        block2: suspend CoroutineScope.(T) -> IBaseResponse<R>,
+        success2: suspend CoroutineScope.(R) -> Int,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+            defUI.error.postValue(Message(it.code, it.msg))
+        },
+        complete: suspend CoroutineScope.() -> Unit = {
+            defUI.complete.call()
+        },
+        isNotify: Boolean = true
+    ) {
+        if (isNotify) defUI.start.call()
+        launchUI {
+            handleException(
+                { withContext(Dispatchers.IO) { block() } },
+                { executeResponse(it) { data ->
+                    val code = success(data)
+                    if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
+                    else executeResponse(withContext(Dispatchers.IO) { block2(data) }) {
+                        val code = success2(it)
+                        if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
+                    }
+                } },
                 { error(it) },
                 { complete() }
             )
@@ -85,7 +120,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
         block2: suspend CoroutineScope.() -> IBaseResponse<R>,
         compose: suspend CoroutineScope.(T, R) -> Z,
-        success: suspend CoroutineScope.(Z) -> Boolean,
+        success: suspend CoroutineScope.(Z) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
             defUI.error.postValue(Message(it.code, it.msg))
         },
@@ -107,38 +142,42 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                     error(ExceptionHandle.handleException(it))
                 }
                 .collect {
-                    if (!success(it)) defUI.empty.call()
+                    val code = success(it)
+                    if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
                 }
         }
     }
-	
-	fun <T, R> launchFlowResult(
+
+    fun <T, R> launchFlowResult(
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
-        success: suspend CoroutineScope.(T) -> Unit,
-		block2: suspend CoroutineScope.() -> IBaseResponse<R>,
-        success2: suspend CoroutineScope.(R) -> Unit,
+        success: suspend CoroutineScope.(T) -> Int,
+        block2: suspend CoroutineScope.() -> IBaseResponse<R>,
+        success2: suspend CoroutineScope.(R) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
             defUI.error.postValue(Message(it.code, it.msg))
         },
         complete: suspend CoroutineScope.() -> Unit = {},
         isNotify: Boolean = true
     ) {
-		launchUI {
+        launchUI {
             launchFlow { block() }
                 .flatMapConcat {
                     return@flatMapConcat executeResponseFlow(it) {
-                        success(it)
-                        launchFlow { block2() } }
+                        val code = success(it)
+                        if (code != RESULT.SUCCESS.code) {
+                            defUI.result.postValue(code)
+                            flow{}
+                        } else launchFlow { block2() } }
                 }
                 .onStart { if (isNotify) defUI.start.call() }
                 .flowOn(Dispatchers.IO)
                 .onCompletion { defUI.complete.call()
                     complete() }
                 .catch {
-					error(ExceptionHandle.handleException(it))
+                    error(ExceptionHandle.handleException(it))
                 }
                 .collect {
-					executeResponse(it) { success2(it) }
+                    executeResponse(it) { success2(it) }
                 }
         }
     }
@@ -225,7 +264,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     inner class UIChange {
         val start by lazy { SingleLiveEvent<Void>() }
         val error by lazy { SingleLiveEvent<Message>() }
-        val empty by lazy { SingleLiveEvent<Void>() }
+        val result by lazy { SingleLiveEvent<Int>() }
         val complete by lazy { SingleLiveEvent<Void>() }
     }
 }

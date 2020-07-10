@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.blankj.utilcode.util.ToastUtils
 import com.qin.mvvm.R
 import com.qin.mvvm.event.Message
+import com.qin.mvvm.network.RESULT
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment() {
@@ -82,8 +83,8 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         viewModel?.defUI.error.observe(this, Observer {
             onLoadEvent(it)
         })
-        viewModel?.defUI.empty.observe(this, Observer {
-            onLoadEmpty()
+        viewModel?.defUI.result.observe(this, Observer {
+            onLoadResult(it)
         })
         viewModel?.defUI.complete.observe(this, Observer {
             onLoadCompleted()
@@ -108,8 +109,14 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         ToastUtils.showLong("${msg.code}:${msg.msg}")
     }
 
-    open fun onLoadEmpty() {
-        ToastUtils.showLong(R.string.state_empty)
+    open fun onLoadResult(code: Int) {
+        when(code) {
+            RESULT.END.code ->
+                ToastUtils.showLong(RESULT.END.msg)
+            RESULT.EMPTY.code ->
+                ToastUtils.showLong(RESULT.EMPTY.msg)
+            else -> {}
+        }
     }
 
     open fun onLoadCompleted() {

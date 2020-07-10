@@ -1,22 +1,22 @@
-package com.qin.wan.ui.main.home.popular
+package com.qin.wan.ui.main.home.project
 
 import android.os.Bundle
 import com.blankj.utilcode.util.ToastUtils
 import com.jcodecraeer.xrecyclerview.ProgressStyle
-import com.jcodecraeer.xrecyclerview.XRecyclerView.LoadingListener
+import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.qin.mvvm.base.BaseStateFragment
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
-import com.qin.wan.databinding.FragmentPopularBinding
-import kotlinx.android.synthetic.main.fragment_popular.*
+import com.qin.wan.databinding.FragmentProjectBinding
+import kotlinx.android.synthetic.main.fragment_latest.*
 
-class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBinding>() {
+class ProjectFragment : BaseStateFragment<ProjectViewModel, FragmentProjectBinding>() {
 
     companion object {
-        fun newInstance() = PopularFragment()
+        fun newInstance() = ProjectFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_popular
+    override fun layoutId() = R.layout.fragment_project
     override fun stateLayout() = stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -25,25 +25,24 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
         swipeRefreshLayout.run {
             setColorSchemeResources(R.color.textColorPrimary)
             setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
-            setOnRefreshListener { viewModel.refreshArticleList() }
+            setOnRefreshListener { viewModel.refreshProjectList() }
         }
 
         recyclerView.run {
             setPullRefreshEnabled(false)
             setLoadingMoreEnabled(true)
             setLoadingMoreProgressStyle(ProgressStyle.Pacman)
-            setLoadingListener(object : LoadingListener {
-                override fun onRefresh() {
-                }
+            setLoadingListener(object : XRecyclerView.LoadingListener {
+                override fun onRefresh() { }
                 override fun onLoadMore() {
-                    viewModel.loadMoreArticleList()
+                    viewModel.loadMoreProjectList()
                 }
             })
         }
     }
 
     override fun lazyLoadData() {
-        viewModel.refreshArticleList(true)
+        viewModel.getProjectCategories()
     }
 
     override fun onLoadResult(code: Int) {

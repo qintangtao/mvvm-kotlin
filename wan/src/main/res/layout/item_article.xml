@@ -2,13 +2,12 @@
 <layout>
     <data>
         <import type="android.view.View"/>
-        <import type="androidx.core.text.HtmlCompat" />
         <variable
             name="itemBean"
             type="com.qin.wan.model.bean.Article" />
         <variable
             name="listenner"
-            type="com.qin.wan.ui.main.home.OnItemClickListener" />
+            type="com.qin.wan.ui.common.OnItemClickListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -162,7 +161,7 @@
                 android:padding="6dp"
                 android:tint="@color/textColorThird"
                 android:src="@drawable/selector_collect"
-                android:onClick="@{()->listenner.onItemCollectClick(itemBean)}"
+                android:onClick="@{(view)->listenner.onItemChildClick(view, itemBean)}"
                 app:state_selected="@{itemBean.collect}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_time"
                 app:layout_constraintEnd_toEndOf="parent"

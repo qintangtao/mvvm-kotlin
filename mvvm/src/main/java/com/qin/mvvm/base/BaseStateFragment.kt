@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding
 import com.qin.mvvm.view.StateLayout
 import com.qin.mvvm.event.Message
 import com.qin.mvvm.network.ERROR
+import com.qin.mvvm.network.RESULT
 
 abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding>() : BaseFragment<VM, DB>() {
 
@@ -67,10 +68,15 @@ abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding>() : B
         Log.d(TAG, "showErrorView")
     }
 
-    override fun onLoadEmpty() {
-        isEmptyLoaded = true
-        stateLayout().showEmptyView()
-        Log.d(TAG, "showEmptyView")
+    override fun onLoadResult(code: Int) {
+        when(code) {
+            RESULT.EMPTY.code -> {
+                isEmptyLoaded = true
+                stateLayout().showEmptyView()
+                Log.d(TAG, "showEmptyView")
+            }
+            else -> {}
+        }
     }
 
     override fun onLoadCompleted() {
@@ -79,7 +85,5 @@ abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding>() : B
             Log.d(TAG, "showContentView")
         }
     }
-
-
 
 }

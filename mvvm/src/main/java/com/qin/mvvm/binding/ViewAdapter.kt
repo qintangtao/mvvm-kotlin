@@ -1,6 +1,8 @@
 package com.qin.mvvm.binding
 
+import android.util.Log
 import android.view.View
+import android.widget.CheckedTextView
 import androidx.databinding.BindingAdapter
 
 object ViewAdapter {
@@ -11,4 +13,9 @@ object ViewAdapter {
         view.isSelected = selected
     }
 
+    @JvmStatic
+    @BindingAdapter(value = ["state_checked"], requireAll = false)
+    fun setChecked(view: CheckedTextView, checked: Boolean) {
+        view.isChecked = checked
+    }
 }

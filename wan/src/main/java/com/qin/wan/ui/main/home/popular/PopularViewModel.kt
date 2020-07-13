@@ -4,14 +4,15 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ToastUtils
-import com.qin.mvvm.base.BaseViewModel
-import com.qin.wan.R
 import com.qin.mvvm.BR
+import com.qin.mvvm.base.BaseViewModel
+import com.qin.mvvm.event.Message
 import com.qin.mvvm.network.RESULT
+import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
 import com.qin.wan.model.bean.Article
-import com.qin.wan.ui.main.home.HomeRepository
 import com.qin.wan.ui.common.OnItemClickListener
+import com.qin.wan.ui.main.home.HomeRepository
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class PopularViewModel : BaseViewModel() {
@@ -20,7 +21,8 @@ class PopularViewModel : BaseViewModel() {
 
     private val itemOnClickListener = object : OnItemClickListener<Article> {
         override fun onItemClick(item: Article) {
-            ToastUtils.showLong(item.author)
+            //ToastUtils.showLong(item.author)
+            defUI.error.postValue(Message(PopularFragment.START_DETAIL_ARTICLE, obj = item))
         }
 
         override fun onItemChildClick(view: View, item: Article) {

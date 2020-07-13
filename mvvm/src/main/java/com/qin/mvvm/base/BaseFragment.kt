@@ -51,7 +51,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createViewModel()
-		viewModel?.let {
+		viewModel.let {
 			lifecycle.addObserver(it)
 		}
         registorDefUIChange()
@@ -77,16 +77,16 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     }
 
     private fun registorDefUIChange() {
-        viewModel?.defUI.start.observe(this, Observer {
+        viewModel.defUI.start.observe(this, Observer {
             onLoadStart()
         })
-        viewModel?.defUI.error.observe(this, Observer {
+        viewModel.defUI.error.observe(this, Observer {
             onLoadEvent(it)
         })
-        viewModel?.defUI.result.observe(this, Observer {
+        viewModel.defUI.result.observe(this, Observer {
             onLoadResult(it)
         })
-        viewModel?.defUI.complete.observe(this, Observer {
+        viewModel.defUI.complete.observe(this, Observer {
             onLoadCompleted()
         })
     }

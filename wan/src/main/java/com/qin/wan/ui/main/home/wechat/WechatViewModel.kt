@@ -73,13 +73,13 @@ class WechatViewModel : BaseViewModel() {
     var page = 0
 
     fun getWechatCategories() {
-        launchFlowResult({
+        launchSerialResult({
             repository.getWechatCategories()
         },{
             if (it.isEmpty()) RESULT.EMPTY.code
             else {
                 checkedCat.code = it[0].id
-                itemsCategory.postValue(it)
+                itemsCategory.value = it
                 RESULT.SUCCESS.code
             }
         }, {
@@ -92,20 +92,6 @@ class WechatViewModel : BaseViewModel() {
                 RESULT.SUCCESS.code
             }
         })
-/*
-        launchOnlyResult3({
-            repository.getProjectCategories()
-        }, {
-            checkedCid = it[0].id
-            Log.d("checkedCid", "checkedCid: " + checkedCid)
-            itemsCategory.value = it
-            if (it.isEmpty()) RESULT.EMPTY.code else RESULT.SUCCESS.code
-        }, {
-            repository.getProjectListByCid(0, checkedCid)
-        }, {
-            items.value = it.datas.toMutableList()
-            if (!(items.value?.isEmpty() ?: true)) RESULT.SUCCESS.code else RESULT.EMPTY.code
-        })*/
     }
 
     fun refreshWechatList(isNotify: Boolean = false) {

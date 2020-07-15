@@ -76,8 +76,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                 { withContext(Dispatchers.IO) { block() } },
                 {
                     executeResponse(it) {
-                        val code = success(it)
-                        if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
+                        defUI.result.postValue(success(it))
                     }
                 },
                 { error(it) },
@@ -86,10 +85,10 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         }
     }
 
-    fun <T, R> launchOnlyResult3(
+    fun <T, R> launchSerialResult(
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
         success: suspend CoroutineScope.(T) -> Int,
-        block2: suspend CoroutineScope.(T) -> IBaseResponse<R>,
+        block2: suspend CoroutineScope.() -> IBaseResponse<R>,
         success2: suspend CoroutineScope.(R) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
             defUI.error.postValue(Message(it.code, it.msg))
@@ -103,13 +102,15 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         launchUI {
             handleException(
                 { withContext(Dispatchers.IO) { block() } },
-                { executeResponse(it) { data ->
-                    val code = success(data)
-                    if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
-                    else executeResponse(withContext(Dispatchers.IO) { block2(data) }) {
-                        val code = success2(it)
-                        if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
-                    }
+                { executeResponseResult(it) {
+                    val code = success(it)
+                    if (code != RESULT.SUCCESS.code)
+                        defUI.result.postValue(code)
+                    code == RESULT.SUCCESS.code
+                } },
+                { withContext(Dispatchers.IO) { block2() }},
+                { executeResponse(it) {
+                    defUI.result.postValue(success2(it))
                 } },
                 { error(it) },
                 { complete() }
@@ -143,8 +144,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                     error(ExceptionHandle.handleException(it))
                 }
                 .collect {
-                    val code = success(it)
-                    if (code != RESULT.SUCCESS.code) defUI.result.postValue(code)
+                    defUI.result.postValue(success(it))
                 }
         }
     }
@@ -178,7 +178,9 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                     error(ExceptionHandle.handleException(it))
                 }
                 .collect {
-                    executeResponse(it) { success2(it) }
+                    executeResponse(it) {
+                        defUI.result.postValue(success2(it))
+                    }
                 }
         }
     }
@@ -191,6 +193,16 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         success: suspend CoroutineScope.(T) -> Unit
     ) {
         coroutineScope {
+            if (response.isSuccess()) success(response.data())
+            else throw ResponseThrowable(response)
+        }
+    }
+
+    private suspend fun <T> executeResponseResult(
+        response: IBaseResponse<T>,
+        success: suspend CoroutineScope.(T) -> Boolean
+    ): Boolean {
+        return coroutineScope {
             if (response.isSuccess()) success(response.data())
             else throw ResponseThrowable(response)
         }
@@ -226,9 +238,26 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         }
     }
 
-    /**
-     * 异常统一处理
-     */
+    private suspend fun <T, R> handleException(
+        block: suspend CoroutineScope.() -> IBaseResponse<T>,
+        success: suspend CoroutineScope.(IBaseResponse<T>) -> Boolean,
+        block2: suspend CoroutineScope.() -> IBaseResponse<R>,
+        success2: suspend CoroutineScope.(IBaseResponse<R>) -> Unit,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
+        complete: suspend CoroutineScope.() -> Unit
+    ) {
+        coroutineScope {
+            try {
+                if (success(block()))
+                    success2(block2())
+            } catch (e: Throwable) {
+                error(ExceptionHandle.handleException(e))
+            } finally {
+                complete()
+            }
+        }
+    }
+
     private suspend fun <T> handleException(
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
         success: suspend CoroutineScope.(IBaseResponse<T>) -> Unit,

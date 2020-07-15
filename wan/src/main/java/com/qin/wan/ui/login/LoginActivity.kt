@@ -8,6 +8,7 @@ import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.databinding.ActivityLoginBinding
 import com.qin.wan.ui.main.MainActivity
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>(){
 
@@ -15,6 +16,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>(){
 
     override fun initView(savedInstanceState: Bundle?) {
         mBinding?.viewModel = viewModel
+        ivClose.setOnClickListener { finish() }
     }
 
     override fun initData() {

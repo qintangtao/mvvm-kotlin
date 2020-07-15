@@ -81,7 +81,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
     }
 
     open fun onLoadCompleted() {
-        hideProgressDialog()
+        dismissProgressDialog()
     }
 
     fun showProgressDialog(resId: Int = R.string.now_loading) {
@@ -100,7 +100,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
         dialog?.show()
     }
 
-    fun hideProgressDialog() {
+    fun dismissProgressDialog() {
         dialog?.run { if (isShowing) dismiss() }
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentManager
@@ -17,6 +18,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.qin.mvvm.R
 import com.qin.mvvm.event.Message
+import com.qin.mvvm.ext.getContentLayout
 import com.qin.mvvm.network.RESULT
 import java.lang.reflect.ParameterizedType
 
@@ -99,17 +101,7 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
     }
 
     open fun onLoadStart() {
-        if (dialog == null) {
-            dialog = context?.let {
-                MaterialDialog(it)
-                    .cancelable(false)
-                    .cornerRadius(8f)
-                    .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
-                    .lifecycleOwner(this)
-                    .maxWidth(R.dimen.dialog_width)
-            }
-        }
-        dialog?.show()
+        showProgressDialog()
     }
 
     open fun onLoadEvent(msg: Message) {
@@ -127,6 +119,26 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
     }
 
     open fun onLoadCompleted() {
+        dismissProgressDialog()
+    }
+
+    fun showProgressDialog(resId: Int = R.string.now_loading) {
+        if (dialog == null) {
+            dialog = MaterialDialog(activity!!)
+                .cancelable(false)
+                .cornerRadius(8f)
+                .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
+                .lifecycleOwner(this)
+                .maxWidth(R.dimen.dialog_width)
+            dialog?.getContentLayout().let {
+                var tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
+                tvTip.setText(resId)
+            }
+        }
+        dialog?.show()
+    }
+
+    fun dismissProgressDialog() {
         dialog?.run { if (isShowing) dismiss() }
     }
 

@@ -6,6 +6,7 @@ import com.qin.mvvm.event.Message
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.databinding.ActivityRegisterBinding
+import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity<RegisterViewModel, ActivityRegisterBinding>(){
 
@@ -13,6 +14,7 @@ class RegisterActivity : BaseActivity<RegisterViewModel, ActivityRegisterBinding
 
     override fun initView(savedInstanceState: Bundle?) {
         mBinding?.viewModel = viewModel
+        ivBack.setOnClickListener { finish() }
     }
 
     override fun initData() {
@@ -20,7 +22,7 @@ class RegisterActivity : BaseActivity<RegisterViewModel, ActivityRegisterBinding
     }
 
     override fun onLoadStart() {
-        showProgressDialog(R.string.logging_in)
+        showProgressDialog(R.string.registerring)
     }
 
     override fun onLoadResult(code: Int) {

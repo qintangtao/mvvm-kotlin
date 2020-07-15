@@ -46,8 +46,10 @@ class WechatFragment : BaseStateFragment<WechatViewModel, FragmentWechatBinding>
     }
 
     override fun onLoadResult(code: Int) {
-        super.onLoadResult(code)
-        if (code == RESULT.END.code) ToastUtils.showLong(RESULT.END.msg)
+        when(code) {
+            RESULT.END.code -> ToastUtils.showLong(RESULT.END.msg)
+            else -> super.onLoadResult(code)
+        }
     }
 
     override fun onLoadCompleted() {

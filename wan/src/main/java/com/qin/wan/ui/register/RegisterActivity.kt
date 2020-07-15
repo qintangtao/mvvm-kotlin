@@ -1,25 +1,22 @@
-package com.qin.wan.ui.login
+package com.qin.wan.ui.register
 
-import android.content.Intent
 import android.os.Bundle
 import com.qin.mvvm.base.BaseActivity
 import com.qin.mvvm.event.Message
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
-import com.qin.wan.databinding.ActivityLoginBinding
-import com.qin.wan.ui.main.MainActivity
+import com.qin.wan.databinding.ActivityRegisterBinding
 
-class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>(){
+class RegisterActivity : BaseActivity<RegisterViewModel, ActivityRegisterBinding>(){
 
-    override fun layoutId() = R.layout.activity_login
+    override fun layoutId() = R.layout.activity_register
 
     override fun initView(savedInstanceState: Bundle?) {
         mBinding?.viewModel = viewModel
     }
 
     override fun initData() {
-        viewModel.account.value = "tangtao"
-        viewModel.password.value = "123456"
+
     }
 
     override fun onLoadStart() {
@@ -28,15 +25,12 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>(){
 
     override fun onLoadResult(code: Int) {
         when(code) {
-            RESULT.END.code -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
+            RESULT.END.code -> finish()
             else -> super.onLoadResult(code)
         }
     }
 
     override fun onLoadEvent(msg: Message) {
-        viewModel.passwordError.value = msg.msg
+        viewModel.confirmPasswordError.value = msg.msg
     }
 }

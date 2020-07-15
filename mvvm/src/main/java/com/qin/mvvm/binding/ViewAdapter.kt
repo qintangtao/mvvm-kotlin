@@ -1,6 +1,5 @@
 package com.qin.mvvm.binding
 
-import android.util.Log
 import android.view.View
 import android.widget.CheckedTextView
 import androidx.databinding.BindingAdapter

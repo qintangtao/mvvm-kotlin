@@ -1,6 +1,7 @@
 package com.qin.mvvm.base
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -12,6 +13,8 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.blankj.utilcode.util.ToastUtils
 import com.qin.mvvm.R
 import com.qin.mvvm.event.Message
+import com.qin.mvvm.ext.getContentLayout
+import com.qin.mvvm.network.RESULT
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
@@ -25,9 +28,6 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
     abstract fun layoutId(): Int
     abstract fun initView(savedInstanceState: Bundle?)
     abstract fun initData()
-    open fun handleStart() { showLoading() }
-    open fun handleComplete() { dismissLoading() }
-    open fun handleEvent(msg: Message) { ToastUtils.showLong("${msg.code}:${msg.msg}") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,17 +49,42 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
 
     private fun registorDefUIChange() {
         viewModel.defUI.start.observe(this, Observer {
-            handleStart()
-        })
-        viewModel.defUI.complete.observe(this, Observer {
-            handleComplete()
+            onLoadStart()
         })
         viewModel.defUI.error.observe(this, Observer {
-            handleEvent(it)
+            onLoadEvent(it)
+        })
+        viewModel.defUI.result.observe(this, Observer {
+            onLoadResult(it)
+        })
+        viewModel.defUI.complete.observe(this, Observer {
+            onLoadCompleted()
         })
     }
 
-    private fun showLoading() {
+    open fun onLoadStart() {
+        showProgressDialog()
+    }
+
+    open fun onLoadEvent(msg: Message) {
+        ToastUtils.showLong("${msg.code}:${msg.msg}")
+    }
+
+    open fun onLoadResult(code: Int) {
+        when(code) {
+            RESULT.END.code ->
+                ToastUtils.showLong(RESULT.END.msg)
+            RESULT.EMPTY.code ->
+                ToastUtils.showLong(RESULT.EMPTY.msg)
+            else -> {}
+        }
+    }
+
+    open fun onLoadCompleted() {
+        hideProgressDialog()
+    }
+
+    fun showProgressDialog(resId: Int = R.string.now_loading) {
         if (dialog == null) {
             dialog = MaterialDialog(this)
                 .cancelable(false)
@@ -67,12 +92,15 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
                 .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
                 .lifecycleOwner(this)
                 .maxWidth(R.dimen.dialog_width)
+            dialog?.getContentLayout().let {
+                var tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
+                tvTip.setText(resId)
+            }
         }
         dialog?.show()
-
     }
 
-    private fun dismissLoading() {
+    fun hideProgressDialog() {
         dialog?.run { if (isShowing) dismiss() }
     }
 

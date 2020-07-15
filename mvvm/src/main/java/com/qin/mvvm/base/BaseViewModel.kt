@@ -1,5 +1,6 @@
 package com.qin.mvvm.base
 
+import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.viewModelScope
@@ -266,5 +267,10 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         val error by lazy { SingleLiveEvent<Message>() }
         val result by lazy { SingleLiveEvent<Int>() }
         val complete by lazy { SingleLiveEvent<Void>() }
+    }
+
+    //other
+    fun getString(resId: Int): String {
+        return getApplication<Application>().getString(resId)
     }
 }

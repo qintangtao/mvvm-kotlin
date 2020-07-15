@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.qin.wan.R
+import com.qin.wan.ui.login.LoginActivity
 import com.qin.wan.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         window.decorView.postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }, 1000)
     }

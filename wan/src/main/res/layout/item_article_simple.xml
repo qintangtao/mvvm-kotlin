@@ -18,7 +18,7 @@
             android:paddingBottom="8dp"
             android:elevation="1dp"
             android:background="@drawable/ripple_item_select"
-            android:onClick="@{()->listenner.onItemClick(itemBean)}">
+            android:onClick="@{(view)->listenner.onItemClick(view, itemBean)}">
 
         <TextView
                 android:id="@+id/tv_title"

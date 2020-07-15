@@ -22,7 +22,7 @@
             android:checked="false"
             android:textColor="@color/selector_color_category_item"
             android:textSize="13sp"
-            android:onClick="@{()->listenner.onItemClick(itemBean)}"
+            android:onClick="@{(view)->listenner.onItemClick(view, itemBean)}"
             app:html="@{itemBean.name}"
             app:state_checked="@{itemBean.id == checkedCat.code}"
             tools:text="iOS"/>

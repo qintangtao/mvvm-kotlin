@@ -1,9 +1,9 @@
 package com.qin.wan.ui.main.home.latest
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.blankj.utilcode.util.ToastUtils
 import com.qin.mvvm.BR
 import com.qin.mvvm.base.BaseViewModel
 import com.qin.mvvm.network.RESULT
@@ -12,6 +12,7 @@ import com.qin.wan.model.api.ApiRetrofit
 import com.qin.wan.model.bean.Article
 import com.qin.wan.ui.main.home.HomeRepository
 import com.qin.wan.ui.common.OnItemClickListener
+import com.qin.wan.ui.detail.DetailActivity
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class LatestViewModel : BaseViewModel() {
@@ -20,8 +21,12 @@ class LatestViewModel : BaseViewModel() {
 
     private val itemOnClickListener = object :
         OnItemClickListener<Article> {
-        override fun onItemClick(item: Article) {
-            ToastUtils.showLong(item.author)
+        override fun onItemClick(view: View, item: Article) {
+            //defUI.error.postValue(Message(PopularFragment.START_DETAIL_ARTICLE, obj = item))
+            view.context.startActivity(Intent().apply {
+                setClass(view.context, DetailActivity::class.java)
+                putExtra(DetailActivity.PARAM_ARTICLE, item)
+            })
         }
 
         override fun onItemChildClick(view: View, item: Article) {

@@ -30,6 +30,13 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
         mBinding?.viewModel = viewModel
         article  = intent?.getParcelableExtra(PARAM_ARTICLE) ?: return
         viewModel.article.value = article
+
+        ivBack.setOnClickListener {
+            finish()
+        }
+        ivMore.setOnClickListener {
+            ActionFragment.newInstance(article).show(supportFragmentManager)
+        }
     }
 
     override fun initData() {
@@ -95,6 +102,18 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
     override fun onDestroy() {
         agentWeb?.webLifeCycle?.onDestroy()
         super.onDestroy()
+    }
+
+    fun changeCollect() {
+        if (article.collect) {
+            //viewModel.uncollect(article.id)
+        } else {
+            //viewModel.collect(article.id)
+        }
+    }
+
+    fun refreshPage() {
+        agentWeb?.urlLoader?.reload()
     }
 
     private fun customJs(url: String? = article.link): String {

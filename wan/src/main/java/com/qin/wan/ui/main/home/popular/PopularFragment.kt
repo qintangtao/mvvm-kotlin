@@ -54,11 +54,10 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
     override fun onLoadEvent(msg: Message) {
         when(msg.code) {
             START_DETAIL_ARTICLE -> {
-                var intent = Intent().apply {
+                startActivity(Intent().apply {
                     setClass(activity!!, DetailActivity::class.java)
                     putExtra(DetailActivity.PARAM_ARTICLE, msg.obj as Article)
-                }
-                startActivity(intent)
+                })
             }
             else -> {
                 super.onLoadEvent(msg)

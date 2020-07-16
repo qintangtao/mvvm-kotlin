@@ -1,4 +1,4 @@
-package com.qin.mvvm.util
+package com.qin.mvvm.utils
 
 import android.app.Activity
 import androidx.core.app.ShareCompat

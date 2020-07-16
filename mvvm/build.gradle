@@ -51,6 +51,8 @@ dependencies {
     api rootProject.ext.bdcltas
     //coroutines
     api rootProject.ext.dependencies.coroutines
+    //live-event-bus
+    api rootProject.ext.dependencies['live-event-bus']
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

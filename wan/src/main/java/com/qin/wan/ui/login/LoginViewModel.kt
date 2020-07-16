@@ -4,15 +4,16 @@ import android.content.Intent
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.qin.mvvm.base.BaseViewModel
+import com.qin.mvvm.bus.Bus
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
-import com.qin.wan.ui.common.CommonRepository
+import com.qin.wan.ui.common.UserRepository
 import com.qin.wan.ui.register.RegisterActivity
 
 class LoginViewModel : BaseViewModel() {
 
-    private val repository by lazy { CommonRepository.getInstance(ApiRetrofit.getInstance()) }
+    private val repository by lazy { UserRepository.getInstance(ApiRetrofit.getInstance()) }
 
     val account = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -31,6 +32,8 @@ class LoginViewModel : BaseViewModel() {
                     repository.login(account.value!!, password.value!!)
                 }, {
                     //save userinfo
+                    repository.updateUserInfo(it)
+                    Bus.post(UserRepository.USER_LOGIN_STATE_CHANGED, true)
                     RESULT.END.code
                 })
             }

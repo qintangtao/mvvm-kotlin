@@ -5,10 +5,10 @@ import com.qin.mvvm.base.BaseViewModel
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
-import com.qin.wan.ui.common.CommonRepository
+import com.qin.wan.ui.common.UserRepository
 
 class RegisterViewModel : BaseViewModel() {
-    private val repository by lazy { CommonRepository.getInstance(ApiRetrofit.getInstance()) }
+    private val repository by lazy { UserRepository.getInstance(ApiRetrofit.getInstance()) }
 
     val account = MutableLiveData<String>()
     val password = MutableLiveData<String>()

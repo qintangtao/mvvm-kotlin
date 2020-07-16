@@ -13,7 +13,7 @@ import com.qin.mvvm.base.NoViewModel
 import com.qin.mvvm.ext.copyTextIntoClipboard
 import com.qin.mvvm.ext.openInExplorer
 import com.qin.mvvm.ext.showToast
-import com.qin.mvvm.util.share
+import com.qin.mvvm.utils.share
 import com.qin.wan.databinding.FragmentDetailAcitonsBinding
 import kotlinx.android.synthetic.main.fragment_detail_acitons.*
 
@@ -53,7 +53,11 @@ class ActionFragment : BaseBottomSheetDialogFragment<NoViewModel, FragmentDetail
             }
             llShare.setOnClickListener {
                 behavior?.state = BottomSheetBehavior.STATE_HIDDEN
-                share(activity!!, activity!!.getString(R.string.app_name), article.title + article.link)
+                share(
+                    activity!!,
+                    activity!!.getString(R.string.app_name),
+                    article.title + article.link
+                )
             }
             llExplorer.setOnClickListener {
                 openInExplorer(article.link)

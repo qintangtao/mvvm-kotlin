@@ -30,10 +30,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>(){
 
     override fun onLoadResult(code: Int) {
         when(code) {
-            RESULT.END.code -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
+            RESULT.END.code -> finish()
             else -> super.onLoadResult(code)
         }
     }

@@ -20,11 +20,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
 
     fun launchUI(block: suspend CoroutineScope.() -> Unit) = viewModelScope.launch { block() }
 
-    fun <T> launchFlow(block: suspend () -> T): Flow<T> {
-        return flow {
-            emit(block())
-        }
-    }
+    fun <T> launchFlow(block: suspend () -> T): Flow<T> = flow { emit(block()) }
 
     /**
      *  不过滤请求结果
@@ -74,11 +70,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         launchUI {
             handleException(
                 { withContext(Dispatchers.IO) { block() } },
-                {
-                    executeResponse(it) {
-                        defUI.result.postValue(success(it))
-                    }
-                },
+                { executeResponse(it) { defUI.result.postValue(success(it)) } },
                 { error(it) },
                 { complete() }
             )
@@ -109,9 +101,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                     code == RESULT.SUCCESS.code
                 } },
                 { withContext(Dispatchers.IO) { block2() }},
-                { executeResponse(it) {
-                    defUI.result.postValue(success2(it))
-                } },
+                { executeResponse(it) { defUI.result.postValue(success2(it)) } },
                 { error(it) },
                 { complete() }
             )
@@ -132,20 +122,12 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         launchUI {
             launchFlow { block() }
                 .zip(launchFlow { block2() }) { l, r ->
-                    executeResponseFlow(l, r) { ld, rd ->
-                        compose(ld, rd)
-                    }
-                }
+                    executeResponseFlow(l, r) { ld, rd -> compose(ld, rd) } }
                 .onStart { if (isNotify) defUI.start.call() }
                 .flowOn(Dispatchers.IO)
-                .onCompletion { defUI.complete.call()
-                    complete() }
-                .catch {
-                    error(ExceptionHandle.handleException(it))
-                }
-                .collect {
-                    defUI.result.postValue(success(it))
-                }
+                .onCompletion { defUI.complete.call(); complete() }
+                .catch { error(ExceptionHandle.handleException(it)) }
+                .collect { defUI.result.postValue(success(it)) }
         }
     }
 
@@ -172,16 +154,9 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                 }
                 .onStart { if (isNotify) defUI.start.call() }
                 .flowOn(Dispatchers.IO)
-                .onCompletion { defUI.complete.call()
-                    complete() }
-                .catch {
-                    error(ExceptionHandle.handleException(it))
-                }
-                .collect {
-                    executeResponse(it) {
-                        defUI.result.postValue(success2(it))
-                    }
-                }
+                .onCompletion { defUI.complete.call(); complete() }
+                .catch { error(ExceptionHandle.handleException(it)) }
+                .collect { executeResponse(it) { defUI.result.postValue(success2(it)) } }
         }
     }
 

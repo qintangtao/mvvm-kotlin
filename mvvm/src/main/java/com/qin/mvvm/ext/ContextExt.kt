@@ -1,9 +1,9 @@
 package com.qin.mvvm.ext
 
-import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.annotation.StringRes
 
@@ -21,3 +21,8 @@ fun Context.showToast(message: CharSequence) {
 fun Context.showToast(@StringRes message: Int) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
+
+fun <T> Context.startActivity(type: Class<T>) {
+    startActivity(Intent(this, type))
+}
+

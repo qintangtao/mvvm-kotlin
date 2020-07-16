@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.qin.wan.R
-import com.qin.wan.ui.login.LoginActivity
 import com.qin.wan.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {

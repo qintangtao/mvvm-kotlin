@@ -1,15 +1,15 @@
 package com.qin.wan.ui.main.mine
 
-import android.content.Context
-import android.content.Intent
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.blankj.utilcode.util.ActivityUtils
 import com.qin.mvvm.base.BaseViewModel
 import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
 import com.qin.wan.model.bean.UserInfo
 import com.qin.wan.ui.common.UserRepository
 import com.qin.wan.ui.login.LoginActivity
+import com.qin.wan.ui.settings.SettingsActivity
 
 class MineViewModel : BaseViewModel() {
 
@@ -25,42 +25,42 @@ class MineViewModel : BaseViewModel() {
 
     fun click(view: View) {
         when(view.id) {
-            R.id.clHeader -> checkLogin(view.context) {
+            R.id.clHeader -> checkLogin {
 
             }
-            R.id.llMyPoints -> checkLogin(view.context) {
+            R.id.llMyPoints -> checkLogin {
 
             }
-            R.id.llPointsRank -> checkLogin(view.context) {
+            R.id.llPointsRank -> checkLogin {
 
             }
-            R.id.llMyShare -> checkLogin(view.context) {
+            R.id.llMyShare -> checkLogin {
 
             }
-            R.id.llMyCollect -> checkLogin(view.context) {
+            R.id.llMyCollect -> checkLogin {
 
             }
-            R.id.llHistory -> checkLogin(view.context) {
+            R.id.llHistory -> checkLogin {
 
             }
-            R.id.llAboutAuthor -> checkLogin(view.context) {
+            R.id.llAboutAuthor -> checkLogin {
 
             }
-            R.id.llOpenSource -> checkLogin(view.context) {
+            R.id.llOpenSource -> checkLogin {
 
             }
-            R.id.llSetting -> checkLogin(view.context) {
-
+            R.id.llSetting -> checkLogin {
+                ActivityUtils.startActivity(SettingsActivity::class.java)
             }
         }
     }
 
-    fun checkLogin(context: Context, block: (() -> Unit)? = null): Boolean {
+    fun checkLogin(block: (() -> Unit)? = null): Boolean {
         return if (repository.isLogin()) {
             block?.invoke()
             true
         } else {
-            context.startActivity(Intent(context, LoginActivity::class.java))
+            ActivityUtils.startActivity(LoginActivity::class.java)
             false
         }
     }

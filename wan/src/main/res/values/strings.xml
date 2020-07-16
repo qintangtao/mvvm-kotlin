@@ -105,7 +105,8 @@
     <string name="confirm_delete_shared">确认删除分享?</string>
     <string name="confirm_delete_history">确认删除浏览历史？</string>
     <string name="confirm_clear_cache">确认清除缓存？</string>
-    <string name="current_version">当前版本%1$s</string>
+    <string name="current_version2">当前版本%1$s</string>
+    <string name="current_version">当前版本</string>
     <string name="already_latest_version">已是最新版</string>
     <string name="stay_tuned">敬请期待&#8230;</string>
     <string name="title_activity_login">LoginActivity</string>

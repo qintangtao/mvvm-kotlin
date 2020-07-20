@@ -18,12 +18,12 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment<NoViewModel, ViewDataBinding>() {
 
-    private lateinit var fragments: List<Fragment>
-    private var currentOffset = 0
-
     companion object {
         fun newInstance() = HomeFragment()
     }
+
+    private lateinit var fragments: List<Fragment>
+    private var currentOffset = 0
 
     override fun layoutId() = R.layout.fragment_home
 

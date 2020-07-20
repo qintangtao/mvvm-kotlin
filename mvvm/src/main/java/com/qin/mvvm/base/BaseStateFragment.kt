@@ -11,8 +11,8 @@ import com.qin.mvvm.network.RESULT
 abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding>() : BaseFragment<VM, DB>() {
 
     private val TAG = "StatusLayout"
-    private var isErrorLoaded = false
-    private var isEmptyLoaded = false
+    protected var isErrorLoaded = false
+    protected var isEmptyLoaded = false
 
     constructor(parcel: Parcel) : this() {
         isErrorLoaded = parcel.readByte() != 0.toByte()
@@ -56,7 +56,6 @@ abstract class BaseStateFragment<VM : BaseViewModel, DB : ViewDataBinding>() : B
         isErrorLoaded = false
         isEmptyLoaded = false
         stateLayout().showLoadingView()
-        Log.d(TAG, "showLoadingView")
     }
 
     /*

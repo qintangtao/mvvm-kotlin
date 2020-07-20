@@ -22,7 +22,7 @@
             android:orientation="horizontal"
             android:elevation="1dp"
             android:paddingTop="10dp"
-            android:visibility="@{viewModel.itemsCategory.size() > 0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.itemsCategory!=null &amp;&amp; !viewModel.itemsCategory.empty ? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:itemBinding="@{viewModel.itemBindingCategory}"
             app:items="@{viewModel.itemsCategory}"/>

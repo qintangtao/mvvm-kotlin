@@ -4,7 +4,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.qin.wan.ui.main.home.project.ProjectViewModel" />
+            type="com.qin.wan.ui.main.system.pager.SystemPagerViewModel" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -12,20 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.qin.wan.ui.main.home.project.ProjectFragment">
+        tools:context="com.qin.wan.ui.main.system.pager.SystemPagerFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bgColorSecondary"
-            android:orientation="horizontal"
+            android:background="@drawable/ripple_item_select"
             android:elevation="1dp"
+            android:orientation="horizontal"
             android:paddingTop="10dp"
             android:visibility="@{viewModel.itemsCategory!=null &amp;&amp; !viewModel.itemsCategory.empty ? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:itemBinding="@{viewModel.itemBindingCategory}"
-            app:items="@{viewModel.itemsCategory}"/>
+            app:items="@{viewModel.itemsCategory}" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
@@ -43,7 +43,8 @@
                     android:background="@color/bgColorSecondary"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:itemBinding="@{viewModel.itemBinding}"
-                    app:items="@{viewModel.items}"/>
+                    app:items="@{viewModel.items}"
+                    tools:listitem="@layout/item_article_simple"/>
 
             </com.qin.mvvm.view.StateLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

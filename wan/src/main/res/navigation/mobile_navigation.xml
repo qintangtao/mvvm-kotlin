@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <tab_fragment
+        android:id="@+id/navigation_system"
+        android:name="com.qin.wan.ui.main.system.SystemFragment"
+        android:label="@string/system"
+        tools:layout="@layout/fragment_system" />
+
+    <tab_fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.qin.wan.ui.main.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"

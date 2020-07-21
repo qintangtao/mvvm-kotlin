@@ -71,4 +71,6 @@ class SystemPagerFragment : BaseStateFragment<SystemPagerViewModel, FragmentSyst
             swipeRefreshLayout.isRefreshing = false
         recyclerView.loadMoreComplete()
     }
+
+    fun getCheckedPosition() =  category.id to  viewModel.checkedCat.code
 }

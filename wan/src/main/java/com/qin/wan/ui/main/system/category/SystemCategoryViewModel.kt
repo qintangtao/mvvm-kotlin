@@ -9,6 +9,8 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class SystemCategoryViewModel : BaseViewModel() {
 
+    val checked = MutableLiveData<Pair<Int, Int>>()
+
     val items = MutableLiveData<MutableList<Category>>()
     val itemBinding = ItemBinding.of<Category>(BR.itemBean, R.layout.item_system_category)
         .bindExtra(BR.viewModel, this)

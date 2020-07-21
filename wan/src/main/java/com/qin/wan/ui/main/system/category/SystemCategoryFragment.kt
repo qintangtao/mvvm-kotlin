@@ -13,6 +13,7 @@ import com.qin.mvvm.base.BaseBottomSheetDialogFragment
 import com.qin.wan.R
 import com.qin.wan.databinding.FragmentSystemCategoryBinding
 import com.qin.wan.model.bean.Category
+import com.qin.wan.ui.main.system.SystemFragment
 
 class SystemCategoryFragment() : BaseBottomSheetDialogFragment<SystemCategoryViewModel, FragmentSystemCategoryBinding>() {
 
@@ -57,6 +58,12 @@ class SystemCategoryFragment() : BaseBottomSheetDialogFragment<SystemCategoryVie
     }
 
     override fun lazyLoadData() {
+        var checked = (parentFragment as SystemFragment).getCurrentChecked()
+        val item = categorys.find { it.id == checked.first}
+        val second = if (item != null) { val item2 = item.children.find { it.id == checked.second }
+            if (item2 != null) item.children.indexOf(item2) else -1
+        } else -1
+        viewModel.checked.value = checked.first to second
         viewModel.items.value = categorys.toMutableList()
     }
 

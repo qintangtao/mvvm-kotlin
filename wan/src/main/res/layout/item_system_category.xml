@@ -36,7 +36,8 @@
             android:layout_marginTop="16dp"
             app:max_select="1"
             app:itemBinding="@{viewModel.itemBindingTag}"
-            app:items="@{itemBean.children}" />
+            app:items="@{itemBean.children}"
+            app:selected="@{itemBean.id == viewModel.checked.first ?  viewModel.checked.second : -1}"/>
 
     <View
             android:layout_width="match_parent"

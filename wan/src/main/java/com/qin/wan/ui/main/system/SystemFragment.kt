@@ -75,4 +75,12 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
             viewPager.visibility = View.VISIBLE
         }
     }
+
+    fun getCurrentChecked(): Pair<Int, Int> {
+        if (fragments.isEmpty() || viewPager == null) return 0 to 0
+        //val first = viewPager.currentItem
+        //val second = fragments[viewPager.currentItem].getCheckedPosition()
+        //return first to second
+        return fragments[viewPager.currentItem].getCheckedPosition()
+    }
 }

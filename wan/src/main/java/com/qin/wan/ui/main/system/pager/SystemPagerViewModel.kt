@@ -88,10 +88,12 @@ class SystemPagerViewModel : BaseViewModel() {
             return
         }
 
-        if (categorys.isEmpty()) {
+        if (categorys.isNullOrEmpty()) {
             callResult(RESULT.EMPTY.code)
             return
         }
+
+        //default selected 0 index.
         checkedCat.code = categorys[0].id
         itemsCategory.value = categorys.toMutableList()
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.qin.wan.R
 import com.qin.wan.model.bean.Article
-import com.qin.wan.ui.detail.DetailActivity.Companion.PARAM_ARTICLE
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -17,11 +16,12 @@ import com.qin.mvvm.utils.share
 import com.qin.wan.databinding.FragmentDetailAcitonsBinding
 import kotlinx.android.synthetic.main.fragment_detail_acitons.*
 
-class ActionFragment : BaseBottomSheetDialogFragment<NoViewModel, FragmentDetailAcitonsBinding>() {
+class DetailActionsFragment : BaseBottomSheetDialogFragment<NoViewModel, FragmentDetailAcitonsBinding>() {
 
     companion object {
-        fun newInstance(article: Article): ActionFragment {
-            return ActionFragment().apply {
+        private const val PARAM_ARTICLE = "param_article"
+        fun newInstance(article: Article): DetailActionsFragment {
+            return DetailActionsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(PARAM_ARTICLE, article)
                 }
@@ -77,6 +77,6 @@ class ActionFragment : BaseBottomSheetDialogFragment<NoViewModel, FragmentDetail
 
 
     fun show(manager: FragmentManager) {
-        super.show(manager, "ActionFragment")
+        super.show(manager, DetailActionsFragment::class.java.name)
     }
 }

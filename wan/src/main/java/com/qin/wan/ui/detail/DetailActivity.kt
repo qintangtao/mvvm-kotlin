@@ -35,7 +35,7 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
             finish()
         }
         ivMore.setOnClickListener {
-            ActionFragment.newInstance(article).show(supportFragmentManager)
+            DetailActionsFragment.newInstance(article).show(supportFragmentManager)
         }
     }
 

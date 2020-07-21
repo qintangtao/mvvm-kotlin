@@ -10,6 +10,7 @@ import com.qin.wan.R
 import com.qin.wan.databinding.FragmentSystemPagerBinding
 import com.qin.wan.model.bean.Category
 import kotlinx.android.synthetic.main.fragment_system_pager.*
+import kotlinx.android.synthetic.main.fragment_system_pager.stateLayout
 
 class SystemPagerFragment : BaseStateFragment<SystemPagerViewModel, FragmentSystemPagerBinding>() {
 
@@ -59,7 +60,6 @@ class SystemPagerFragment : BaseStateFragment<SystemPagerViewModel, FragmentSyst
 
     override fun onLoadResult(code: Int) {
         when(code) {
-            //10000 -> swipeRefreshLayout.isRefreshing = true
             RESULT.END.code -> ToastUtils.showLong(RESULT.END.msg)
             else -> super.onLoadResult(code)
         }

@@ -60,7 +60,8 @@ ext {
             mprogress           : 'com.pnikosis:materialish-progress:1.7',
             BRVAH               : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46',
             xrecyclerview       : 'com.jcodecraeer:xrecyclerview:1.6.0',
-            'live-event-bus'    : 'com.jeremyliao:live-event-bus:1.5.7'
+            'live-event-bus'    : 'com.jeremyliao:live-event-bus:1.5.7',
+            flowlayout          : 'com.hyman:flowlayout-lib:1.1.2'
     ]
 
     androidxs = androidx.values()

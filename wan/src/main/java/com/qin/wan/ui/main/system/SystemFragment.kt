@@ -9,6 +9,7 @@ import com.qin.mvvm.base.BaseStateFragment
 import com.qin.wan.R
 import com.qin.wan.databinding.FragmentSystemBinding
 import com.qin.wan.ui.main.MainActivity
+import com.qin.wan.ui.main.system.category.SystemCategoryFragment
 import com.qin.wan.ui.main.system.pager.SystemPagerFragment
 import kotlinx.android.synthetic.main.fragment_system.*
 
@@ -18,6 +19,7 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
         fun newInstance() = SystemFragment()
     }
 
+    private var categoryFragment: SystemCategoryFragment? = null
     private val titles = mutableListOf<String>()
     private var fragments = mutableListOf<SystemPagerFragment>()
     private var currentOffset = 0
@@ -29,6 +31,17 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
         super.initView(savedInstanceState)
         mBinding?.viewModel = viewModel
 
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
+            if (activity is MainActivity && this.currentOffset != offset) {
+                (activity as MainActivity).animateBottomNavigationView(offset > currentOffset)
+                currentOffset = offset
+            }
+        })
+
+        ivFilter.setOnClickListener {
+            categoryFragment?.show(childFragmentManager)
+        }
+
         viewModel.itemsCategory.observe(viewLifecycleOwner, Observer {
             titles.clear()
             fragments.clear()
@@ -38,15 +51,11 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
             }
 
             viewPager.adapter = SimpleFragmentPagerAdapter(childFragmentManager, fragments, titles)
-            viewPager.offscreenPageLimit = fragments.size
+            //太多了会造成卡顿，通过viewmodel的生命周期，在初始化加载数据的时候，不重新加载新的数据，直接使用旧数据
+            //viewPager.offscreenPageLimit = fragments.size
             tabLayout.setupWithViewPager(viewPager)
-        })
 
-        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
-            if (activity is MainActivity && this.currentOffset != offset) {
-                (activity as MainActivity).animateBottomNavigationView(offset > currentOffset)
-                currentOffset = offset
-            }
+            categoryFragment = SystemCategoryFragment.newInstance(ArrayList(it))
         })
     }
 

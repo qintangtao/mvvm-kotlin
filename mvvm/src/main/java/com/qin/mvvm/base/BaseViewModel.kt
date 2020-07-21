@@ -273,6 +273,22 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         val complete by lazy { SingleLiveEvent<Void>() }
     }
 
+    inline fun callStart() {
+        defUI.start.call()
+    }
+
+    inline fun callError(msg: Message) {
+        defUI.error.postValue(msg)
+    }
+
+    inline fun callResult(code: Int) {
+        defUI.result.postValue(code)
+    }
+
+    inline fun callComplete() {
+        defUI.complete.call()
+    }
+
     //other
     fun getString(resId: Int): String {
         return getApplication<Application>().getString(resId)

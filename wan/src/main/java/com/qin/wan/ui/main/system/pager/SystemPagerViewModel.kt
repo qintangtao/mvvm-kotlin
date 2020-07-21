@@ -30,8 +30,7 @@ class SystemPagerViewModel : BaseViewModel() {
                     addAll(it)
                 }
             }
-            defUI.result.postValue(10000)
-            refreshArticleList()
+            refreshArticleList(true)
         }
         override fun onItemChildClick(view: View, item: Category) {}
     }
@@ -71,8 +70,26 @@ class SystemPagerViewModel : BaseViewModel() {
 
 
     fun getArticleList(categorys: ArrayList<Category>) {
+        Log.d("SystemPagerViewModel", "itemsCategory is " + itemsCategory.value.isNullOrEmpty())
+        Log.d("SystemPagerViewModel", "items is " + items.value.isNullOrEmpty())
+        if(!itemsCategory.value.isNullOrEmpty() && !items.value.isNullOrEmpty()) {
+            //重新设置，触发界面更新数据
+            val cats  = itemsCategory.value
+            itemsCategory.value = mutableListOf<Category>().apply {
+                addAll(cats!!)
+            }
+
+            val arts  = items.value
+            items.value = mutableListOf<Article>().apply {
+                addAll(arts!!)
+            }
+
+            callComplete()
+            return
+        }
+
         if (categorys.isEmpty()) {
-            defUI.result.postValue(RESULT.EMPTY.code)
+            callResult(RESULT.EMPTY.code)
             return
         }
         checkedCat.code = categorys[0].id
@@ -81,7 +98,7 @@ class SystemPagerViewModel : BaseViewModel() {
         launchOnlyResult({
             repository.getArticleListByCid(0, checkedCat.code)
         }, {
-            if (it.datas.isEmpty()) RESULT.EMPTY.code
+            if (it.datas.isNullOrEmpty()) RESULT.EMPTY.code
             else {
                 page = it.curPage
                 items.value = it.datas.toMutableList()
@@ -94,7 +111,7 @@ class SystemPagerViewModel : BaseViewModel() {
         launchOnlyResult({
             repository.getArticleListByCid(0, checkedCat.code)
         }, {
-            if (it.datas.isEmpty()) RESULT.EMPTY.code
+            if (it.datas.isNullOrEmpty()) RESULT.EMPTY.code
             else {
                 page = it.curPage
                 items.value = it.datas.toMutableList()
@@ -108,8 +125,10 @@ class SystemPagerViewModel : BaseViewModel() {
             repository.getArticleListByCid(page, checkedCat.code)
         }, {
             page = it.curPage
-            val list = items.value ?: mutableListOf<Article>()
-            list.addAll(it.datas)
+            if (!it.datas.isNullOrEmpty()) {
+                val list = items.value ?: mutableListOf<Article>()
+                list.addAll(it.datas)
+            }
             if (it.offset >= it.total) RESULT.END.code else RESULT.SUCCESS.code
         }, isNotify = false)
     }

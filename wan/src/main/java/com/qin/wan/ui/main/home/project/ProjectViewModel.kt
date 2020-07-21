@@ -36,7 +36,6 @@ class ProjectViewModel : BaseViewModel() {
 
     private val itemOnClickListener = object : OnItemClickListener<Article> {
         override fun onItemClick(view: View, item: Article) {
-            //defUI.error.postValue(Message(PopularFragment.START_DETAIL_ARTICLE, obj = item))
             view.context.startActivity(Intent().apply {
                 setClass(view.context, DetailActivity::class.java)
                 putExtra(DetailActivity.PARAM_ARTICLE, item)
@@ -44,15 +43,12 @@ class ProjectViewModel : BaseViewModel() {
         }
 
         override fun onItemChildClick(view: View, item: Article) {
-            Log.d("ImageAdapter", "id:${item.id} ,collect:${item.collect}")
             val list = items.value
             val item2 = list?.find { it.id == item.id } ?: return
             item2.collect = !item2.collect
-            //items.value = list
             items.value = mutableListOf<Article>().apply {
                 addAll(list)
             }
-            Log.d("ImageAdapter", "id:${item.id} ,collect:${item.collect}")
         }
     }
 

@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_system" />
 
     <tab_fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.qin.wan.ui.main.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_discovery"
+        android:name="com.qin.wan.ui.main.discovery.DiscoveryFragment"
+        android:label="@string/discovery"
+        tools:layout="@layout/fragment_discovery" />
 
     <tab_fragment
         android:id="@+id/navigation_notifications"

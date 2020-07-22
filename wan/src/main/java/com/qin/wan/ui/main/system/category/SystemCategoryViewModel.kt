@@ -15,6 +15,7 @@ class SystemCategoryViewModel : BaseViewModel() {
     val itemBinding = ItemBinding.of<Category>(BR.itemBean, R.layout.item_system_category)
         .bindExtra(BR.viewModel, this)
 
-    val itemBindingTag = ItemBinding.of<Category>(BR.itemBean, R.layout.item_system_category_tag)
+    val itemBindingTag =  com.qin.mvvm.binding.adapter
+        .ItemBinding.of<Category>(BR.itemBean, R.layout.item_system_category_tag)
 
 }

@@ -53,9 +53,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createViewModel()
-		viewModel.let {
-			lifecycle.addObserver(it)
-		}
         registorDefUIChange()
         initView(savedInstanceState)
         onVisible()
@@ -144,6 +141,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
             val viewModelStore = if (isShareVM()) activity!!.viewModelStore else this.viewModelStore
             viewModel = ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(tClass) as VM
+            lifecycle.addObserver(viewModel)
         }
     }
 

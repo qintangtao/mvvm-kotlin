@@ -1,4 +1,4 @@
-package com.qin.mvvm.text
+package com.qin.mvvm.ext
 
 import androidx.core.text.HtmlCompat
 

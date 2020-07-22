@@ -2,7 +2,7 @@ package com.qin.mvvm.binding
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.qin.mvvm.text.htmlToSpanned
+import com.qin.mvvm.ext.htmlToSpanned
 
 object TextViewAdapter {
 

@@ -32,7 +32,6 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewDataBinding()
-        lifecycle.addObserver(viewModel)
         registorDefUIChange()
         initView(savedInstanceState)
         initData()
@@ -110,6 +109,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
             var tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
             viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(tClass) as VM
+            lifecycle.addObserver(viewModel)
         }
     }
 }

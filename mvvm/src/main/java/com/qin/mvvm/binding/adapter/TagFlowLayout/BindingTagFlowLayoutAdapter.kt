@@ -1,14 +1,14 @@
-package com.qin.mvvm.binding.TagFlowLayout
+package com.qin.mvvm.binding.adapter.TagFlowLayout
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.qin.mvvm.binding.adapter.BindingCollectionAdapter
+import com.qin.mvvm.binding.adapter.ItemBinding
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
-import me.tatarka.bindingcollectionadapter2.BindingCollectionAdapter
-import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class BindingTagFlowLayoutAdapter<T>(datas: List<T>) : TagAdapter<T>(datas),
     BindingCollectionAdapter<T> {
@@ -29,8 +29,11 @@ class BindingTagFlowLayoutAdapter<T>(datas: List<T>) : TagAdapter<T>(datas),
         if (inflater == null) {
             inflater = LayoutInflater.from(parent!!.context)
         }
-        val binding = onCreateBinding(inflater!!, itemBinding.layoutRes(), parent!!)
+
         val item = getItem(position)
+        itemBinding.onItemBind(position, item)
+
+        val binding = onCreateBinding(inflater!!, itemBinding.layoutRes(), parent!!)
         onBindBinding(binding, itemBinding.variableId(), itemBinding.layoutRes(), position, item)
         return binding.root
     }
@@ -51,7 +54,7 @@ class BindingTagFlowLayoutAdapter<T>(datas: List<T>) : TagAdapter<T>(datas),
         this.itemBinding = itemBinding
     }
 
-    override fun setItems(items: MutableList<T>?) {
+    override fun setItems(items: List<T>?) {
         if (this::items.isInitialized && this.items === items) {
             return
         }
@@ -74,5 +77,4 @@ class BindingTagFlowLayoutAdapter<T>(datas: List<T>) : TagAdapter<T>(datas),
             binding.executePendingBindings()
         }
     }
-
 }

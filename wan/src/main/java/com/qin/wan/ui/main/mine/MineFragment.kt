@@ -18,7 +18,7 @@ class MineFragment : BaseFragment<MineViewModel, FragmentMineBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         mBinding?.viewModel = viewModel
-        Bus.observe<Boolean>(UserRepository.USER_LOGIN_STATE_CHANGED, viewLifecycleOwner) {
+        Bus.observe<Boolean>(UserRepository.USER_LOGIN_STATE_CHANGED, this) {
             viewModel.getUserInfo()
         }
     }

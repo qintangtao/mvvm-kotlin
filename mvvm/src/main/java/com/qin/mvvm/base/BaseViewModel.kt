@@ -1,6 +1,5 @@
 package com.qin.mvvm.base
 
-import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.viewModelScope
@@ -31,14 +30,14 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     fun launchGo(
         block: suspend CoroutineScope.() -> Unit,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
-            defUI.error.postValue(Message(it.code, it.msg))
+            callError(Message(it.code, it.msg))
         },
         complete: suspend CoroutineScope.() -> Unit = {
-            defUI.complete.call()
+            callComplete()
         },
         isNotify: Boolean = true
     ) {
-        if (isNotify) defUI.start.call()
+        if (isNotify) callStart()
         launchUI {
             handleException(
                 withContext(Dispatchers.IO) { block },
@@ -59,18 +58,18 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
         success: suspend CoroutineScope.(T) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
-            defUI.error.postValue(Message(it.code, it.msg))
+            callError(Message(it.code, it.msg))
         },
         complete: suspend CoroutineScope.() -> Unit = {
-            defUI.complete.call()
+            callComplete()
         },
         isNotify: Boolean = true
     ) {
-        if (isNotify) defUI.start.call()
+        if (isNotify) callStart()
         launchUI {
             handleException(
                 { withContext(Dispatchers.IO) { block() } },
-                { executeResponse(it) { defUI.result.postValue(success(it)) } },
+                { executeResponse(it) { callResult(success(it)) } },
                 { error(it) },
                 { complete() }
             )
@@ -83,28 +82,53 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         block2: suspend CoroutineScope.() -> IBaseResponse<R>,
         success2: suspend CoroutineScope.(R) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
-            defUI.error.postValue(Message(it.code, it.msg))
+            callError(Message(it.code, it.msg))
         },
         complete: suspend CoroutineScope.() -> Unit = {
-            defUI.complete.call()
+            callComplete()
         },
         isNotify: Boolean = true
     ) {
-        if (isNotify) defUI.start.call()
+        if (isNotify) callStart()
         launchUI {
             handleException(
                 { withContext(Dispatchers.IO) { block() } },
                 { executeResponseResult(it) {
                     val code = success(it)
                     if (code != RESULT.SUCCESS.code)
-                        defUI.result.postValue(code)
+                        callResult(code)
                     code == RESULT.SUCCESS.code
                 } },
                 { withContext(Dispatchers.IO) { block2() }},
-                { executeResponse(it) { defUI.result.postValue(success2(it)) } },
+                { executeResponse(it) { callResult(success2(it)) } },
                 { error(it) },
                 { complete() }
             )
+        }
+    }
+
+    fun <T> launchFlowResult(
+        block: suspend CoroutineScope.() -> IBaseResponse<T>,
+        success: suspend CoroutineScope.(T) -> Int,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+            callError(Message(it.code, it.msg))
+        },
+        complete: suspend CoroutineScope.() -> Unit = {
+            callComplete()
+        },
+        retry: Long = 0,
+        isNotify: Boolean = true
+    ) {
+        if (isNotify) callStart()
+        launchUI {
+            launchFlow { block() }
+                .retry(retry)
+                .onStart { if (isNotify) callStart() }
+                .flowOn(Dispatchers.IO)
+                .onEach { if (!it.isSuccess()) throw ResponseThrowable(it) }
+                .catch { error(ExceptionHandle.handleException(it)) }
+                .onCompletion { complete() }
+                .collect { callResult(success(it.data())) }
         }
     }
 
@@ -114,32 +138,32 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         compose: suspend CoroutineScope.(T, R) -> Z,
         success: suspend CoroutineScope.(Z) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
-            defUI.error.postValue(Message(it.code, it.msg))
+            callError(Message(it.code, it.msg))
         },
-        complete: () -> Unit = {},
+        complete: suspend CoroutineScope.() -> Unit = { callComplete() },
         isNotify: Boolean = true
     ) {
         launchUI {
             launchFlow { block() }
                 .zip(launchFlow { block2() }) { l, r ->
                     executeResponseFlow(l, r) { ld, rd -> compose(ld, rd) } }
-                .onStart { if (isNotify) defUI.start.call() }
+                .onStart { if (isNotify) callStart() }
                 .flowOn(Dispatchers.IO)
-                .onCompletion { defUI.complete.call(); complete() }
                 .catch { error(ExceptionHandle.handleException(it)) }
-                .collect { defUI.result.postValue(success(it)) }
+                .onCompletion { complete() }
+                .collect { callResult(success(it)) }
         }
     }
 
-    fun <T, R> launchFlowResult(
+    fun <T, R> launchFlowSerialResult(
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
         success: suspend CoroutineScope.(T) -> Int,
         block2: suspend CoroutineScope.() -> IBaseResponse<R>,
         success2: suspend CoroutineScope.(R) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
-            defUI.error.postValue(Message(it.code, it.msg))
+            callError(Message(it.code, it.msg))
         },
-        complete: suspend CoroutineScope.() -> Unit = {},
+        complete: suspend CoroutineScope.() -> Unit = { callComplete() },
         isNotify: Boolean = true
     ) {
         launchUI {
@@ -148,15 +172,16 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                     return@flatMapConcat executeResponseFlow(it) {
                         val code = success(it)
                         if (code != RESULT.SUCCESS.code) {
-                            defUI.result.postValue(code)
+                            callResult(code)
                             flow{}
                         } else launchFlow { block2() } }
                 }
-                .onStart { if (isNotify) defUI.start.call() }
+                .onStart { if (isNotify) callStart() }
                 .flowOn(Dispatchers.IO)
-                .onCompletion { defUI.complete.call(); complete() }
+                .onEach { if (!it.isSuccess()) throw ResponseThrowable(it) }
                 .catch { error(ExceptionHandle.handleException(it)) }
-                .collect { executeResponse(it) { defUI.result.postValue(success2(it)) } }
+                .onCompletion { complete() }
+                .collect { callResult(success2(it.data()))  }
         }
     }
 
@@ -278,19 +303,14 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     }
 
     inline fun callError(msg: Message) {
-        defUI.error.postValue(msg)
+        defUI.error.call(msg)
     }
 
     inline fun callResult(code: Int) {
-        defUI.result.postValue(code)
+        defUI.result.call(code)
     }
 
     inline fun callComplete() {
         defUI.complete.call()
-    }
-
-    //other
-    fun getString(resId: Int): String {
-        return getApplication<Application>().getString(resId)
     }
 }

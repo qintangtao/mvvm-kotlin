@@ -1,17 +1,17 @@
 package com.qin.wan.ui.settings
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.CacheDiskStaticUtils
+import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.qin.mvvm.base.BaseViewModel
 import com.qin.mvvm.bus.Bus
@@ -47,6 +47,7 @@ class SettingsViewModel : BaseViewModel() {
         Bus.post(UserRepository.USER_LOGIN_STATE_CHANGED, false)
     }
 
+    @SuppressLint("ResourceType")
     fun click(view: View) {
         when(view.id) {
             R.id.llClearCache -> {
@@ -70,14 +71,14 @@ class SettingsViewModel : BaseViewModel() {
                     .show()
             }
             R.id.llCheckVersion -> {
-                ToastUtils.showLong(getString(R.string.stay_tuned))
+                ToastUtils.showLong(ResourceUtils.readRaw2String(R.string.stay_tuned))
             }
             R.id.llAboutUs -> {
                 view.context.startActivity(Intent().apply {
                     setClass(view.context, DetailActivity::class.java)
                     putExtra(
                         DetailActivity.PARAM_ARTICLE, Article(
-                            title = getString(R.string.abount_us),
+                            title = ResourceUtils.readRaw2String(R.string.abount_us),
                             link = "https://github.com/qintangtao/mvvm-kotlin"
                         )
                     )

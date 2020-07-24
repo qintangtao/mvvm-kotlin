@@ -132,11 +132,11 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         }
     }
 
-    fun <T, R, Z> launchFlowzipResult(
-        block: suspend CoroutineScope.() -> IBaseResponse<T>,
-        block2: suspend CoroutineScope.() -> IBaseResponse<R>,
-        compose: suspend CoroutineScope.(T, R) -> Z,
-        success: suspend CoroutineScope.(Z) -> Int,
+    fun <T1, T2, R> launchFlowzipResult(
+        block: suspend CoroutineScope.() -> IBaseResponse<T1>,
+        block2: suspend CoroutineScope.() -> IBaseResponse<T2>,
+        transform: suspend CoroutineScope.(T1, T2) -> R,
+        success: suspend CoroutineScope.(R) -> Int,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
             callError(Message(it.code, it.msg))
         },
@@ -146,7 +146,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         launchUI {
             launchFlow { block() }
                 .zip(launchFlow { block2() }) { l, r ->
-                    executeResponseFlow(l, r) { ld, rd -> compose(ld, rd) } }
+                    executeResponseFlow(l, r) { ld, rd -> transform(ld, rd) } }
                 .onStart { if (isNotify) callStart() }
                 .flowOn(Dispatchers.IO)
                 .catch { error(ExceptionHandle.handleException(it)) }
@@ -155,6 +155,90 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         }
     }
 
+    fun <T1, T2> launchFlowzipResult(
+        block: suspend CoroutineScope.() -> IBaseResponse<T1>,
+        block2: suspend CoroutineScope.() -> IBaseResponse<T2>,
+        success: suspend CoroutineScope.(Array<Any?>) -> Int,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+            callError(Message(it.code, it.msg))
+        },
+        complete: suspend CoroutineScope.() -> Unit = { callComplete() },
+        isNotify: Boolean = true
+    ) {
+        launchUI {
+            launchFlow { block() }
+                .zip(launchFlow { block2() }) { a, b ->
+                    executeResponseFlow(a, b) { a, b ->
+                        arrayOfNulls<Any>(2).apply {
+                            set(0, a)
+                            set(1, b)
+                        }
+                    }
+                }
+                .onStart { if (isNotify) callStart() }
+                .flowOn(Dispatchers.IO)
+                .catch { error(ExceptionHandle.handleException(it)) }
+                .onCompletion { complete() }
+                .collect { callResult(success(it)) }
+        }
+    }
+
+    fun <T1, T2> launchFlowCombineResult(
+        block: suspend CoroutineScope.() -> IBaseResponse<T1>,
+        block2: suspend CoroutineScope.() -> IBaseResponse<T2>,
+        success: suspend CoroutineScope.(Array<Any?>) -> Int,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+            callError(Message(it.code, it.msg))
+        },
+        complete: suspend CoroutineScope.() -> Unit = { callComplete() },
+        isNotify: Boolean = true
+    ) {
+        launchUI {
+            launchFlow { block() }
+                .combine(launchFlow { block2() }) { a, b ->
+                    executeResponseFlow(a, b) { a, b ->
+                        arrayOfNulls<Any>(2).apply {
+                            set(0, a)
+                            set(1, b)
+                        } } }
+                .onStart { if (isNotify) callStart() }
+                .flowOn(Dispatchers.IO)
+                .catch { error(ExceptionHandle.handleException(it)) }
+                .onCompletion { complete() }
+                .collect { callResult(success(it)) }
+        }
+    }
+
+    fun <T1, T2, T3> launchFlowCombine3Result(
+        block: suspend CoroutineScope.() -> IBaseResponse<T1>,
+        block2: suspend CoroutineScope.() -> IBaseResponse<T2>,
+        block3: suspend CoroutineScope.() -> IBaseResponse<T3>,
+        success: suspend CoroutineScope.(Array<Any?>) -> Int,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+            callError(Message(it.code, it.msg))
+        },
+        complete: suspend CoroutineScope.() -> Unit = { callComplete() },
+        isNotify: Boolean = true
+    ) {
+        launchUI {
+            combine(launchFlow { block() },
+                launchFlow { block2() },
+                launchFlow { block3() } ) { a, b, c ->
+                    executeResponseFlow(a, b, c) { a, b, c ->
+                        arrayOfNulls<Any>(3).apply {
+                            set(0, a)
+                            set(1, b)
+                            set(2, c)
+                        } } }
+                .onStart { if (isNotify) callStart() }
+                .flowOn(Dispatchers.IO)
+                .catch { error(ExceptionHandle.handleException(it)) }
+                .onCompletion { complete() }
+                .collect { callResult(success(it)) }
+        }
+    }
+
+    /*
     fun <T, R> launchFlowSerialResult(
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
         success: suspend CoroutineScope.(T) -> Int,
@@ -184,6 +268,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
                 .collect { callResult(success2(it.data()))  }
         }
     }
+    */
 
     /**
      * 请求结果过滤
@@ -203,25 +288,54 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         success: suspend CoroutineScope.(T) -> Boolean
     ): Boolean {
         return coroutineScope {
-            if (response.isSuccess()) success(response.data())
-            else throw ResponseThrowable(response)
+            if (!response.isSuccess()) throw ResponseThrowable(response)
+            success(response.data())
         }
     }
 
     /**
      * 请求结果过滤
      */
-    private suspend fun <T, R, C> executeResponseFlow(
-        response: IBaseResponse<T>,
-        response2: IBaseResponse<R>,
-        success: suspend CoroutineScope.(T, R) -> C
-    ): C {
+    private suspend fun <T1, T2, R> executeResponseFlow(
+        response: IBaseResponse<T1>,
+        response2: IBaseResponse<T2>,
+        success: suspend CoroutineScope.(T1, T2) -> R
+    ): R {
         return coroutineScope {
-            if (response.isSuccess()) {
-                if (response2.isSuccess()) {
-                    success(response.data(), response2.data())
-                } else throw ResponseThrowable(response2)
-            } else throw ResponseThrowable(response)
+            if (!response.isSuccess()) throw ResponseThrowable(response)
+            if (!response2.isSuccess()) throw ResponseThrowable(response2)
+            success(response.data(), response2.data())
+        }
+    }
+
+    /**
+     * 请求结果过滤
+     */
+    private suspend fun <T1, T2, T3, R> executeResponseFlow(
+        response: IBaseResponse<T1>,
+        response2: IBaseResponse<T2>,
+        response3: IBaseResponse<T3>,
+        success: suspend CoroutineScope.(T1, T2, T3) -> R
+    ): R {
+        return coroutineScope {
+            if (!response.isSuccess()) throw ResponseThrowable(response)
+            if (!response2.isSuccess()) throw ResponseThrowable(response2)
+            if (!response3.isSuccess()) throw ResponseThrowable(response3)
+            success(response.data(), response2.data(), response3.data())
+        }
+    }
+
+    private suspend fun executeResponseFlow2(
+        vararg responses: IBaseResponse<Any>
+    ): Array<Any?> {
+        return coroutineScope {
+            val ret = arrayOfNulls<Any>(responses.size)
+            var index = 0
+            responses.forEach {
+                if (!it.isSuccess()) throw ResponseThrowable(it)
+                ret.set(index++, it.data())
+            }
+            ret
         }
     }
 

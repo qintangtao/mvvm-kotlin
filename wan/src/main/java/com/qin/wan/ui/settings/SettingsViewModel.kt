@@ -1,10 +1,8 @@
 package com.qin.wan.ui.settings
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CompoundButton

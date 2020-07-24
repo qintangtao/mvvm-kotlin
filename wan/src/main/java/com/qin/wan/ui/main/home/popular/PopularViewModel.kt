@@ -12,6 +12,7 @@ import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
 import com.qin.wan.model.bean.Article
+import com.qin.wan.model.bean.Pagination
 import com.qin.wan.ui.detail.DetailActivity
 import com.qin.wan.ui.main.home.HomeRepository
 import me.tatarka.bindingcollectionadapter2.ItemBinding
@@ -49,16 +50,15 @@ class PopularViewModel : BaseViewModel() {
             repository.getTopArticleList()
         }, {
             repository.getArticleList(0)
-        }, { l, r ->
-            page = r.curPage
-            mutableListOf<Article>().apply {
-                addAll(l.apply { forEach{it.top = true} })
-                addAll(r.datas)
-            }
         }, {
-            if (it.isEmpty()) RESULT.EMPTY.code
+            val a = it[0] as List<Article>
+            val b = it[1] as Pagination<Article>
+            if (a.isNullOrEmpty()) RESULT.EMPTY.code
             else {
-                _items.value = it.toMutableList()
+                _items.value = mutableListOf<Article>().apply {
+                    addAll(a.apply { forEach{it.top = true} })
+                    addAll(b.datas)
+                }
                 RESULT.SUCCESS.code
             }
         }, isNotify = isNotify)

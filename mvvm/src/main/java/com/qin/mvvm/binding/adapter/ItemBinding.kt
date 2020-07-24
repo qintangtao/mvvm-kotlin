@@ -1,5 +1,6 @@
 package com.qin.mvvm.binding.adapter
 
+import android.util.Log
 import android.util.SparseArray
 import androidx.annotation.LayoutRes
 import androidx.core.util.forEach
@@ -16,7 +17,7 @@ class ItemBinding<T> private constructor(
         fun <T> of(
             variableId: Int,
             @LayoutRes layoutRes: Int
-        ): ItemBinding<T>? {
+        ): ItemBinding<T> {
             return ItemBinding<T>().set(variableId, layoutRes)
         }
 
@@ -54,7 +55,7 @@ class ItemBinding<T> private constructor(
         variableId: Int,
         value: Any?
     ): ItemBinding<T> {
-        extraBindings = extraBindings ?: SparseArray(1)
+        extraBindings ?: SparseArray<Any>(1).also { extraBindings = it }
         extraBindings?.put(variableId, value)
         return this
     }
@@ -97,6 +98,7 @@ class ItemBinding<T> private constructor(
         extraBindings?.forEach { key, value ->
             if (key != ItemBinding.VAR_NONE) {
                 binding.setVariable(key, value)
+                Log.d("NavigationViewModel", "key " + key + "  value " + value)
             }
         }
         return true

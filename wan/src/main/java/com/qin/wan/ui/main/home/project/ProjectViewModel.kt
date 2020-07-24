@@ -1,7 +1,6 @@
 package com.qin.wan.ui.main.home.project
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.qin.mvvm.BR

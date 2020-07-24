@@ -30,7 +30,7 @@ class DiscoveryViewModel : BaseUserViewModel() {
 
     val frequentlyItems = MutableLiveData<MutableList<Frequently>>()
     val frequentlyItemBinding = com.qin.mvvm.binding.adapter
-        .ItemBinding.of<Frequently>(BR.itemBean, R.layout.item_nav_tag)
+        .ItemBinding.of<Frequently>(BR.itemBean, R.layout.item_frequently_tag)
 
 
     fun getData(isNotify: Boolean = false) {

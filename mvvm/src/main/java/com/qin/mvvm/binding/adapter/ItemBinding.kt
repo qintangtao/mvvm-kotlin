@@ -16,6 +16,14 @@ class ItemBinding<T> private constructor(
 
         fun <T> of(
             variableId: Int,
+            positionId: Int,
+            @LayoutRes layoutRes: Int
+        ): ItemBinding<T> {
+            return ItemBinding<T>().set(variableId, positionId, layoutRes)
+        }
+
+        fun <T> of(
+            variableId: Int,
             @LayoutRes layoutRes: Int
         ): ItemBinding<T> {
             return ItemBinding<T>().set(variableId, layoutRes)
@@ -29,17 +37,26 @@ class ItemBinding<T> private constructor(
     }
 
     private var variableId: Int = 0
+    private var positionId: Int = 0
     @LayoutRes private var layoutRes: Int = 0
     private var extraBindings: SparseArray<Any>? = null
 
+    fun set(
+        variableId: Int,
+        positionId: Int,
+        @LayoutRes layoutRes: Int
+    ): ItemBinding<T> {
+        this.variableId = variableId
+        this.positionId = positionId
+        this.layoutRes = layoutRes
+        return this
+    }
 
     fun set(
         variableId: Int,
         @LayoutRes layoutRes: Int
     ): ItemBinding<T> {
-        this.variableId = variableId
-        this.layoutRes = layoutRes
-        return this
+        return set(variableId, ItemBinding.VAR_NONE, layoutRes)
     }
 
     fun variableId(variableId: Int): ItemBinding<T> {
@@ -87,14 +104,20 @@ class ItemBinding<T> private constructor(
         }
     }
 
-    fun bind(binding: ViewDataBinding, item: T): Boolean {
+    fun bind(binding: ViewDataBinding, position: Int, item: T): Boolean {
         if (variableId == ItemBinding.VAR_NONE) {
             return false
         }
+
         val result = binding.setVariable(variableId, item)
         if (!result) {
             Utils.throwMissingVariable(binding, variableId, layoutRes)
         }
+
+        if (positionId != ItemBinding.VAR_NONE) {
+            binding.setVariable(positionId, position)
+        }
+
         extraBindings?.forEach { key, value ->
             if (key != ItemBinding.VAR_NONE) {
                 binding.setVariable(key, value)

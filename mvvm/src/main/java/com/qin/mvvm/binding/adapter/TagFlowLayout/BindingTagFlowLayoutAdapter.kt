@@ -73,7 +73,7 @@ class BindingTagFlowLayoutAdapter<T>(datas: List<T>) : TagAdapter<T>(datas),
         position: Int,
         item: T
     ) {
-        if (itemBinding.bind(binding, item)) {
+        if (itemBinding.bind(binding, position, item)) {
             binding.executePendingBindings()
         }
     }

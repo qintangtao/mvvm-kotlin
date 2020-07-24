@@ -59,6 +59,7 @@
                     android:paddingBottom="16dp"
                     android:textColor="@color/textColorSecondary"
                     android:visibility="@{viewModel.items== null || viewModel.items.empty ? View.GONE : View.VISIBLE}"
+                    android:text="@{viewModel.items== null || viewModel.items.empty ? &quot;&quot; : viewModel.items.get(0).name}"
                     tools:text="常用网站"
                     tools:visibility="visible" />
 

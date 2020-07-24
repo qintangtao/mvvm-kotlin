@@ -325,20 +325,6 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
         }
     }
 
-    private suspend fun executeResponseFlow2(
-        vararg responses: IBaseResponse<Any>
-    ): Array<Any?> {
-        return coroutineScope {
-            val ret = arrayOfNulls<Any>(responses.size)
-            var index = 0
-            responses.forEach {
-                if (!it.isSuccess()) throw ResponseThrowable(it)
-                ret.set(index++, it.data())
-            }
-            ret
-        }
-    }
-
     /**
      * 请求结果过滤
      */

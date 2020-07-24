@@ -90,7 +90,8 @@
                         app:scroll_time="1500"
                         app:is_auto_play="true"
                         app:image_scale_type="fit_xy"
-                        app:images="@{viewModel.banners}"/>
+                        app:images="@{viewModel.banners}"
+                        app:onItemClick="@{viewModel.onBannerItemClick}"/>
 
                     <TextView
                         android:id="@+id/tvHotWordTitle"
@@ -154,7 +155,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvFrquently"
                         app:items="@{viewModel.frequentlyItems}"
-                        app:itemBinding="@{viewModel.frequentlyItemBinding}" />
+                        app:itemBinding="@{viewModel.frequentlyItemBinding}"
+                        app:onItemClick="@{viewModel.onTagItemClick}"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 

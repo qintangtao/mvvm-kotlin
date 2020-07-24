@@ -4,6 +4,9 @@
         <variable
             name="itemBean"
             type="com.qin.wan.model.bean.HotWord" />
+        <variable
+            name="listenner"
+            type="com.qin.mvvm.base.OnItemClickListener" />
     </data>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -19,5 +22,6 @@
         android:textColor="@color/textColorPrimary"
         android:textSize="13sp"
         android:text="@{itemBean.name}"
+        android:onClick="@{(view)->listenner.onItemClick(view, itemBean)}"
         tools:text="面试" />
 </layout>

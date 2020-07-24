@@ -63,8 +63,7 @@ class SystemCategoryFragment() : BaseBottomSheetDialogFragment<SystemCategoryVie
         val second = if (item != null) { val item2 = item.children.find { it.id == checked.second }
             if (item2 != null) item.children.indexOf(item2) else -1
         } else -1
-        viewModel.checked.value = checked.first to second
-        viewModel.items.value = categorys.toMutableList()
+        viewModel.initData(checked.first to second, categorys)
     }
 
     fun show(manager: FragmentManager, height: Int? = null) {

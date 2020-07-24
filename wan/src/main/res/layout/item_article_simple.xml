@@ -7,7 +7,7 @@
             type="com.qin.wan.model.bean.Article" />
         <variable
             name="listenner"
-            type="com.qin.wan.ui.common.OnItemClickListener" />
+            type="com.qin.mvvm.base.OnItemClickListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -91,7 +91,7 @@
                 android:padding="6dp"
                 android:tint="@color/textColorThird"
                 android:src="@drawable/selector_collect"
-                android:onClick="@{(view)->listenner.onItemChildClick(view, itemBean)}"
+                android:onClick="@{(view)->listenner.onItemClick(view, itemBean)}"
                 app:state_selected="@{itemBean.collect}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />

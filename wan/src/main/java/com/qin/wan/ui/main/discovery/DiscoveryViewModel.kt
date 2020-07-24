@@ -1,6 +1,7 @@
 package com.qin.wan.ui.main.discovery
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ResourceUtils
 import com.qin.mvvm.BR
@@ -23,12 +24,16 @@ class DiscoveryViewModel : BaseUserViewModel() {
 
     private val disRepository by lazy { DiscoveryRepository.getInstance(ApiRetrofit.getInstance()) }
 
-    val banners = MutableLiveData<MutableList<Banner>>()
+    private val _banners = MutableLiveData<MutableList<Banner>>()
+    private val _hotWordItems = MutableLiveData<MutableList<HotWord>>()
+    private val _frequentlyItems = MutableLiveData<MutableList<Frequently>>()
 
-    val hotWordItems = MutableLiveData<MutableList<HotWord>>()
+    val banners : LiveData<MutableList<Banner>> = _banners
+
+    val hotWordItems : LiveData<MutableList<HotWord>> = _hotWordItems
     val hotWordItemBinding = ItemBinding.of<HotWord>(BR.itemBean, R.layout.item_hot_word)
 
-    val frequentlyItems = MutableLiveData<MutableList<Frequently>>()
+    val frequentlyItems : LiveData<MutableList<Frequently>> = _frequentlyItems
     val frequentlyItemBinding = com.qin.mvvm.binding.adapter
         .ItemBinding.of<Frequently>(BR.itemBean, R.layout.item_frequently_tag)
 
@@ -56,7 +61,7 @@ class DiscoveryViewModel : BaseUserViewModel() {
         },{
             if (it.isNullOrEmpty()) RESULT.EMPTY.code
             else {
-                banners.value = it.toMutableList()
+                _banners.value = it.toMutableList()
                 RESULT.SUCCESS.code
             }
         }, isNotify = false)
@@ -66,7 +71,7 @@ class DiscoveryViewModel : BaseUserViewModel() {
         },{
             if (it.isNullOrEmpty()) RESULT.EMPTY.code
             else {
-                hotWordItems.value = it.toMutableList()
+                _hotWordItems.value = it.toMutableList()
                 RESULT.SUCCESS.code
             }
         }, isNotify = false)
@@ -76,7 +81,7 @@ class DiscoveryViewModel : BaseUserViewModel() {
         },{
             if (it.isNullOrEmpty()) RESULT.EMPTY.code
             else {
-                frequentlyItems.value = it.toMutableList()
+                _frequentlyItems.value = it.toMutableList()
                 RESULT.SUCCESS.code
             }
         }, isNotify = false)

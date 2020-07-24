@@ -1,6 +1,7 @@
 package com.qin.wan.ui.main.mine
 
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ActivityUtils
 import com.qin.wan.R
@@ -10,12 +11,15 @@ import com.qin.wan.ui.settings.SettingsActivity
 
 class MineViewModel : BaseUserViewModel() {
 
-    val userInfo = MutableLiveData<UserInfo?>()
-    val isLogin = MutableLiveData<Boolean>()
+    private val _userInfo = MutableLiveData<UserInfo?>()
+    private val _isLogin = MutableLiveData<Boolean>()
+
+    val userInfo: LiveData<UserInfo?> = _userInfo
+    val isLogin: LiveData<Boolean> = _isLogin
 
     fun getUserInfo() {
-        isLogin.value = repository.isLogin()
-        userInfo.value = repository.getUserInfo()
+        _isLogin.value = repository.isLogin()
+        _userInfo.value = repository.getUserInfo()
     }
 
     fun click(view: View) {

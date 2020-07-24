@@ -3,15 +3,16 @@ package com.qin.wan.ui.main.home.latest
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.qin.mvvm.BR
 import com.qin.mvvm.base.BaseViewModel
+import com.qin.mvvm.base.OnItemClickListener
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.model.api.ApiRetrofit
 import com.qin.wan.model.bean.Article
 import com.qin.wan.ui.main.home.HomeRepository
-import com.qin.wan.ui.common.OnItemClickListener
 import com.qin.wan.ui.detail.DetailActivity
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 
@@ -19,34 +20,30 @@ class LatestViewModel : BaseViewModel() {
 
     private val repository by lazy { HomeRepository.getInstance(ApiRetrofit.getInstance()) }
 
-    private val itemOnClickListener = object :
-        OnItemClickListener<Article> {
+    private val itemOnClickListener = object : OnItemClickListener<Article> {
         override fun onItemClick(view: View, item: Article) {
-            //defUI.error.postValue(Message(PopularFragment.START_DETAIL_ARTICLE, obj = item))
-            view.context.startActivity(Intent().apply {
-                setClass(view.context, DetailActivity::class.java)
-                putExtra(DetailActivity.PARAM_ARTICLE, item)
-            })
-        }
-
-        override fun onItemChildClick(view: View, item: Article) {
-            Log.d("ImageAdapter", "id:${item.id} ,collect:${item.collect}")
-            val list = items.value
-            val item2 = list?.find { it.id == item.id } ?: return
-            item2.collect = !item2.collect
-            //items.value = list
-            items.value = mutableListOf<Article>().apply {
-                addAll(list)
+            when(view.id) {
+                R.id.iv_collect -> {
+                    item.collect = !item.collect
+                    _items.value = _items.value!!.toMutableList()
+                }
+                else -> {
+                    view.context.startActivity(Intent().apply {
+                        setClass(view.context, DetailActivity::class.java)
+                        putExtra(DetailActivity.PARAM_ARTICLE, item)
+                    })
+                }
             }
-            Log.d("ImageAdapter", "id:${item.id} ,collect:${item.collect}")
         }
     }
 
-    val items = MutableLiveData<MutableList<Article>>()
-    var itemBinding = ItemBinding.of<Article>(BR.itemBean, R.layout.item_article)
-        .bindExtra(BR.listenner, itemOnClickListener)
+    private var page = 0
 
-    var page = 0
+    private val _items = MutableLiveData<MutableList<Article>>()
+
+    val items: LiveData<MutableList<Article>> = _items
+    val itemBinding = ItemBinding.of<Article>(BR.itemBean, R.layout.item_article)
+        .bindExtra(BR.listenner, itemOnClickListener)
 
     fun refreshProjectList(isNotify: Boolean = false) {
         launchOnlyResult({
@@ -55,7 +52,7 @@ class LatestViewModel : BaseViewModel() {
             if (it.datas.isEmpty()) RESULT.EMPTY.code
             else {
                 page = it.curPage
-                items.value = it.datas.toMutableList()
+                _items.value = it.datas.toMutableList()
                 RESULT.SUCCESS.code
             }
         }, isNotify = isNotify)
@@ -66,7 +63,7 @@ class LatestViewModel : BaseViewModel() {
             repository.getProjectList(page)
         }, {
             page = it.curPage
-            val list = items.value ?: mutableListOf<Article>()
+            val list = _items.value ?: mutableListOf<Article>()
             list.addAll(it.datas)
             if (it.offset >= it.total) RESULT.END.code else RESULT.SUCCESS.code
         }, isNotify = false)

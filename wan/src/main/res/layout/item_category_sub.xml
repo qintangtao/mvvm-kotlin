@@ -9,7 +9,7 @@
             type="com.qin.wan.model.bean.Category" />
         <variable
             name="listenner"
-            type="com.qin.wan.ui.common.OnItemClickListener" />
+            type="com.qin.mvvm.base.OnItemClickListener" />
     </data>
     <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"

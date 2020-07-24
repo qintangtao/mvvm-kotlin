@@ -29,7 +29,6 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         mBinding?.viewModel = viewModel
         article  = intent?.getParcelableExtra(PARAM_ARTICLE) ?: return
-        viewModel.article.value = article
 
         ivBack.setOnClickListener {
             finish()
@@ -40,6 +39,8 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
     }
 
     override fun initData() {
+        viewModel.setArtivle(article)
+
         agentWeb = AgentWeb.with(this)
             .setAgentWebParent(webContainer, ViewGroup.LayoutParams(-1,-1))
             .useDefaultIndicator(getColor(R.color.textColorPrimary), 2)
@@ -49,7 +50,7 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
             .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.DISALLOW)
             .setWebChromeClient(object : WebChromeClient() {
                 override fun onReceivedTitle(view: WebView?, title: String?) {
-                    viewModel.title.value = title
+                    title?.let { viewModel.setTitle(it) }
                     super.onReceivedTitle(view, title)
                 }
             })
@@ -61,6 +62,7 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
             })
             .createAgentWeb()
             .get()
+
         agentWeb?.webCreator?.webView?.run {
             overScrollMode = WebView.OVER_SCROLL_NEVER
             settings.run {
@@ -77,6 +79,7 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
                 //textZoom = SettingsStore.getWebTextZoom()
             }
         }
+
         agentWeb?.urlLoader?.loadUrl(article.link)
     }
 

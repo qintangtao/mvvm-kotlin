@@ -2,6 +2,7 @@ package com.qin.wan.ui.settings
 
 
 import android.os.Bundle
+import android.util.Log
 import com.qin.mvvm.base.BaseActivity
 import com.qin.mvvm.util.isNightMode
 import com.qin.wan.R
@@ -23,7 +24,6 @@ class SettingsActivity : BaseActivity<SettingsViewModel, ActivitySettingsBinding
 
     override fun initData() {
         viewModel.initData()
-        viewModel.isNight.value = isNightMode(this)
     }
 
 

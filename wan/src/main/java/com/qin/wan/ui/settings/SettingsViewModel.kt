@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.blankj.utilcode.util.CacheDiskStaticUtils
-import com.blankj.utilcode.util.ResourceUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.qin.mvvm.base.BaseViewModel
 import com.qin.mvvm.bus.Bus
 import com.qin.mvvm.util.getFormateSize
@@ -30,16 +30,21 @@ class SettingsViewModel : BaseViewModel() {
 
     private val repository by lazy { UserRepository.getInstance(ApiRetrofit.getInstance()) }
 
-    val isLogin = MutableLiveData<Boolean>()
-    val isNight = MutableLiveData<Boolean>()
-    val cacheSize = MutableLiveData<String>()
-    val fontSize = MutableLiveData<String>()
+    private val _isLogin = MutableLiveData<Boolean>()
+    private val _isNight = MutableLiveData<Boolean>()
+    private val _cacheSize = MutableLiveData<String>()
+    private val _fontSize = MutableLiveData<String>()
+
+    val isLogin : LiveData<Boolean> = _isLogin
+    val isNight : LiveData<Boolean> = _isNight
+    val cacheSize : LiveData<String> = _cacheSize
+    val fontSize : LiveData<String> = _fontSize
 
     fun initData() {
-        isLogin.value = repository.isLogin()
-        isNight.value = isNightMode(getApplication<Application>().applicationContext)
-        cacheSize.value = getFormateSize(CacheDiskStaticUtils.getCacheSize())
-        fontSize.value = "${SettingsStore.getWebTextZoom()}%"
+        _isLogin.value = repository.isLogin()
+        _isNight.value = isNightMode(ActivityUtils.getTopActivity())
+        _cacheSize.value = getFormateSize(CacheDiskStaticUtils.getCacheSize())
+        _fontSize.value = "${SettingsStore.getWebTextZoom()}%"
     }
 
     fun logout() {
@@ -55,7 +60,7 @@ class SettingsViewModel : BaseViewModel() {
                     .setMessage(R.string.confirm_clear_cache)
                     .setPositiveButton(R.string.confirm) { _, _ ->
                         CacheDiskStaticUtils.clear()
-                        cacheSize.value = getFormateSize(CacheDiskStaticUtils.getCacheSize())
+                        _cacheSize.value = getFormateSize(CacheDiskStaticUtils.getCacheSize())
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
                     .show()
@@ -65,7 +70,7 @@ class SettingsViewModel : BaseViewModel() {
                     .setMessage(R.string.confirm_logout)
                     .setPositiveButton(R.string.confirm) { _, _ ->
                         logout()
-                        isLogin.value = repository.isLogin()
+                        _isLogin.value = repository.isLogin()
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
                     .show()
@@ -100,7 +105,7 @@ class SettingsViewModel : BaseViewModel() {
                 seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                         tempTextZoom = 50 + progress
-                        fontSize.value = "$tempTextZoom%"
+                        _fontSize.value = "$tempTextZoom%"
                     }
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {
                     }
@@ -109,7 +114,7 @@ class SettingsViewModel : BaseViewModel() {
                 })
             })
             .setNegativeButton(R.string.cancel) { _, _ ->
-                fontSize.value = "$textZoom%"
+                _fontSize.value = "$textZoom%"
             }
             .setPositiveButton(R.string.confirm) { _, _ ->
                 SettingsStore.setWebTextZoom(tempTextZoom)
@@ -117,14 +122,11 @@ class SettingsViewModel : BaseViewModel() {
             .show()
     }
 
-    var switchClickListener = object : CompoundButton.OnCheckedChangeListener {
-        override fun onCheckedChanged(p0: CompoundButton?, checked: Boolean) {
-            if (isNight.value != checked) {
-                isNight.value = checked
-                setNightMode(checked)
-                SettingsStore.setNightMode(checked)
-            }
+    val switchClickListener = CompoundButton.OnCheckedChangeListener { _, checked ->
+        if (_isNight.value != checked) {
+            _isNight.value = checked
+            setNightMode(checked)
+            SettingsStore.setNightMode(checked)
         }
-
     }
 }

@@ -1,5 +1,6 @@
 package com.qin.wan.ui.main.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import com.qin.wan.ui.main.home.plaza.PlazaFragment
 import com.qin.wan.ui.main.home.popular.PopularFragment
 import com.qin.wan.ui.main.home.project.ProjectFragment
 import com.qin.wan.ui.main.home.wechat.WechatFragment
+import com.qin.wan.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment<NoViewModel, ViewDataBinding>() {
@@ -56,8 +58,7 @@ class HomeFragment : BaseFragment<NoViewModel, ViewDataBinding>() {
                 currentOffset = offset
             }
         })
-        llSearch.setOnClickListener {   }
-
+        llSearch.setOnClickListener { startActivity(Intent(this.context, SearchActivity::class.java))  }
     }
 
 }

@@ -73,4 +73,9 @@ class SystemPagerFragment : BaseStateFragment<SystemPagerViewModel, FragmentSyst
     }
 
     fun getCheckedPosition() =  category.id to  viewModel.checkedCat.code
+
+    fun check(position: Int) {
+        val position = viewModel.itemsCategory.value?.get(position)?.id ?: return
+        viewModel.check(position)
+    }
 }

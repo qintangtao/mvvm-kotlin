@@ -1,7 +1,6 @@
 package com.qin.wan.ui.main.system.pager
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -82,16 +81,7 @@ class SystemPagerViewModel : BaseViewModel() {
         checkedCat.code = categorys[0].id
         _itemsCategory.value = categorys.toMutableList()
 
-        launchOnlyResult({
-            repository.getArticleListByCid(0, checkedCat.code)
-        }, {
-            if (it.datas.isNullOrEmpty()) RESULT.EMPTY.code
-            else {
-                page = it.curPage
-                _items.value = it.datas.toMutableList()
-                RESULT.SUCCESS.code
-            }
-        })
+        refreshArticleList(true)
     }
 
     fun refreshArticleList(isNotify: Boolean = false) {
@@ -118,5 +108,13 @@ class SystemPagerViewModel : BaseViewModel() {
             }
             if (it.offset >= it.total) RESULT.END.code else RESULT.SUCCESS.code
         }, isNotify = false)
+    }
+
+    fun check(id: Int) {
+        if (id != checkedCat.code) {
+            checkedCat.code = id
+            _itemsCategory.value = _itemsCategory.value!!.toMutableList()
+            refreshArticleList(true)
+        }
     }
 }

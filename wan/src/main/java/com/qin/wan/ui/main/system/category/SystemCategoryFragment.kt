@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.qin.mvvm.base.BaseBottomSheetDialogFragment
+import com.qin.mvvm.bus.Bus
 import com.qin.wan.R
 import com.qin.wan.databinding.FragmentSystemCategoryBinding
 import com.qin.wan.model.bean.Category
@@ -39,6 +40,11 @@ class SystemCategoryFragment() : BaseBottomSheetDialogFragment<SystemCategoryVie
         super.initView(savedInstanceState)
         mBinding?.viewModel = viewModel
         categorys = arguments?.getParcelableArrayList<Category>(PARAM_CATEGORY_LIST)!!
+
+        Bus.observe<Pair<Int, Int>>("CHECK", this) {
+            behavior?.state = BottomSheetBehavior.STATE_HIDDEN
+            (parentFragment as SystemFragment).check(it)
+        }
     }
 
     override fun onStart() {

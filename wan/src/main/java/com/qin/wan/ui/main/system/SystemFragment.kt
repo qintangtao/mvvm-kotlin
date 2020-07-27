@@ -2,6 +2,7 @@ package com.qin.wan.ui.main.system
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isEmpty
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import com.qin.mvvm.adapter.SimpleFragmentPagerAdapter
@@ -12,6 +13,7 @@ import com.qin.wan.ui.main.MainActivity
 import com.qin.wan.ui.main.system.category.SystemCategoryFragment
 import com.qin.wan.ui.main.system.pager.SystemPagerFragment
 import kotlinx.android.synthetic.main.fragment_system.*
+import java.text.FieldPosition
 
 class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>() {
 
@@ -82,5 +84,11 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
         //val second = fragments[viewPager.currentItem].getCheckedPosition()
         //return first to second
         return fragments[viewPager.currentItem].getCheckedPosition()
+    }
+
+    fun check(position: Pair<Int, Int>) {
+        if (fragments.isNullOrEmpty() || viewPager == null || viewPager.isEmpty()) return
+        viewPager.currentItem = position.first
+        fragments[position.first].check(position.second)
     }
 }

@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-object ImageAdapter {
+object ImageViewAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["url", "placeholder"], requireAll = false)

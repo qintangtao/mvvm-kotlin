@@ -1,13 +1,11 @@
 package com.qin.wan.ui.login
 
-import android.content.Intent
 import android.os.Bundle
 import com.qin.mvvm.base.BaseActivity
 import com.qin.mvvm.event.Message
 import com.qin.mvvm.network.RESULT
 import com.qin.wan.R
 import com.qin.wan.databinding.ActivityLoginBinding
-import com.qin.wan.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>(){

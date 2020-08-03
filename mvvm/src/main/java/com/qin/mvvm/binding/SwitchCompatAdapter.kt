@@ -12,4 +12,9 @@ object SwitchCompatAdapter {
         sc.setOnCheckedChangeListener(listener)
     }
 
+    @JvmStatic
+    @BindingAdapter(value = ["state_checked"], requireAll = false)
+    fun setChecked(sc: SwitchCompat, checked: Boolean) {
+        sc.isChecked = checked
+    }
 }

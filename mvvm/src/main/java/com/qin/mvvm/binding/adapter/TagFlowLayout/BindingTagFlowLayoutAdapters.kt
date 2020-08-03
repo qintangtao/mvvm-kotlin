@@ -1,7 +1,5 @@
 package com.qin.mvvm.binding.adapter.TagFlowLayout
 
-import android.widget.CompoundButton
-import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.BindingAdapter
 import com.qin.mvvm.binding.adapter.ItemBinding
 import com.zhy.view.flowlayout.TagFlowLayout
@@ -28,6 +26,7 @@ object BindingTagFlowLayoutAdapters {
     @BindingAdapter(value = ["onItemClick"], requireAll = false)
     fun setOnTagClickListener(layout: TagFlowLayout, listener: TagFlowLayout.OnTagClickListener) {
         layout.setOnTagClickListener(listener)
+        //onTagClick
     }
 
 

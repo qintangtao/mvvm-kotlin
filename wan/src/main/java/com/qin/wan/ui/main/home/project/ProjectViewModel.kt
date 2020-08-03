@@ -21,7 +21,7 @@ class ProjectViewModel : BaseViewModel() {
     private val repository by lazy { HomeRepository.getInstance(ApiRetrofit.getInstance()) }
 
     private val itemCategoryOnClickListener = object : OnItemClickListener<Category> {
-        override fun onItemClick(view: View, item: Category) {
+        override fun onClick(view: View, item: Category) {
             checkedCat.code = item.id
             _itemsCategory.value = _itemsCategory.value!!.toMutableList()
             refreshProjectList()
@@ -29,7 +29,7 @@ class ProjectViewModel : BaseViewModel() {
     }
 
     private val itemOnClickListener = object : OnItemClickListener<Article> {
-        override fun onItemClick(view: View, item: Article) {
+        override fun onClick(view: View, item: Article) {
             when(view.id) {
                 R.id.iv_collect -> {
                     item.collect = !item.collect

@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 object SwitchCompatAdapter {
 
     @JvmStatic
-    @BindingAdapter(value = ["switchClick"], requireAll = false)
+    @BindingAdapter(value = ["onCheckedChange"], requireAll = false)
     fun switchClick(sc: SwitchCompat, listener: CompoundButton.OnCheckedChangeListener) {
         sc.setOnCheckedChangeListener(listener)
     }

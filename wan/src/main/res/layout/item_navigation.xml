@@ -41,7 +41,7 @@
             app:max_select="1"
             app:itemBinding="@{viewModel.itemBindingTag}"
             app:items="@{itemBean.articles}"
-            app:onItemClick="@{viewModel.onItemClick}"/>
+            app:onTagClick="@{viewModel.onTagClickListener}"/>
 
 </LinearLayout>
 </layout>

@@ -120,7 +120,7 @@ class SettingsViewModel : BaseViewModel() {
             .show()
     }
 
-    val switchClickListener = CompoundButton.OnCheckedChangeListener { _, checked ->
+    val onCheckedChangeListener = CompoundButton.OnCheckedChangeListener { _, checked ->
         if (_isNight.value != checked) {
             _isNight.value = checked
             setNightMode(checked)

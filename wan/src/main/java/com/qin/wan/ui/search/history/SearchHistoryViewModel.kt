@@ -20,8 +20,8 @@ class SearchHistoryViewModel : BaseViewModel() {
 
     private val repository by lazy { SearchRepository.getInstance(ApiRetrofit.getInstance()) }
 
-    private val itemOnClickListener = object : OnItemClickListener<String> {
-        override fun onItemClick(view: View, item: String) {
+    private val onItemClickListener = object : OnItemClickListener<String> {
+        override fun onClick(view: View, item: String) {
             when(view.id) {
                 R.id.ivDelete -> {
                     deleteSearchHistory(item)
@@ -39,14 +39,14 @@ class SearchHistoryViewModel : BaseViewModel() {
     val itemsHotWord : LiveData<MutableList<HotWord>> = _itemsHotWord
     val itemBindingHotWord = com.qin.mvvm.binding.adapter
         .ItemBinding.of<HotWord>(BR.itemBean, R.layout.item_hot_search)
-    val onHotWordItemClick = TagFlowLayout.OnTagClickListener { _, position, _ ->
+    val onTagClickListener = TagFlowLayout.OnTagClickListener { _, position, _ ->
         Bus.post(SearchRepository.SELECTED_KEYWORDS, itemsHotWord.value!!.get(position).name)
         true
     }
 
     val itemsHistory : LiveData<MutableList<String>> = _itemsHistory
     val itemBindingHistory = ItemBinding.of<String>(BR.itemBean, R.layout.item_search_history)
-        .bindExtra(BR.listenner, itemOnClickListener)
+        .bindExtra(BR.listenner, onItemClickListener)
 
     fun initData() {
         launchOnlyResult({

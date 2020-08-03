@@ -28,8 +28,8 @@ class DiscoveryViewModel : BaseUserViewModel() {
     private val disRepository by lazy { DiscoveryRepository.getInstance(ApiRetrofit.getInstance()) }
 
     private val itemOnClickListener = object : OnItemClickListener<HotWord> {
-        override fun onItemClick(view: View, item: HotWord) {
-            Log.d("onItemClick", item.name + " ===  " + item.link)
+        override fun onClick(view: View, item: HotWord) {
+            Log.d("onClick", item.name + " ===  " + item.link)
             view.context.startActivity(Intent().apply {
                 setClass(view.context, DetailActivity::class.java)
                 putExtra(DetailActivity.PARAM_ARTICLE, Article(
@@ -53,7 +53,7 @@ class DiscoveryViewModel : BaseUserViewModel() {
         .ItemBinding.of<Frequently>(BR.itemBean, R.layout.item_frequently_tag)
 
 
-    val onBannerItemClick = OnBannerListener { position ->
+    val onBannerClickListener = OnBannerListener { position ->
         val banner =  _banners.value!![position]
         ActivityUtils.startActivity(
             Intent().apply {
@@ -64,7 +64,7 @@ class DiscoveryViewModel : BaseUserViewModel() {
         )
     }
 
-    val onTagItemClick = TagFlowLayout.OnTagClickListener { view, position, _ ->
+    val onTagClickListener = TagFlowLayout.OnTagClickListener { view, position, _ ->
         val frequently =  _frequentlyItems.value!![position]
         view.context.startActivity(Intent().apply {
             setClass(view.context, DetailActivity::class.java)

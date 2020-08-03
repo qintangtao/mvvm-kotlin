@@ -22,7 +22,7 @@ class SystemPagerViewModel : BaseViewModel() {
     private val repository by lazy { SystemRepository.getInstance(ApiRetrofit.getInstance()) }
 
     private val itemCategoryOnClickListener = object : OnItemClickListener<Category> {
-        override fun onItemClick(view: View, item: Category) {
+        override fun onClick(view: View, item: Category) {
             checkedCat.code = item.id
             _itemsCategory.value = itemsCategory.value!!.toMutableList()
             refreshArticleList(true)
@@ -30,7 +30,7 @@ class SystemPagerViewModel : BaseViewModel() {
     }
 
     private val itemOnClickListener = object : OnItemClickListener<Article> {
-        override fun onItemClick(view: View, item: Article) {
+        override fun onClick(view: View, item: Article) {
             when(view.id) {
                 R.id.iv_collect -> {
                     item.collect = !item.collect

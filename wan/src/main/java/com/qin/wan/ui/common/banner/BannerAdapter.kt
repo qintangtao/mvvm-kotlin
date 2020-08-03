@@ -3,9 +3,7 @@ package com.qin.wan.ui.common.banner
 import androidx.databinding.BindingAdapter
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
-import com.youth.banner.Transformer
 import com.youth.banner.listener.OnBannerListener
-import com.zhy.view.flowlayout.TagFlowLayout
 
 object BannerAdapter {
 
@@ -24,7 +22,7 @@ object BannerAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["onItemClick"], requireAll = false)
+    @BindingAdapter(value = ["onBannerClick"], requireAll = false)
     fun setOnBannerListener(banner: Banner, listener: OnBannerListener) {
         banner.setOnBannerListener(listener)
     }

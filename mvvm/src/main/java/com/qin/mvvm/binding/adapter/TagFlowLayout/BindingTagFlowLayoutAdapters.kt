@@ -23,12 +23,10 @@ object BindingTagFlowLayoutAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["onItemClick"], requireAll = false)
+    @BindingAdapter(value = ["onTagClick"], requireAll = false)
     fun setOnTagClickListener(layout: TagFlowLayout, listener: TagFlowLayout.OnTagClickListener) {
         layout.setOnTagClickListener(listener)
-        //onTagClick
     }
-
 
 }
 

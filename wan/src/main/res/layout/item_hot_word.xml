@@ -22,6 +22,6 @@
         android:textColor="@color/textColorPrimary"
         android:textSize="13sp"
         android:text="@{itemBean.name}"
-        android:onClick="@{(view)->listenner.onItemClick(view, itemBean)}"
+        android:onClick="@{(view)->listenner.onClick(view, itemBean)}"
         tools:text="面试" />
 </layout>

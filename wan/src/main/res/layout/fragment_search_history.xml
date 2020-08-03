@@ -50,7 +50,7 @@
                 app:max_select="1"
                 app:itemBinding="@{viewModel.itemBindingHotWord}"
                 app:items="@{viewModel.itemsHotWord}"
-                app:onItemClick="@{viewModel.onHotWordItemClick}"/>
+                app:onTagClick="@{viewModel.onTagClickListener}"/>
 
             <TextView
                 android:id="@+id/tvSearchHistory"

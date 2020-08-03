@@ -87,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:state_checked="@{viewModel.isNight}"
-                        app:switchClick="@{viewModel.switchClickListener}" />
+                        app:onCheckedChange="@{viewModel.onCheckedChangeListener}" />
                 </LinearLayout>
 
                 <View

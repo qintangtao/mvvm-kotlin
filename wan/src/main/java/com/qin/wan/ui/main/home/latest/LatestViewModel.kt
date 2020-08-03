@@ -20,8 +20,8 @@ class LatestViewModel : BaseViewModel() {
 
     private val repository by lazy { HomeRepository.getInstance(ApiRetrofit.getInstance()) }
 
-    private val itemOnClickListener = object : OnItemClickListener<Article> {
-        override fun onItemClick(view: View, item: Article) {
+    private val onItemClickListener = object : OnItemClickListener<Article> {
+        override fun onClick(view: View, item: Article) {
             when(view.id) {
                 R.id.iv_collect -> {
                     item.collect = !item.collect
@@ -43,7 +43,7 @@ class LatestViewModel : BaseViewModel() {
 
     val items: LiveData<MutableList<Article>> = _items
     val itemBinding = ItemBinding.of<Article>(BR.itemBean, R.layout.item_article)
-        .bindExtra(BR.listenner, itemOnClickListener)
+        .bindExtra(BR.listenner, onItemClickListener)
 
     fun refreshProjectList(isNotify: Boolean = false) {
         launchOnlyResult({

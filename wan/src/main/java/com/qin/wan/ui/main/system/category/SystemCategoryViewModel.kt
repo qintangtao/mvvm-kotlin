@@ -24,7 +24,7 @@ class SystemCategoryViewModel : BaseViewModel() {
     val itemBindingTag =  com.qin.mvvm.binding.adapter
         .ItemBinding.of<Category>(BR.itemBean, R.layout.item_system_category_tag)
 
-    val onItemClick = TagFlowLayout.OnTagClickListener { view, position, parent ->
+    val onTagClickListener = TagFlowLayout.OnTagClickListener { view, position, parent ->
         var id = parent.getTag() as Int
         val item = items.value!!.find { it.id == id } ?: return@OnTagClickListener false
         id = items.value!!.indexOf(item)

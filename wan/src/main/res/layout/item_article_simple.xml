@@ -18,7 +18,7 @@
             android:paddingBottom="8dp"
             android:elevation="1dp"
             android:background="@drawable/ripple_item_select"
-            android:onClick="@{(view)->listenner.onItemClick(view, itemBean)}">
+            android:onClick="@{(view)->listenner.onClick(view, itemBean)}">
 
         <TextView
                 android:id="@+id/tv_title"
@@ -91,7 +91,7 @@
                 android:padding="6dp"
                 android:tint="@color/textColorThird"
                 android:src="@drawable/selector_collect"
-                android:onClick="@{(view)->listenner.onItemClick(view, itemBean)}"
+                android:onClick="@{(view)->listenner.onClick(view, itemBean)}"
                 app:state_selected="@{itemBean.collect}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />

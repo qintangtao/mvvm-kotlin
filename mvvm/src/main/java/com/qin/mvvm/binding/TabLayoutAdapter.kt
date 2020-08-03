@@ -14,7 +14,7 @@ object TabLayoutAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["tabItemClick"], requireAll = false)
+    @BindingAdapter(value = ["onTabSelected"], requireAll = false)
     fun tabItemClick(tabLayout: TabLayout, listener: TabLayout.BaseOnTabSelectedListener<TabLayout.Tab>) {
         tabLayout.addOnTabSelectedListener(listener)
     }

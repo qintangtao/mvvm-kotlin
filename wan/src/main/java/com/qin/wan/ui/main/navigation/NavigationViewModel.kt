@@ -27,7 +27,7 @@ class NavigationViewModel : BaseViewModel() {
     val itemBindingTag =  com.qin.mvvm.binding.adapter
         .ItemBinding.of<Article>(BR.itemBean, R.layout.item_nav_tag)
 
-    val onItemClick = TagFlowLayout.OnTagClickListener {  view, position, parent ->
+    val onTagClickListener = TagFlowLayout.OnTagClickListener {  view, position, parent ->
         val cid = parent.getTag() as Int
         val list = items.value
         val item = list?.find { it.cid == cid } ?: return@OnTagClickListener false

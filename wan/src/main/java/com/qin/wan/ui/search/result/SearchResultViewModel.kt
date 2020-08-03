@@ -20,7 +20,7 @@ class SearchResultViewModel : BaseViewModel() {
     private val repository by lazy { SearchRepository.getInstance(ApiRetrofit.getInstance()) }
 
     private val itemOnClickListener = object : OnItemClickListener<Article> {
-        override fun onItemClick(view: View, item: Article) {
+        override fun onClick(view: View, item: Article) {
             when(view.id) {
                 R.id.iv_collect -> {
                     item.collect = !item.collect

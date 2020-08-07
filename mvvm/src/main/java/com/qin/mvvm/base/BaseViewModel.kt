@@ -1,5 +1,6 @@
 package com.qin.mvvm.base
 
+import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.viewModelScope
@@ -412,5 +413,9 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
 
     inline fun callComplete() {
         defUI.complete.call()
+    }
+
+    fun getString(resId: Int): String {
+        return getApplication<Application>().getString(resId)
     }
 }

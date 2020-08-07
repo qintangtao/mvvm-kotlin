@@ -1,6 +1,5 @@
 package com.qin.wan.ui.settings
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -50,7 +49,6 @@ class SettingsViewModel : BaseViewModel() {
         Bus.post(UserRepository.USER_LOGIN_STATE_CHANGED, false)
     }
 
-    @SuppressLint("ResourceType")
     fun click(view: View) {
         when(view.id) {
             R.id.llClearCache -> {
@@ -74,14 +72,14 @@ class SettingsViewModel : BaseViewModel() {
                     .show()
             }
             R.id.llCheckVersion -> {
-                ToastUtils.showLong(ResourceUtils.readRaw2String(R.string.stay_tuned))
+                ToastUtils.showLong(getString(R.string.stay_tuned))
             }
             R.id.llAboutUs -> {
                 view.context.startActivity(Intent().apply {
                     setClass(view.context, DetailActivity::class.java)
                     putExtra(
                         DetailActivity.PARAM_ARTICLE, Article(
-                            title = ResourceUtils.readRaw2String(R.string.abount_us),
+                            title = getString(R.string.abount_us),
                             link = "https://github.com/qintangtao/mvvm-kotlin"
                         )
                     )

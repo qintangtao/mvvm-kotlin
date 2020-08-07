@@ -42,6 +42,8 @@ dependencies {
     api rootProject.ext.androidxs
     //material-dialogs
     api rootProject.ext.mds
+    //materialish-progress
+    api rootProject.ext.dependencies.mprogress
     //network
     api rootProject.ext.network
     //glide

@@ -47,8 +47,6 @@ dependencies {
     api rootProject.ext.androidxs
     //navigations
     api rootProject.ext.navigations
-    //materialish-progress
-    api rootProject.ext.dependencies.mprogress
     //BRVAH
     api rootProject.ext.dependencies.BRVAH
     //xrecyclerview

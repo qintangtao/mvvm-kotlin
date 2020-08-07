@@ -19,7 +19,7 @@ Add it in your app build.gradle at the end of dependencies:
 ```
 dependencies {
 	...
-	implementation 'com.github.qintangtao:mvvm-kotlin:1.0.1'
+	implementation 'com.github.qintangtao:mvvm-kotlin:1.0.2'
 }
 ```
 

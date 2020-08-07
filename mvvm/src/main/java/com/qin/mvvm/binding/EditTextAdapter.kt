@@ -1,13 +1,13 @@
 package com.qin.mvvm.binding
 
+import android.widget.EditText
 import androidx.databinding.BindingAdapter
-import com.google.android.material.textfield.TextInputLayout
 
-object TextInputLayoutAdapter {
+object EditTextAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["errorText"], requireAll = false)
-    fun setErrorText(view: TextInputLayout, text: String?) {
+    fun setErrorText(view: EditText, text: String?) {
         text?.let { view.error = it }
     }
 

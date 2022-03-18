@@ -10,6 +10,13 @@ import com.qin.wan.model.bean.Category
 class SystemViewModel : BaseViewModel() {
     private val repository by lazy { SystemRepository.getInstance(ApiRetrofit.getInstance()) }
 
+    /**
+     * MutableLiveData  公开的setView方法
+     *                  只能在ViewModel内设置数据
+     *
+     * LiveData 保护的setView方法
+     *          外部只能获取ViewModel内的数据，不能修改
+     */
     private val _itemsCategory = MutableLiveData<MutableList<Category>>()
 
     val itemsCategory : LiveData<MutableList<Category>> = _itemsCategory

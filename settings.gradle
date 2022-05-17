@@ -1,2 +1,21 @@
-include ':app', ':mvvm', ':wan'
-rootProject.name='kotlin'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+
+
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+rootProject.name = "mvvm-kotlin"
+include ':mvvm'
+include ':wanandroid'

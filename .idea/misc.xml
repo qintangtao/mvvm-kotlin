@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/work/MyApplication/mvvm/src/main/res/layout/custom_progress_dialog_view.xml" value="0.12447916666666667" />
+        <entry key="..\:/work/MyApplication/mvvm/src/main/res/layout/default_empty_view.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/drawable/ic_arrow_back_black_24dp.xml" value="0.1" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/activity_detail.xml" value="0.12001811594202899" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/activity_login.xml" value="0.19322916666666667" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/activity_search.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/activity_settings.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/activity_splash.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_detail_acitons.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_home.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_latest.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_mine.xml" value="0.6895273401297498" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_navigation.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_project.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_search_history.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_search_result.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_system_category.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_system_pager.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/fragment_wechat.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_article.xml" value="0.12001811594202899" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_article_simple.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_category_sub.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_frequently_tag.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_hot_search.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_hot_word.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_nav_tag.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_navigation.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_search_history.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_system_category.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_system_category_tag.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/view_change_text_zoom.xml" value="0.15" />
+        <entry key="..\:/work/MyApplication/wanandroid/src/main/res/menu/bottom_nav_menu.xml" value="0.1796875" />
+        <entry key="..\:/work/projects/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_home.xml" value="0.20625" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -2,11 +2,17 @@
 一个MVVM开发框架，基于Kotlin+Retrofit+Coroutine+Databinding+LiveData+LiveEventBus封装：
 项目地址：[mvvm-kotlin](https://github.com/qintangtao/mvvm-kotlin)
 
+### 环境
+##### minSdk 29, targetSdk 32
+##### 升级到gradle7
+##### 弃用kotlin-android-extensions, 改用viewBinding(使用mBinding.id访问view)
+
+
 ### 1，Download
 ##### 1.1 Add the JitPack repository to your build file
-Add it in your root build.gradle at the end of repositories:
+Add it in your root settings.gradle at the end of repositories:
 ```
-allprojects {
+dependencyResolutionManagement {
 	repositories {
 		...
 		maven { url 'https://jitpack.io' }
@@ -19,7 +25,7 @@ Add it in your app build.gradle at the end of dependencies:
 ```
 dependencies {
 	...
-	implementation 'com.github.qintangtao:mvvm-kotlin:1.0.3'
+	implementation 'com.github.qintangtao:mvvm-kotlin:1.1.1'
 }
 ```
 
@@ -30,6 +36,17 @@ android {
 	...
 	dataBinding {
         enabled = true
+    }
+}
+```
+
+##### 1.4 Enable the viewBinding
+Add it in your app build.gradle at the end of android:
+```
+android {
+	...
+	buildFeatures {
+        viewBinding true
     }
 }
 ```

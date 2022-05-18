@@ -2,7 +2,6 @@ package com.kotlin.mvvm.utils
 
 import android.content.Context
 
-@JvmOverloads
 fun <T> getSpValue(
     filename: String,
     context: Context,
@@ -21,7 +20,6 @@ fun <T> getSpValue(
     }
 }
 
-@JvmOverloads
 fun <T> putSpValue(
     filename: String,
     context: Context,
@@ -41,7 +39,6 @@ fun <T> putSpValue(
     editor.apply()
 }
 
-@JvmOverloads
 fun removeSpValue(filename: String, context: Context, key: String) {
     context.getSharedPreferences(filename, Context.MODE_PRIVATE)
         .edit()
@@ -49,7 +46,6 @@ fun removeSpValue(filename: String, context: Context, key: String) {
         .apply()
 }
 
-@JvmOverloads
 fun clearSpValue(filename: String, context: Context) {
     context.getSharedPreferences(filename, Context.MODE_PRIVATE)
         .edit()

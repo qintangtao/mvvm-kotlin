@@ -1,6 +1,8 @@
 package com.kotlin.mvvm.base
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -41,6 +43,22 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewBinding> : AppCompatAct
     private fun initViewDataBinding() {
         var cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
+            //mBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+            var inflateMethod = cls.getMethod("inflate", LayoutInflater::class.java)
+            mBinding = inflateMethod?.invoke(null, layoutInflater) as? DB
+            (mBinding as? ViewDataBinding)?.lifecycleOwner = this
+            //Log.d("BaseFragment", "BaseFragment2=============" + mBinding)
+            setContentView(mBinding?.root)
+        }
+        else if (ViewBinding::class.java != cls && ViewBinding::class.java.isAssignableFrom(cls)) {
+            var inflateMethod = cls.getMethod("inflate", LayoutInflater::class.java)
+            mBinding = inflateMethod?.invoke(null, layoutInflater) as? DB
+            //Log.d("BaseFragment", "BaseFragment3=============" + mBinding)
+            setContentView(mBinding?.root)
+        } else setContentView(layoutId())
+
+/*
+        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
             mBinding = DataBindingUtil.setContentView(this, layoutId())
             //mBinding?.lifecycleOwner = this
             (mBinding as ViewDataBinding).lifecycleOwner = this
@@ -48,6 +66,8 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewBinding> : AppCompatAct
             mBinding = DataBindingUtil.setContentView(this, layoutId())
             //mBinding?.lifecycleOwner = this
         } else setContentView(layoutId())
+ */
+
         createViewModel()
     }
 

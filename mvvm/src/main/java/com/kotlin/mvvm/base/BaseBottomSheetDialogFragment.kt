@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
@@ -26,13 +27,12 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
 
     protected lateinit var viewModel: VM
 
-    protected var mBinding: DB? = null
+    protected lateinit var mBinding: DB
 
     private var dialog: MaterialDialog? = null
 
     private var isFirstLoad: Boolean = true
 
-    abstract fun layoutId(): Int
     open fun initView(savedInstanceState: Bundle?) {}
     open fun lazyLoadData() {}
 
@@ -50,11 +50,20 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
         val cls =
             (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            mBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-			mBinding?.lifecycleOwner = this
-            return mBinding?.root
+            var inflateMethod = cls.getMethod("inflate",
+                LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
+            mBinding = inflateMethod.invoke(null, inflater, container, false) as DB
+            (mBinding as ViewDataBinding).lifecycleOwner = this
+            return mBinding.root
+        } else if (ViewBinding::class.java != cls && ViewBinding::class.java.isAssignableFrom(cls)) {
+            var inflateMethod = cls.getMethod("inflate",
+                LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
+            mBinding = inflateMethod.invoke(null, inflater, container, false) as DB
+            return mBinding.root
         }
-        return inflater.inflate(layoutId(), container, false)
+
+        throw Exception("Need to enabled ViewBinding or ViewDataBinding")
+        //return inflater.inflate(layoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -124,7 +133,7 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
 
     fun showProgressDialog(resId: Int = R.string.now_loading) {
         if (dialog == null) {
-            dialog = MaterialDialog(activity!!)
+            dialog = MaterialDialog(requireActivity())
                 .cancelable(false)
                 .cornerRadius(8f)
                 .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
@@ -149,7 +158,7 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
         if (type is ParameterizedType) {
             var tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            val viewModelStore = if (isShareVM()) activity!!.viewModelStore else this.viewModelStore
+            val viewModelStore = if (isShareVM()) requireActivity().viewModelStore else this.viewModelStore
             viewModel = ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(tClass) as VM
         }
     }

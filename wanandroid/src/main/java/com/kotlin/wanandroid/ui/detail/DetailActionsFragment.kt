@@ -31,8 +31,6 @@ class DetailActionsFragment : BaseBottomSheetDialogFragment<NoViewModel, Fragmen
     private var behavior: BottomSheetBehavior<View>? = null
     private lateinit var article: Article
 
-    override fun layoutId() = R.layout.fragment_detail_acitons
-
     override fun onStart() {
         super.onStart()
         val bottomSheet: View = (dialog as BottomSheetDialog).delegate
@@ -45,8 +43,8 @@ class DetailActionsFragment : BaseBottomSheetDialogFragment<NoViewModel, Fragmen
     override fun lazyLoadData() {
         arguments?.run {
             article  = getParcelable<Article>(PARAM_ARTICLE) ?: return@run
-            mBinding?.article = article
-            mBinding?.run {
+            mBinding.article = article
+            mBinding.run {
                 llCollect.setOnClickListener {
                     (activity as? DetailActivity)?.changeCollect()
                     behavior?.state = BottomSheetBehavior.STATE_HIDDEN

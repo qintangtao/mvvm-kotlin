@@ -15,13 +15,12 @@ class NavigationFragment : BaseStateFragment<NavigationViewModel, FragmentNaviga
 
     private var currentPosition = 0
 
-    override fun layoutId() = R.layout.fragment_navigation
     override fun stateLayout() = mBinding!!.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
-        mBinding?.run {
+        mBinding.run {
             swipeRefreshLayout.run {
                 setColorSchemeResources(R.color.textColorPrimary)
                 setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
@@ -58,7 +57,7 @@ class NavigationFragment : BaseStateFragment<NavigationViewModel, FragmentNaviga
 
     override fun onLoadCompleted() {
         super.onLoadCompleted()
-        mBinding?.run {
+        mBinding.run {
             if (swipeRefreshLayout.isRefreshing)
                 swipeRefreshLayout.isRefreshing = false
         }

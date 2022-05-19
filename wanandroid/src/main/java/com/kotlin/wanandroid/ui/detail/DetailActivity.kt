@@ -23,13 +23,12 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
     private lateinit var article: Article
     private var agentWeb: AgentWeb? = null
 
-    override fun layoutId() = R.layout.activity_detail
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
         article  = intent?.getParcelableExtra(PARAM_ARTICLE) ?: return
 
-        mBinding?.run {
+        mBinding.run {
             ivBack.setOnClickListener {
                 finish()
             }

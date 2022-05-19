@@ -15,13 +15,12 @@ class PlazaFragment : BaseStateFragment<PlazaViewModel, FragmentPlazaBinding>() 
         fun newInstance() = PlazaFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_plaza
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
-        mBinding?.run {
+        mBinding.run {
             swipeRefreshLayout.run {
                 setColorSchemeResources(R.color.textColorPrimary)
                 setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
@@ -57,7 +56,7 @@ class PlazaFragment : BaseStateFragment<PlazaViewModel, FragmentPlazaBinding>() 
 
     override fun onLoadCompleted() {
         super.onLoadCompleted()
-        mBinding?.run {
+        mBinding.run {
             if (swipeRefreshLayout.isRefreshing)
                 swipeRefreshLayout.isRefreshing = false
             recyclerView.loadMoreComplete()

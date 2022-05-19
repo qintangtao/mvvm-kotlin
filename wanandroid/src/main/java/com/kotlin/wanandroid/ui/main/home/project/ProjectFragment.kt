@@ -15,13 +15,12 @@ class ProjectFragment : BaseStateFragment<ProjectViewModel, FragmentProjectBindi
         fun newInstance() = ProjectFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_project
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
-        mBinding?.run {
+        mBinding.run {
             swipeRefreshLayout.run {
                 setColorSchemeResources(R.color.textColorPrimary)
                 setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
@@ -55,13 +54,10 @@ class ProjectFragment : BaseStateFragment<ProjectViewModel, FragmentProjectBindi
 
     override fun onLoadCompleted() {
         super.onLoadCompleted()
-        mBinding?.run {
+        mBinding.run {
             if (swipeRefreshLayout.isRefreshing)
                 swipeRefreshLayout.isRefreshing = false
             recyclerView.loadMoreComplete()
         }
-        //if (swipeRefreshLayout.isRefreshing)
-        //    swipeRefreshLayout.isRefreshing = false
-        //recyclerView.loadMoreComplete()
     }
 }

@@ -13,8 +13,6 @@ import com.kotlin.wanandroid.ui.search.result.SearchResultFragment
 
 class SearchActivity: BaseActivity<NoViewModel, ActivitySearchBinding>(){
 
-    override fun layoutId() = R.layout.activity_search
-
     override fun initView(savedInstanceState: Bundle?) {
         val historyFragment = SearchHistoryFragment.newInstance()
         val resultFragment = SearchResultFragment.newInstance()
@@ -26,7 +24,7 @@ class SearchActivity: BaseActivity<NoViewModel, ActivitySearchBinding>(){
             .hide(resultFragment)
             .commit()
 
-        mBinding?.run {
+        mBinding.run {
             ivBack.setOnClickListener {
                 if (resultFragment.isVisible) {
                     supportFragmentManager
@@ -73,7 +71,7 @@ class SearchActivity: BaseActivity<NoViewModel, ActivitySearchBinding>(){
     override fun initData() { }
 
     fun fillSearchInput(keywords: String) {
-        mBinding?.run {
+        mBinding.run {
             acetInput.setText(keywords)
             acetInput.setSelection(keywords.length)
         }

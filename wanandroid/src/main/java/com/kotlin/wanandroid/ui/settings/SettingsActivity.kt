@@ -12,11 +12,10 @@ class SettingsActivity : BaseActivity<SettingsViewModel, ActivitySettingsBinding
         fun newInstance() = SettingsActivity()
     }
 
-    override fun layoutId() = R.layout.activity_settings
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
-        mBinding?.run {
+        mBinding.viewModel = viewModel
+        mBinding.run {
             ivBack.setOnClickListener { finish() }
         }
     }

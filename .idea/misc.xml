@@ -35,6 +35,54 @@
         <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/item_system_category_tag.xml" value="0.15" />
         <entry key="..\:/work/MyApplication/wanandroid/src/main/res/layout/view_change_text_zoom.xml" value="0.15" />
         <entry key="..\:/work/MyApplication/wanandroid/src/main/res/menu/bottom_nav_menu.xml" value="0.1796875" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/bg_splash.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_access_time_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_add_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_add_circle_outline_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_android.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_arrow_back_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_avatar_black_96dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_chevron_right_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_chrome_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_close_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_content_copy_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_delete_forever_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_equalizer_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_filter.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_github.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_graphic_eq_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_history_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_info_outline_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_launcher_background.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_layers_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_mine_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_more_vert_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_my_integral.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_navigation_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_refresh_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_search_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_settings_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_share_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_star_black_24dp.xml" value="0.116" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ic_star_border_black_24dp.xml" value="0.1195" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ripple_item_nav.xml" value="0.2405" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ripple_item_select.xml" value="0.116" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ripple_system_category_item_checked.xml" value="0.116" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/ripple_system_category_item_normal.xml" value="0.116" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/selector_bg_category_item.xml" value="0.116" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/selector_bg_system_category_item.xml" value="0.116" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/selector_collect.xml" value="0.2405" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/shape_bg_btn.xml" value="0.1" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/shape_bg_category_item_checked.xml" value="0.2405" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/shape_bg_category_item_normal.xml" value="0.2405" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/shape_bg_image_default.xml" value="0.2405" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/shape_bg_search.xml" value="0.2405" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/drawable/shape_bg_tag.xml" value="0.2405" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_latest.xml" value="0.20153985507246377" />
+        <entry key="..\:/work/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_article.xml" value="0.23854166666666668" />
         <entry key="..\:/work/projects/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_home.xml" value="0.20625" />
       </map>
     </option>

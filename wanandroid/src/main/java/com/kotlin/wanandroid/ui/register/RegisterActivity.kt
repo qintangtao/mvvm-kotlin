@@ -9,11 +9,9 @@ import com.kotlin.wanandroid.databinding.ActivityRegisterBinding
 
 class RegisterActivity : BaseActivity<RegisterViewModel, ActivityRegisterBinding>(){
 
-    override fun layoutId() = R.layout.activity_register
-
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
-        mBinding!!.ivBack.setOnClickListener { finish() }
+        mBinding.viewModel = viewModel
+        mBinding.ivBack.setOnClickListener { finish() }
     }
 
     override fun initData() {

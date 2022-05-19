@@ -25,15 +25,14 @@ class SystemPagerFragment : BaseStateFragment<SystemPagerViewModel, FragmentSyst
 
     private lateinit var category: Category
 
-    override fun layoutId() = R.layout.fragment_system_pager
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
         category = arguments?.getParcelable(PARAM_CATEGORY)!!
 
-        mBinding?.run {
+        mBinding.run {
             swipeRefreshLayout.run {
                 setColorSchemeResources(R.color.textColorPrimary)
                 setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
@@ -68,7 +67,7 @@ class SystemPagerFragment : BaseStateFragment<SystemPagerViewModel, FragmentSyst
 
     override fun onLoadCompleted() {
         super.onLoadCompleted()
-        mBinding?.run {
+        mBinding.run {
             if (swipeRefreshLayout.isRefreshing)
                 swipeRefreshLayout.isRefreshing = false
             recyclerView.loadMoreComplete()

@@ -12,13 +12,12 @@ class DiscoveryFragment : BaseStateFragment<DiscoveryViewModel, FragmentDiscover
         fun newInstance() = DiscoveryFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_discovery
     override fun stateLayout() = mBinding!!.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
-        mBinding?.run {
+        mBinding.run {
             swipeRefreshLayout.run {
                 setColorSchemeResources(R.color.textColorPrimary)
                 setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
@@ -40,7 +39,7 @@ class DiscoveryFragment : BaseStateFragment<DiscoveryViewModel, FragmentDiscover
 
     override fun onLoadCompleted() {
         super.onLoadCompleted()
-        mBinding?.run {
+        mBinding.run {
             if (swipeRefreshLayout.isRefreshing)
                 swipeRefreshLayout.isRefreshing = false
         }
@@ -48,14 +47,14 @@ class DiscoveryFragment : BaseStateFragment<DiscoveryViewModel, FragmentDiscover
 
     override fun onResume() {
         super.onResume()
-        mBinding?.run {
+        mBinding.run {
             bannerView.startAutoPlay()
         }
     }
 
     override fun onPause() {
         super.onPause()
-        mBinding?.run {
+        mBinding.run {
             bannerView.stopAutoPlay()
         }
     }

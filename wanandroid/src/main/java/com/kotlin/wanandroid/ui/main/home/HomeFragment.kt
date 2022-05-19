@@ -3,9 +3,7 @@ package com.kotlin.wanandroid.ui.main.home
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.kotlin.mvvm.adapter.SimpleFragmentPagerAdapter
 import com.kotlin.wanandroid.R
@@ -29,13 +27,11 @@ class HomeFragment : BaseFragment<NoViewModel, FragmentHomeBinding>() {
     private lateinit var fragments: List<Fragment>
     private var currentOffset = 0
 
-    override fun layoutId() = R.layout.fragment_home
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
 
         Log.d("BaseFragment", "HomeFragment=============")
-
 
         fragments = listOf(
             PopularFragment.newInstance(),
@@ -53,21 +49,21 @@ class HomeFragment : BaseFragment<NoViewModel, FragmentHomeBinding>() {
             getString(R.string.wechat_public)
         )
 
-        Log.d("BaseFragment", (mBinding==null).toString())
+        Log.d("BaseFragment", mBinding.toString())
 
-        mBinding?.run {
+        mBinding.run {
             viewPager.adapter = SimpleFragmentPagerAdapter(childFragmentManager, fragments, titles)
             viewPager.offscreenPageLimit = fragments.size
             tabLayout.setupWithViewPager(viewPager)
         }
 
-        mBinding!!.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
+        mBinding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
             if (activity is MainActivity && this.currentOffset != offset) {
                 (activity as MainActivity).animateBottomNavigationView(offset > currentOffset)
                 currentOffset = offset
             }
         })
-        mBinding!!.llSearch.setOnClickListener { startActivity(Intent(this.context, SearchActivity::class.java))  }
+        mBinding.llSearch.setOnClickListener { startActivity(Intent(this.context, SearchActivity::class.java))  }
     }
 
 }

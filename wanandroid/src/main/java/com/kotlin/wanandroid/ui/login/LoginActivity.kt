@@ -9,11 +9,9 @@ import com.kotlin.wanandroid.databinding.ActivityLoginBinding
 
 class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>(){
 
-    override fun layoutId() = R.layout.activity_login
-
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
-        mBinding!!.ivClose.setOnClickListener { finish() }
+        mBinding.viewModel = viewModel
+        mBinding.ivClose.setOnClickListener { finish() }
     }
 
     override fun initData() {

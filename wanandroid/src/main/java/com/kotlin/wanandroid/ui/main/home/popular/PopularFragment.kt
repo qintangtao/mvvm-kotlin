@@ -20,13 +20,12 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
         const val START_DETAIL_ARTICLE = 10000
     }
 
-    override fun layoutId() = R.layout.fragment_popular
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
-        mBinding?.run {
+        mBinding.run {
             swipeRefreshLayout.run {
                 setColorSchemeResources(R.color.textColorPrimary)
                 setProgressBackgroundColorSchemeResource(R.color.bgColorPrimary)
@@ -50,7 +49,7 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
     }
 
     override fun lazyLoadData() {
-        viewModel?.refreshArticleList(true)
+        viewModel.refreshArticleList(true)
     }
 
     override fun onLoadEvent(msg: Message) {
@@ -76,7 +75,7 @@ class PopularFragment : BaseStateFragment<PopularViewModel, FragmentPopularBindi
 
     override fun onLoadCompleted() {
         super.onLoadCompleted()
-        mBinding?.run {
+        mBinding.run {
             if (swipeRefreshLayout.isRefreshing)
                 swipeRefreshLayout.isRefreshing = false
             recyclerView.loadMoreComplete()

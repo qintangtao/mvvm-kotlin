@@ -24,14 +24,13 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
     private var fragments = mutableListOf<SystemPagerFragment>()
     private var currentOffset = 0
 
-    override fun layoutId() = R.layout.fragment_system
     override fun stateLayout() = mBinding!!.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
-        mBinding?.let {
+        mBinding.let {
             it.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offset ->
                 if (activity is MainActivity && this.currentOffset != offset) {
                     (activity as MainActivity).animateBottomNavigationView(offset > currentOffset)
@@ -40,8 +39,7 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
             })
         }
 
-        mBinding?.run {
-
+        mBinding.run {
 
             ivFilter.setOnClickListener {
                 categoryFragment?.show(childFragmentManager)
@@ -70,13 +68,13 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
     }
 
     override fun onLoadStart() {
-        mBinding!!.viewPager.visibility = View.GONE
+        mBinding.viewPager.visibility = View.GONE
         super.onLoadStart()
     }
 
     override fun onLoadCompleted() {
         super.onLoadCompleted()
-        mBinding?.run {
+        mBinding.run {
             if (!isErrorLoaded && !isEmptyLoaded) {
                 tvState.visibility = View.GONE
                 viewPager.visibility = View.VISIBLE
@@ -85,16 +83,16 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
     }
 
     fun getCurrentChecked(): Pair<Int, Int> {
-        if (fragments.isEmpty() || mBinding?.viewPager == null) return 0 to 0
+        if (fragments.isEmpty() || mBinding.viewPager == null) return 0 to 0
         //val first = viewPager.currentItem
         //val second = fragments[viewPager.currentItem].getCheckedPosition()
         //return first to second
-        return fragments[mBinding!!.viewPager.currentItem].getCheckedPosition()
+        return fragments[mBinding.viewPager.currentItem].getCheckedPosition()
     }
 
     fun check(position: Pair<Int, Int>) {
-        if (fragments.isNullOrEmpty() || mBinding?.viewPager == null || mBinding!!.viewPager.isEmpty()) return
-        mBinding!!.viewPager.currentItem = position.first
+        if (fragments.isNullOrEmpty() || mBinding.viewPager == null || mBinding.viewPager.isEmpty()) return
+        mBinding.viewPager.currentItem = position.first
         fragments[position.first].check(position.second)
     }
 }

@@ -14,11 +14,10 @@ class SearchHistoryFragment : BaseStateFragment<SearchHistoryViewModel, Fragment
         fun newInstance() = SearchHistoryFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_search_history
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
 
         Bus.observe<String>(SearchRepository.SELECTED_KEYWORDS, this) {
             (activity as? SearchActivity)?.fillSearchInput(it)

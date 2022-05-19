@@ -11,11 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kotlin.mvvm.base.BaseBottomSheetDialogFragment
 import com.kotlin.mvvm.bus.Bus
-import com.kotlin.wanandroid.R
 import com.kotlin.wanandroid.databinding.FragmentSystemCategoryBinding
 import com.kotlin.wanandroid.model.bean.Category
 import com.kotlin.wanandroid.ui.main.system.SystemFragment
-import com.kotlin.wanandroid.ui.main.system.category.SystemCategoryViewModel
 
 class SystemCategoryFragment() : BaseBottomSheetDialogFragment<SystemCategoryViewModel, FragmentSystemCategoryBinding>() {
 
@@ -35,11 +33,9 @@ class SystemCategoryFragment() : BaseBottomSheetDialogFragment<SystemCategoryVie
     private var behavior: BottomSheetBehavior<View>? = null
     private lateinit var categorys: ArrayList<Category>
 
-    override fun layoutId() = R.layout.fragment_system_category
-
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
         categorys = arguments?.getParcelableArrayList<Category>(PARAM_CATEGORY_LIST)!!
 
         Bus.observe<Pair<Int, Int>>("CHECK", this) {

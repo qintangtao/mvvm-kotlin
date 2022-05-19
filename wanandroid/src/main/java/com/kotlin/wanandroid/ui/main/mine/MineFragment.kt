@@ -12,11 +12,9 @@ class MineFragment : BaseFragment<MineViewModel, FragmentMineBinding>() {
         fun newInstance() = MineFragment()
     }
 
-    override fun layoutId() = R.layout.fragment_mine
-
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        mBinding?.viewModel = viewModel
+        mBinding.viewModel = viewModel
         Bus.observe<Boolean>(UserRepository.USER_LOGIN_STATE_CHANGED, this) {
             viewModel.requestUserInfo()
         }

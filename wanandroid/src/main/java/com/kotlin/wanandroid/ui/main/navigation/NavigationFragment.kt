@@ -15,7 +15,7 @@ class NavigationFragment : BaseStateFragment<NavigationViewModel, FragmentNaviga
 
     private var currentPosition = 0
 
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
         mBinding.viewModel = viewModel

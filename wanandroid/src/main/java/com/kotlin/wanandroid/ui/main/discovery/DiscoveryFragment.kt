@@ -12,7 +12,7 @@ class DiscoveryFragment : BaseStateFragment<DiscoveryViewModel, FragmentDiscover
         fun newInstance() = DiscoveryFragment()
     }
 
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
         mBinding.viewModel = viewModel

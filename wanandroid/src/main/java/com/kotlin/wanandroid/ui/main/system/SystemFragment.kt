@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import com.kotlin.mvvm.adapter.SimpleFragmentPagerAdapter
 import com.kotlin.mvvm.base.BaseStateFragment
-import com.kotlin.wanandroid.R
 import com.kotlin.wanandroid.databinding.FragmentSystemBinding
 import com.kotlin.wanandroid.ui.main.MainActivity
 import com.kotlin.wanandroid.ui.main.system.category.SystemCategoryFragment
@@ -24,7 +23,7 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
     private var fragments = mutableListOf<SystemPagerFragment>()
     private var currentOffset = 0
 
-    override fun stateLayout() = mBinding!!.stateLayout
+    override fun stateLayout() = mBinding.stateLayout
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
@@ -83,7 +82,7 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
     }
 
     fun getCurrentChecked(): Pair<Int, Int> {
-        if (fragments.isEmpty() || mBinding.viewPager == null) return 0 to 0
+        if (fragments.isEmpty()) return 0 to 0
         //val first = viewPager.currentItem
         //val second = fragments[viewPager.currentItem].getCheckedPosition()
         //return first to second
@@ -91,7 +90,7 @@ class SystemFragment : BaseStateFragment<SystemViewModel, FragmentSystemBinding>
     }
 
     fun check(position: Pair<Int, Int>) {
-        if (fragments.isNullOrEmpty() || mBinding.viewPager == null || mBinding.viewPager.isEmpty()) return
+        if (fragments.isNullOrEmpty() || mBinding.viewPager.isEmpty()) return
         mBinding.viewPager.currentItem = position.first
         fragments[position.first].check(position.second)
     }

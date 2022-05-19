@@ -78,7 +78,7 @@ class SearchActivity: BaseActivity<NoViewModel, ActivitySearchBinding>(){
     }
 
     override fun onBackPressed() {
-        mBinding?.run {
+        mBinding.run {
             ivBack.performClick()
         }
     }

@@ -42,7 +42,7 @@ class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBinding>() {
         viewModel.setArtivle(article)
 
         agentWeb = AgentWeb.with(this)
-            .setAgentWebParent(mBinding!!.webContainer, ViewGroup.LayoutParams(-1,-1))
+            .setAgentWebParent(mBinding.webContainer, ViewGroup.LayoutParams(-1,-1))
             .useDefaultIndicator(getColor(R.color.textColorPrimary), 2)
             .interceptUnkownUrl()
             //.setMainFrameErrorView(R.layout.default_error_view, R.id.text_error)

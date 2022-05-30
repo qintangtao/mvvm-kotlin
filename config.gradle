@@ -65,6 +65,11 @@ ext {
             banner              : 'com.youth.banner:banner:1.4.10'
     ]
 
+    hilt = [
+            daggerRuntime       : 'com.google.dagger:hilt-android:2.42',
+            daggerCompiler      : 'com.google.dagger:hilt-android-compiler:2.42'
+    ]
+
     androidxs = androidx.values()
     network = retrofit.values()
     mds = md.values()

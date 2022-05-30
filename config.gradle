@@ -53,8 +53,8 @@ ext {
     ]
 
     dependencies = [
-            glide               : 'com.github.bumptech.glide:glide:4.13.12',
-            'glide-compiler'    : 'com.github.bumptech.glide:compiler:4.13.12',
+            glide               : 'com.github.bumptech.glide:glide:4.13.2',
+            'glide-compiler'    : 'com.github.bumptech.glide:compiler:4.13.2',
             utilcodex           : 'com.blankj:utilcodex:1.31.0',
             coroutines          : 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2',
             mprogress           : 'com.pnikosis:materialish-progress:1.7',

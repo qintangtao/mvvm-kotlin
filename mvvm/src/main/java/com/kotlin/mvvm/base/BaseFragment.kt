@@ -147,8 +147,10 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewBinding> : Fragment() {
         if (type is ParameterizedType) {
             var tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            val viewModelStore = if (isShareVM()) requireActivity().viewModelStore else this.viewModelStore
-            viewModel = ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(tClass) as VM
+            //val viewModelStore = if (isShareVM()) requireActivity().viewModelStore else this.viewModelStore
+            //viewModel = ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(tClass) as VM
+            viewModel = if (isShareVM()) ViewModelProvider(requireActivity().viewModelStore, requireActivity().defaultViewModelProviderFactory).get(tClass) as VM
+            else ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(tClass) as VM
             lifecycle.addObserver(viewModel)
         }
     }

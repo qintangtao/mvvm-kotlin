@@ -3,6 +3,7 @@ package com.kotlin.mvvm.base
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.Utils
 import com.kotlin.mvvm.event.Message
@@ -14,7 +15,11 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.*
 
-open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
+// 继承AndroidViewModel(Utils.getApp()) 会出错，原因如下
+// ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(tClass)
+// defaultViewModelProviderFactory 会用带有Application的构造函数实例化ViewModel
+// 所以直接继承 ViewModel
+open class BaseViewModel() :  ViewModel(), LifecycleObserver {
 
     val defUI: UIChange by lazy { UIChange() }
 
@@ -416,6 +421,7 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     }
 
     fun getString(resId: Int): String {
-        return getApplication<Application>().getString(resId)
+        //return getApplication<Application>().getString(resId)
+        return Utils.getApp().getString(resId)
     }
 }

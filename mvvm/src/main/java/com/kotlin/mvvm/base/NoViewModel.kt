@@ -1,4 +1,4 @@
 package com.kotlin.mvvm.base
 
-class NoViewModel : BaseViewModel() {
+class NoViewModel() : BaseViewModel() {
 }

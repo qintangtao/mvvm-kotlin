@@ -118,7 +118,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewBinding> : AppCompatAct
             var tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
             //viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(tClass) as VM
-            viewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(tClass) as VM
+            viewModel = ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(tClass) as VM
             lifecycle.addObserver(viewModel)
         }
     }

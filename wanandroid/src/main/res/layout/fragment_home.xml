@@ -8,13 +8,13 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bgColorPrimary"
         android:elevation="2dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/bgColorPrimary"
             app:contentInsetStart="0dp"
             app:layout_scrollFlags="scroll|enterAlways">
 
@@ -48,15 +48,10 @@
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
+            style="@style/Widget.Design.TabLayout"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:background="@color/bgColorPrimary"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/textColorPrimary"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/textColorPrimary"
-            app:tabTextColor="@color/textColorThird" />
+            android:layout_height="42dp" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

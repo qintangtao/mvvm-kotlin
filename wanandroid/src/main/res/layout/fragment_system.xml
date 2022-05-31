@@ -52,15 +52,13 @@
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
+            style="@style/Widget.Design.TabLayout"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:visibility="@{viewModel.itemsCategory!=null &amp;&amp; !viewModel.itemsCategory.empty ? View.VISIBLE : View.GONE}"
             app:tabGravity="center"
-            app:tabIndicatorColor="@color/textColorPrimary"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/textColorPrimary"
-            app:tabTextColor="@color/textColorThird" />
+            app:tabMode="scrollable"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

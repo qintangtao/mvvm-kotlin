@@ -26,7 +26,6 @@
             android:layout_centerInParent="true"
             android:fontFamily="sans-serif-medium"
             android:text="@string/mine"
-            android:textColor="@color/textColorPrimary"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -68,7 +67,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/login_register"
-                    android:textColor="@color/textColorPrimary"
                     android:textSize="16sp"
                     android:visibility="@{viewModel.isLogin ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/civAratar"
@@ -82,7 +80,6 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="2dp"
                     android:text="@{viewModel.userInfo.nickname}"
-                    android:textColor="@color/textColorPrimary"
                     android:textSize="14sp"
                     android:visibility="@{viewModel.isLogin ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toEndOf="@+id/civAratar"
@@ -143,7 +140,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_points"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -174,7 +170,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_points_rank"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -210,7 +205,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_share"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -241,7 +235,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_collect"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -272,7 +265,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_view_history"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -307,7 +299,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_open_source"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -338,7 +329,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_about_author"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -369,7 +359,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/my_system_setting"
-                        android:textColor="@color/textColorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>

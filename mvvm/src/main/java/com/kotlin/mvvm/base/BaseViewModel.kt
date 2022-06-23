@@ -404,19 +404,19 @@ open class BaseViewModel() :  ViewModel(), LifecycleObserver {
         val complete by lazy { SingleLiveEvent<Void>() }
     }
 
-    fun callStart() {
+    inline fun callStart() {
         defUI.start.call()
     }
 
-    fun callError(msg: Message) {
+    inline fun callError(msg: Message) {
         defUI.error.call(msg)
     }
 
-    fun callResult(code: Int) {
+    inline fun callResult(code: Int) {
         defUI.result.call(code)
     }
 
-    fun callComplete() {
+    inline fun callComplete() {
         defUI.complete.call()
     }
 

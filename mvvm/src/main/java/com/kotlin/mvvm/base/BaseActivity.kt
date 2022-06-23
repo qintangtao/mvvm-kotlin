@@ -32,27 +32,26 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewBinding> : AppCompatAct
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewDataBinding()
+        createViewModel()
         registorDefUIChange()
         initView(savedInstanceState)
         initData()
     }
 
     private fun initViewDataBinding() {
-        var cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
+        val cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            var inflateMethod = cls.getMethod("inflate", LayoutInflater::class.java)
+            val inflateMethod = cls.getMethod("inflate", LayoutInflater::class.java)
             mBinding = inflateMethod.invoke(null, layoutInflater) as DB
             (mBinding as ViewDataBinding).lifecycleOwner = this
             setContentView(mBinding.root)
         } else if (ViewBinding::class.java != cls && ViewBinding::class.java.isAssignableFrom(cls)) {
-            var inflateMethod = cls.getMethod("inflate", LayoutInflater::class.java)
+            val inflateMethod = cls.getMethod("inflate", LayoutInflater::class.java)
             mBinding = inflateMethod.invoke(null, layoutInflater) as DB
             setContentView(mBinding.root)
         } else {
             throw Exception("Need to enabled ViewBinding or ViewDataBinding")
         }
-
-        createViewModel()
     }
 
     private fun registorDefUIChange() {
@@ -101,7 +100,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewBinding> : AppCompatAct
                 .lifecycleOwner(this)
                 .maxWidth(R.dimen.dialog_width)
             dialog?.getContentLayout().let {
-                var tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
+                val tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
                 tvTip.setText(resId)
             }
         }
@@ -115,7 +114,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewBinding> : AppCompatAct
     private fun createViewModel() {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
-            var tp = type.actualTypeArguments[0]
+            val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
             //viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(tClass) as VM
             viewModel = ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(tClass) as VM

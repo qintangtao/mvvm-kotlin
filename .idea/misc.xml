@@ -16,16 +16,25 @@
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/activity_main.xml" value="0.30364583333333334" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/activity_register.xml" value="0.3319746376811594" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/activity_search.xml" value="0.30364583333333334" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_discovery.xml" value="0.33152173913043476" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_home.xml" value="0.325" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_latest.xml" value="0.30364583333333334" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_mine.xml" value="0.30364583333333334" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_navigation.xml" value="0.30364583333333334" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_plaza.xml" value="0.30027173913043476" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_popular.xml" value="0.30364583333333334" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_project.xml" value="0.30364583333333334" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_search_history.xml" value="0.30364583333333334" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_system.xml" value="0.38405797101449274" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_system_category.xml" value="0.25729166666666664" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/fragment_wechat.xml" value="0.30027173913043476" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_article.xml" value="0.30364583333333334" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_hot_word.xml" value="0.290625" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_nav_tag.xml" value="0.33152173913043476" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_navigation.xml" value="0.290625" />
         <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_search_history.xml" value="0.30364583333333334" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_system_category.xml" value="0.25729166666666664" />
+        <entry key="..\:/Qt/Qt5.12.2/Licenses/github/mvvm-kotlin/wanandroid/src/main/res/layout/item_system_category_tag.xml" value="0.290625" />
         <entry key="..\:/work/MyApplication/mvvm/src/main/res/layout/custom_progress_dialog_view.xml" value="0.12447916666666667" />
         <entry key="..\:/work/MyApplication/mvvm/src/main/res/layout/default_empty_view.xml" value="0.15" />
         <entry key="..\:/work/MyApplication/wanandroid/src/main/res/drawable/ic_arrow_back_black_24dp.xml" value="0.1" />

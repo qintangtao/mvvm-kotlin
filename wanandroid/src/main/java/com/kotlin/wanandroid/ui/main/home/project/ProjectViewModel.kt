@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.kotlin.mvvm.BR
 import com.kotlin.mvvm.base.BaseViewModel
 import com.kotlin.mvvm.base.OnItemClickListener
+import com.kotlin.mvvm.binding.adapter.ItemBinding
 import com.kotlin.mvvm.event.Message
 import com.kotlin.mvvm.network.RESULT
 import com.kotlin.wanandroid.R
@@ -15,7 +16,6 @@ import com.kotlin.wanandroid.model.bean.Article
 import com.kotlin.wanandroid.model.bean.Category
 import com.kotlin.wanandroid.ui.main.home.HomeRepository
 import com.kotlin.wanandroid.ui.detail.DetailActivity
-import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class ProjectViewModel : BaseViewModel() {
     private val repository by lazy { HomeRepository.getInstance(ApiRetrofit.getInstance()) }

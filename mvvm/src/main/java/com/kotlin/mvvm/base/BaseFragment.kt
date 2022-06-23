@@ -42,13 +42,13 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewBinding> : Fragment() {
         val cls =
             (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            var inflateMethod = cls.getMethod("inflate",
+            val inflateMethod = cls.getMethod("inflate",
                 LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
              mBinding = inflateMethod.invoke(null, inflater, container, false) as DB
             (mBinding as ViewDataBinding).lifecycleOwner = this
             return mBinding.root
         } else if (ViewBinding::class.java != cls && ViewBinding::class.java.isAssignableFrom(cls)) {
-            var inflateMethod = cls.getMethod("inflate",
+            val inflateMethod = cls.getMethod("inflate",
                 LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
             mBinding = inflateMethod.invoke(null, inflater, container, false) as DB
             return mBinding.root
@@ -74,6 +74,10 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewBinding> : Fragment() {
     override fun onResume() {
         super.onResume()
         onVisible()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     private fun onVisible() {
@@ -129,7 +133,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewBinding> : Fragment() {
                 .lifecycleOwner(this)
                 .maxWidth(R.dimen.dialog_width)
             dialog?.getContentLayout().let {
-                var tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
+                val tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
                 tvTip.setText(resId)
             }
         }
@@ -145,7 +149,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewBinding> : Fragment() {
     private fun createViewModel() {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
-            var tp = type.actualTypeArguments[0]
+            val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
             //val viewModelStore = if (isShareVM()) requireActivity().viewModelStore else this.viewModelStore
             //viewModel = ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(tClass) as VM

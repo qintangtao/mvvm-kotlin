@@ -50,13 +50,13 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
         val cls =
             (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            var inflateMethod = cls.getMethod("inflate",
+            val inflateMethod = cls.getMethod("inflate",
                 LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
             mBinding = inflateMethod.invoke(null, inflater, container, false) as DB
             (mBinding as ViewDataBinding).lifecycleOwner = this
             return mBinding.root
         } else if (ViewBinding::class.java != cls && ViewBinding::class.java.isAssignableFrom(cls)) {
-            var inflateMethod = cls.getMethod("inflate",
+            val inflateMethod = cls.getMethod("inflate",
                 LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java)
             mBinding = inflateMethod.invoke(null, inflater, container, false) as DB
             return mBinding.root
@@ -69,9 +69,6 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createViewModel()
-		viewModel.let {
-			lifecycle.addObserver(it)
-		}
         registorDefUIChange()
         initView(savedInstanceState)
         onVisible()
@@ -140,7 +137,7 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
                 .lifecycleOwner(this)
                 .maxWidth(R.dimen.dialog_width)
             dialog?.getContentLayout().let {
-                var tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
+                val tvTip = it?.findViewById(R.id.tvTip) as TextView ?: return@let
                 tvTip.setText(resId)
             }
         }
@@ -156,7 +153,7 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel, DB : ViewDataBi
     private fun createViewModel() {
         val type = javaClass.genericSuperclass
         if (type is ParameterizedType) {
-            var tp = type.actualTypeArguments[0]
+            val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
             //val viewModelStore = if (isShareVM()) requireActivity().viewModelStore else this.viewModelStore
             //viewModel = ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(tClass) as VM
